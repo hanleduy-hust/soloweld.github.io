@@ -58,13 +58,14 @@
         </div>
 
         <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[520px]">
-            <!-- Chat Header Info & Trial Counter -->
+            <!-- Chat Header Info & Trial Counter (Bấm vào huy hiệu này để nhập mã Admin) -->
             <div class="flex items-center justify-between px-6 py-3 bg-slate-800/40 border-b border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span id="conn-status" class="font-semibold text-sm text-white">Connected: <span class="text-orange-400">AWS D1.1 (Deno RAG)</span></span>
+                    <span id="conn-status" class="font-semibold text-sm text-white">Connected: <span class="text-orange-400">AWS D1.1 (Gemini RAG)</span></span>
                 </div>
-                <div class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-full font-medium">
+                <!-- Thêm sự kiện click để kích hoạt nhập mã Admin -->
+                <div onclick="promptAdminAccess()" title="Click để nhập mã Admin" class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-full font-medium cursor-pointer hover:bg-orange-500/20 transition">
                     <span id="trial-text">Free Trial:</span> <span id="trial-counter">10</span>/10 <span id="questions-text">questions</span>
                 </div>
             </div>
@@ -105,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- Chat Input Area (Đã bổ sung đầy đủ khung nhập và nút Gửi) -->
+            <!-- Chat Input Area -->
             <div class="p-4 bg-slate-900 border-t border-slate-800">
                 <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-3">
                     <input type="text" id="chat-input" placeholder="Ask about AWS D1.1 standard..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition">
@@ -123,7 +124,7 @@
         <p id="footer-text">&copy; 2026 SoloWeld.io - AI RAG Module. All rights reserved.</p>
     </footer>
 
-    <!-- Script Xử lý logic, đa ngôn ngữ và kết nối Deno Backend -->
+    <!-- Script Xử lý logic, đa ngôn ngữ, phân quyền Admin và kết nối Deno Backend -->
     <script>
         const DENO_API_URL = "https://soloweld-rag-api.hanleduy-hust.deno.net";
 
@@ -133,10 +134,10 @@
                 chat_heading: "Advanced Welding Technical AI Assistant",
                 chat_subheading: "Standardized technical document retrieval system (AWS D1.1) with strict hallucination control.",
                 box_label: "Knowledge Base Selection:",
-                conn_status: "Connected: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
+                conn_status: "Connected: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
                 trial_text: "Free Trial:",
                 questions_text: "questions",
-                welcome_msg: "Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong>. Feel free to ask technical questions. (You have <span id='inner-counter'>10</span> free trial questions remaining).",
+                welcome_msg: "Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong>. Feel free to ask technical questions.",
                 input_placeholder: "Ask about AWS D1.1 standard (e.g., Preheat requirements for steel)...",
                 send_btn: "Send",
                 pw_title: "Free Trial Limit Reached",
@@ -153,10 +154,10 @@
                 chat_heading: "Trợ lý Ảo Kỹ Thuật Hàn Chuyên Sâu",
                 chat_subheading: "Hệ thống truy xuất tiêu chuẩn kỹ thuật chuyên ngành (AWS D1.1) với kiểm soát nhiệt độ chống ảo giác.",
                 box_label: "Chọn Box Tri thức (Knowledge Base):",
-                conn_status: "Đang kết nối: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
+                conn_status: "Đang kết nối: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
                 trial_text: "Dùng thử miễn phí:",
                 questions_text: "câu hỏi",
-                welcome_msg: "Xin chào! Tôi là trợ lý chuyên sâu về <strong>Tiêu chuẩn AWS D1.1 (Structural Welding Code - Steel)</strong>. Hãy đặt câu hỏi kỹ thuật. (Bạn còn <span id='inner-counter'>10</span> câu hỏi dùng thử).",
+                welcome_msg: "Xin chào! Tôi là trợ lý chuyên sâu về <strong>Tiêu chuẩn AWS D1.1 (Structural Welding Code - Steel)</strong>. Hãy đặt câu hỏi kỹ thuật.",
                 input_placeholder: "Nhập câu hỏi về tiêu chuẩn AWS D1.1 (Ví dụ: Yêu cầu Preheat, kiểm định CWI...)",
                 send_btn: "Gửi",
                 pw_title: "Đã Hết Lượt Dùng Thử Miễn Phí",
@@ -173,10 +174,10 @@
                 chat_heading: "高级焊接技术AI助手",
                 chat_subheading: "标准化技术文档检索系统（AWS D1.1），具有严格的幻觉控制。",
                 box_label: "知识库选择:",
-                conn_status: "已连接: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
+                conn_status: "已连接: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
                 trial_text: "免费试用:",
                 questions_text: "个问题",
-                welcome_msg: "您好！我是您关于 <strong>AWS D1.1（钢结构焊接规范）</strong> 的专业专家助手。欢迎随时提出技术问题。（您还剩 <span id='inner-counter'>10</span> 次免费试用提问）。",
+                welcome_msg: "您好！我是您关于 <strong>AWS D1.1（钢结构焊接规范）</strong> 的专业专家助手。欢迎随时提出技术问题。",
                 input_placeholder: "询问有关 AWS D1.1 标准的问题（例如：预热要求...）",
                 send_btn: "发送",
                 pw_title: "免费试用额度已用完",
@@ -193,10 +194,10 @@
                 chat_heading: "高度溶接技術 AIアシスタント",
                 chat_subheading: "厳格なハルシネーション制御を備えた標準化された技術文書検索システム（AWS D1.1）。",
                 box_label: "ナレッジベース選択:",
-                conn_status: "接続中: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
+                conn_status: "接続中: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
                 trial_text: "無料トライアル:",
                 questions_text: "問",
-                welcome_msg: "こんにちは！私は<strong>AWS D1.1（構造物溶接規格 - 鋼材）</strong>の専門家アシスタントです。技術的な質問をお気軽にどうぞ。（無料トライアルであと<span id='inner-counter'>10</span>問質問できます）。",
+                welcome_msg: "こんにちは！私は<strong>AWS D1.1（構造物溶接規格 - 鋼材）</strong>の専門家アシスタントです。技術的な質問をお気軽にどうぞ。",
                 input_placeholder: "AWS D1.1規格について質問する（例：予熱要件...）",
                 send_btn: "送信",
                 pw_title: "無料トライアルの上限に達しました",
@@ -210,9 +211,11 @@
             }
         };
 
-        // Lấy ngôn ngữ đang chọn từ trang chủ (localStorage)
         let currentLang = localStorage.getItem('soloweld_lang') || 'en';
         let trialCount = localStorage.getItem('soloweld_trial') !== null ? parseInt(localStorage.getItem('soloweld_trial')) : 10;
+        
+        // Kiểm tra quyền Admin đã lưu trong trình duyệt hay chưa
+        let isAdmin = localStorage.getItem('soloweld_is_admin') === 'true';
 
         function applyChatLanguage(lang) {
             currentLang = lang;
@@ -225,7 +228,7 @@
             document.getElementById('conn-status').innerHTML = t.conn_status;
             document.getElementById('trial-text').textContent = t.trial_text;
             document.getElementById('questions-text').textContent = t.questions_text;
-            document.getElementById('welcome-msg').innerHTML = t.welcome_msg.replace('10', trialCount);
+            document.getElementById('welcome-msg').innerHTML = t.welcome_msg;
             document.getElementById('chat-input').placeholder = t.input_placeholder;
             document.getElementById('btn-send-text').textContent = t.send_btn;
             document.getElementById('pw-title').textContent = t.pw_title;
@@ -250,11 +253,40 @@
             applyChatLanguage(lang);
         }
 
-        document.getElementById('trial-counter').textContent = trialCount;
+        // Hàm xử lý nhập mã Admin khi bấm vào huy hiệu dùng thử
+        function promptAdminAccess() {
+            if (isAdmin) {
+                if (confirm("Bạn đang ở chế độ Admin. Bạn có muốn thoát chế độ Admin không?")) {
+                    localStorage.removeItem('soloweld_is_admin');
+                    isAdmin = false;
+                    location.reload();
+                }
+                return;
+            }
+
+            const code = prompt("Nhập mã Admin để test không giới hạn:");
+            // Mật khẩu Admin mẫu: soloweld2026 (anh có thể đổi tùy ý ở đây)
+            if (code === "soloweld2026") {
+                localStorage.setItem('soloweld_is_admin', 'true');
+                alert("Đăng nhập quyền Admin thành công!");
+                location.reload();
+            } else if (code !== null) {
+                alert("Mã Admin không chính xác!");
+            }
+        }
+
+        // Cập nhật hiển thị bộ đếm tùy thuộc vào quyền
+        if (isAdmin) {
+            document.getElementById('trial-counter').textContent = "∞ (Admin)";
+        } else {
+            document.getElementById('trial-counter').textContent = trialCount;
+        }
+
         applyChatLanguage(currentLang);
         checkTrialStatus();
 
         function checkTrialStatus() {
+            if (isAdmin) return; // Nếu là Admin thì không bao giờ hiện Paywall
             if (trialCount <= 0) {
                 document.getElementById('paywall-banner').classList.remove('hidden');
             }
@@ -263,7 +295,7 @@
         // Xử lý gửi câu hỏi và kết nối Backend Deno Deploy
         async function handleChatSubmit(event) {
             event.preventDefault();
-            if (trialCount <= 0) return;
+            if (!isAdmin && trialCount <= 0) return;
 
             const input = document.getElementById('chat-input');
             const chatMessages = document.getElementById('chat-messages');
@@ -271,11 +303,11 @@
 
             if(!query) return;
 
-            trialCount--;
-            localStorage.setItem('soloweld_trial', trialCount);
-            document.getElementById('trial-counter').textContent = trialCount;
-            if(document.getElementById('inner-counter')) {
-                document.getElementById('inner-counter').textContent = trialCount;
+            // Nếu không phải admin thì mới trừ lượt dùng thử
+            if (!isAdmin) {
+                trialCount--;
+                localStorage.setItem('soloweld_trial', trialCount);
+                document.getElementById('trial-counter').textContent = trialCount;
             }
 
             // Hiển thị tin nhắn người dùng
@@ -293,7 +325,7 @@
             input.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            if (trialCount <= 0) {
+            if (!isAdmin && trialCount <= 0) {
                 setTimeout(checkTrialStatus, 1000);
             }
 
@@ -308,7 +340,7 @@
                 </div>
                 <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl text-slate-400 italic text-sm flex items-center space-x-2">
                     <i class="fa-solid fa-circle-notch fa-spin text-orange-500"></i>
-                    <span>Querying AWS D1.1 Deno RAG Engine (Temperature = 0)...</span>
+                    <span>Gemini AI is analyzing AWS D1.1 standard...</span>
                 </div>
             `;
             chatMessages.appendChild(aiLoadingBubble);
@@ -336,7 +368,7 @@
                         <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-xs text-slate-300 font-mono whitespace-pre-line">
                             ${escapeHtml(data.answer || "No response data.")}
                         </div>
-                        <p class="text-xs text-slate-400">Remaining free trial: <strong class="text-orange-400">${trialCount}</strong></p>
+                        <p class="text-xs text-slate-400">Mode: <strong class="text-orange-400">${isAdmin ? 'Admin (Unlimited)' : 'Free Trial (' + trialCount + ' left)'}</strong></p>
                     </div>
                 `;
                 chatMessages.appendChild(aiBubble);
