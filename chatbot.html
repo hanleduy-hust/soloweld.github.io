@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="flex items-center space-x-4">
-                <!-- Bộ chọn ngôn ngữ đồng bộ -->
+                <!-- Bộ chọn ngôn ngữ đồng bộ trực tiếp -->
                 <div class="bg-slate-800 border border-slate-700 rounded-lg p-1 flex text-xs font-semibold space-x-1">
                     <button type="button" onclick="switchLanguage('en')" id="btn-en" class="px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer">EN</button>
                     <button type="button" onclick="switchLanguage('vi')" id="btn-vi" class="px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer">VI</button>
@@ -57,7 +57,7 @@
             </select>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[500px]">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[520px]">
             <!-- Chat Header Info & Trial Counter -->
             <div class="flex items-center justify-between px-6 py-3 bg-slate-800/40 border-b border-slate-800">
                 <div class="flex items-center space-x-3">
@@ -77,7 +77,7 @@
                             <i class="fa-solid fa-robot text-xs"></i>
                         </div>
                         <div id="welcome-msg" class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed">
-                            Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong> powered by Deno Backend. Feel free to ask technical questions. (You have <span id="inner-counter">10</span> free trial questions remaining).
+                            Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong>. Feel free to ask technical questions. (You have <span id="inner-counter">10</span> free trial questions remaining).
                         </div>
                     </div>
                 </div>
@@ -105,11 +105,11 @@
                 </div>
             </div>
 
-            <!-- Chat Input Area -->
+            <!-- Chat Input Area (Đã bổ sung đầy đủ khung nhập và nút Gửi) -->
             <div class="p-4 bg-slate-900 border-t border-slate-800">
                 <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-3">
                     <input type="text" id="chat-input" placeholder="Ask about AWS D1.1 standard..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition">
-                    <button type="submit" id="send-btn" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center space-x-2 shadow-lg shadow-orange-600/20">
+                    <button type="submit" id="send-btn" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center space-x-2 shadow-lg shadow-orange-600/20 cursor-pointer">
                         <span id="btn-send-text">Send</span>
                         <i class="fa-solid fa-paper-plane text-xs"></i>
                     </button>
@@ -125,7 +125,6 @@
 
     <!-- Script Xử lý logic, đa ngôn ngữ và kết nối Deno Backend -->
     <script>
-        // Đường dẫn Deno Deploy Backend đã được cập nhật
         const DENO_API_URL = "https://soloweld-rag-api.hanleduy-hust.deno.net";
 
         const chatTranslations = {
@@ -211,6 +210,7 @@
             }
         };
 
+        // Lấy ngôn ngữ đang chọn từ trang chủ (localStorage)
         let currentLang = localStorage.getItem('soloweld_lang') || 'en';
         let trialCount = localStorage.getItem('soloweld_trial') !== null ? parseInt(localStorage.getItem('soloweld_trial')) : 10;
 
@@ -331,4 +331,36 @@
                     <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
-                    <div class="bg-slate-800/80 border
+                    <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed space-y-2">
+                        <p>Query: <em>"${escapeHtml(query)}"</em></p>
+                        <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-xs text-slate-300 font-mono whitespace-pre-line">
+                            ${escapeHtml(data.answer || "No response data.")}
+                        </div>
+                        <p class="text-xs text-slate-400">Remaining free trial: <strong class="text-orange-400">${trialCount}</strong></p>
+                    </div>
+                `;
+                chatMessages.appendChild(aiBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                const errBubble = document.createElement('div');
+                errBubble.className = "flex items-start space-x-3";
+                errBubble.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+                    </div>
+                    <div class="bg-slate-800/80 border border-red-700/50 p-4 rounded-2xl max-w-[85%] text-red-200 text-xs font-mono">
+                        Connection error with Deno Backend API. Please check network or CORS settings.
+                    </div>
+                `;
+                chatMessages.appendChild(errBubble);
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
