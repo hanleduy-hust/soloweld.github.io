@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="flex items-center space-x-4">
-                <!-- Bộ chọn ngôn ngữ đồng bộ với trang chủ -->
+                <!-- Bộ chọn ngôn ngữ đồng bộ -->
                 <div class="bg-slate-800 border border-slate-700 rounded-lg p-1 flex text-xs font-semibold space-x-1">
                     <button type="button" onclick="switchLanguage('en')" id="btn-en" class="px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer">EN</button>
                     <button type="button" onclick="switchLanguage('vi')" id="btn-vi" class="px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer">VI</button>
@@ -40,7 +40,7 @@
     <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-1 flex flex-col">
         <div class="mb-3 text-center">
             <h1 id="chat-heading" class="text-2xl sm:text-3xl font-bold text-white mb-1">Advanced Welding Technical AI Assistant</h1>
-            <p id="chat-subheading" class="text-slate-400 text-sm">Standardized technical document retrieval system (AWS D1.1, ASME IX) with strict hallucination control.</p>
+            <p id="chat-subheading" class="text-slate-400 text-sm">Standardized technical document retrieval system (AWS D1.1) with strict hallucination control.</p>
         </div>
 
         <!-- Box Selection Bar -->
@@ -50,7 +50,7 @@
                 <span class="font-medium">Knowledge Base Selection:</span>
             </div>
             <select id="knowledge-box" class="bg-slate-950 border border-slate-700 text-white text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-orange-500">
-                <option value="aws_d11">Box 1: AWS D1.1 Code - Steel (Active)</option>
+                <option value="aws_d11">Box 1: AWS D1.1 Standard (Active)</option>
                 <option value="asme_ix" disabled>Box 2: ASME Section IX (Coming Soon)</option>
                 <option value="en_15085" disabled>Box 3: EN 15085 Railway (Coming Soon)</option>
                 <option value="fsw_tech" disabled>Box 4: FSW & Advanced Tech (Coming Soon)</option>
@@ -62,7 +62,7 @@
             <div class="flex items-center justify-between px-6 py-3 bg-slate-800/40 border-b border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span id="conn-status" class="font-semibold text-sm text-white">Connected: <span class="text-orange-400">AWS D1.1</span></span>
+                    <span id="conn-status" class="font-semibold text-sm text-white">Connected: <span class="text-orange-400">AWS D1.1 (Deno RAG)</span></span>
                 </div>
                 <div class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-full font-medium">
                     <span id="trial-text">Free Trial:</span> <span id="trial-counter">10</span>/10 <span id="questions-text">questions</span>
@@ -77,7 +77,7 @@
                             <i class="fa-solid fa-robot text-xs"></i>
                         </div>
                         <div id="welcome-msg" class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed">
-                            Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong>. Feel free to ask technical questions. (You have <span id="inner-counter">10</span> free trial questions remaining).
+                            Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong> powered by Deno Backend. Feel free to ask technical questions. (You have <span id="inner-counter">10</span> free trial questions remaining).
                         </div>
                     </div>
                 </div>
@@ -123,19 +123,22 @@
         <p id="footer-text">&copy; 2026 SoloWeld.io - AI RAG Module. All rights reserved.</p>
     </footer>
 
-    <!-- Script Đa ngôn ngữ và Tự động nhận diện ngôn ngữ hỏi/đáp -->
+    <!-- Script Xử lý logic, đa ngôn ngữ và kết nối Deno Backend -->
     <script>
+        // Đường dẫn Deno Deploy Backend đã được cập nhật
+        const DENO_API_URL = "https://soloweld-rag-api.hanleduy-hust.deno.net";
+
         const chatTranslations = {
             en: {
                 nav_back: "Back to Home",
                 chat_heading: "Advanced Welding Technical AI Assistant",
-                chat_subheading: "Standardized technical document retrieval system (AWS D1.1, ASME IX) with strict hallucination control.",
+                chat_subheading: "Standardized technical document retrieval system (AWS D1.1) with strict hallucination control.",
                 box_label: "Knowledge Base Selection:",
-                conn_status: "Connected: <span class='text-orange-400'>AWS D1.1</span>",
+                conn_status: "Connected: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
                 trial_text: "Free Trial:",
                 questions_text: "questions",
                 welcome_msg: "Hello! I am your specialized expert assistant on <strong>AWS D1.1 (Structural Welding Code - Steel)</strong>. Feel free to ask technical questions. (You have <span id='inner-counter'>10</span> free trial questions remaining).",
-                input_placeholder: "Ask about AWS D1.1 standard (e.g., Preheat requirements for 50mm steel)...",
+                input_placeholder: "Ask about AWS D1.1 standard (e.g., Preheat requirements for steel)...",
                 send_btn: "Send",
                 pw_title: "Free Trial Limit Reached",
                 pw_desc: "You have used all 10 free trial questions. Please subscribe to continue accessing the in-depth AWS D1.1 database:",
@@ -149,13 +152,13 @@
             vi: {
                 nav_back: "Trang chủ",
                 chat_heading: "Trợ lý Ảo Kỹ Thuật Hàn Chuyên Sâu",
-                chat_subheading: "Hệ thống truy xuất tiêu chuẩn kỹ thuật chuyên ngành (AWS D1.1, ASME IX) với kiểm soát nhiệt độ chống ảo giác.",
+                chat_subheading: "Hệ thống truy xuất tiêu chuẩn kỹ thuật chuyên ngành (AWS D1.1) với kiểm soát nhiệt độ chống ảo giác.",
                 box_label: "Chọn Box Tri thức (Knowledge Base):",
-                conn_status: "Đang kết nối: <span class='text-orange-400'>AWS D1.1</span>",
+                conn_status: "Đang kết nối: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
                 trial_text: "Dùng thử miễn phí:",
                 questions_text: "câu hỏi",
                 welcome_msg: "Xin chào! Tôi là trợ lý chuyên sâu về <strong>Tiêu chuẩn AWS D1.1 (Structural Welding Code - Steel)</strong>. Hãy đặt câu hỏi kỹ thuật. (Bạn còn <span id='inner-counter'>10</span> câu hỏi dùng thử).",
-                input_placeholder: "Nhập câu hỏi về tiêu chuẩn AWS D1.1 (Ví dụ: Yêu cầu Preheat cho thép dày 50mm...)",
+                input_placeholder: "Nhập câu hỏi về tiêu chuẩn AWS D1.1 (Ví dụ: Yêu cầu Preheat, kiểm định CWI...)",
                 send_btn: "Gửi",
                 pw_title: "Đã Hết Lượt Dùng Thử Miễn Phí",
                 pw_desc: "Quý khách đã sử dụng hết 10 câu hỏi trải nghiệm cơ sở dữ liệu AWS D1.1. Vui lòng đăng ký gói cước để tiếp tục truy cập không giới hạn:",
@@ -169,13 +172,13 @@
             zh: {
                 nav_back: "返回首页",
                 chat_heading: "高级焊接技术AI助手",
-                chat_subheading: "标准化技术文档检索系统（AWS D1.1、ASME IX），具有严格的幻觉控制。",
+                chat_subheading: "标准化技术文档检索系统（AWS D1.1），具有严格的幻觉控制。",
                 box_label: "知识库选择:",
-                conn_status: "已连接: <span class='text-orange-400'>AWS D1.1</span>",
+                conn_status: "已连接: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
                 trial_text: "免费试用:",
                 questions_text: "个问题",
                 welcome_msg: "您好！我是您关于 <strong>AWS D1.1（钢结构焊接规范）</strong> 的专业专家助手。欢迎随时提出技术问题。（您还剩 <span id='inner-counter'>10</span> 次免费试用提问）。",
-                input_placeholder: "询问有关 AWS D1.1 标准的问题（例如：50mm钢板的预热要求...）",
+                input_placeholder: "询问有关 AWS D1.1 标准的问题（例如：预热要求...）",
                 send_btn: "发送",
                 pw_title: "免费试用额度已用完",
                 pw_desc: "您已用完 10 次免费试用提问。请订阅以继续访问深度 AWS D1.1 数据库：",
@@ -189,13 +192,13 @@
             ja: {
                 nav_back: "ホームに戻る",
                 chat_heading: "高度溶接技術 AIアシスタント",
-                chat_subheading: "厳格なハルシネーション制御を備えた標準化された技術文書検索システム（AWS D1.1、ASME IX）。",
+                chat_subheading: "厳格なハルシネーション制御を備えた標準化された技術文書検索システム（AWS D1.1）。",
                 box_label: "ナレッジベース選択:",
-                conn_status: "接続中: <span class='text-orange-400'>AWS D1.1</span>",
+                conn_status: "接続中: <span class='text-orange-400'>AWS D1.1 (Deno RAG)</span>",
                 trial_text: "無料トライアル:",
                 questions_text: "問",
                 welcome_msg: "こんにちは！私は<strong>AWS D1.1（構造物溶接規格 - 鋼材）</strong>の専門家アシスタントです。技術的な質問をお気軽にどうぞ。（無料トライアルであと<span id='inner-counter'>10</span>問質問できます）。",
-                input_placeholder: "AWS D1.1規格について質問する（例：50mm鋼板の予熱要件...）",
+                input_placeholder: "AWS D1.1規格について質問する（例：予熱要件...）",
                 send_btn: "送信",
                 pw_title: "無料トライアルの上限に達しました",
                 pw_desc: "10回の無料トライアル質問をすべて使い切りました。AWS D1.1データベースへの無制限アクセスを続けるにはプランにご登録ください：",
@@ -211,7 +214,6 @@
         let currentLang = localStorage.getItem('soloweld_lang') || 'en';
         let trialCount = localStorage.getItem('soloweld_trial') !== null ? parseInt(localStorage.getItem('soloweld_trial')) : 10;
 
-        // Khởi tạo ngôn ngữ khi load trang chatbot
         function applyChatLanguage(lang) {
             currentLang = lang;
             const t = chatTranslations[lang] || chatTranslations['en'];
@@ -235,15 +237,10 @@
             document.getElementById('badge-pop').textContent = t.badge_pop;
             document.getElementById('footer-text').innerHTML = t.footer_text;
 
-            // Đổi style nút active ngôn ngữ trên header
             ['en', 'vi', 'zh', 'ja'].forEach(l => {
                 const btn = document.getElementById('btn-' + l);
                 if(btn) {
-                    if(l === lang) {
-                        btn.className = "px-2 py-1 rounded bg-orange-600 text-white transition cursor-pointer";
-                    } else {
-                        btn.className = "px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer";
-                    }
+                    btn.className = (l === lang) ? "px-2 py-1 rounded bg-orange-600 text-white transition cursor-pointer" : "px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer";
                 }
             });
         }
@@ -251,18 +248,6 @@
         function switchLanguage(lang) {
             localStorage.setItem('soloweld_lang', lang);
             applyChatLanguage(lang);
-        }
-
-        // Tự động phát hiện ngôn ngữ của câu hỏi để AI trả lời đúng ngôn ngữ đó
-        function detectLanguage(text) {
-            // Kiểm tra ký tự tiếng Nhật (Hiragana/Katakana)
-            if (/[\u3040-\u30ff]/.test(text)) return 'ja';
-            // Kiểm tra ký tự tiếng Trung (Hanzi)
-            if (/[\u4e00-\u9fa5]/.test(text)) return 'zh';
-            // Kiểm tra dấu tiếng Việt
-            if (/[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i.test(text)) return 'vi';
-            // Mặc định là tiếng Anh
-            return 'en';
         }
 
         document.getElementById('trial-counter').textContent = trialCount;
@@ -275,7 +260,8 @@
             }
         }
 
-        function handleChatSubmit(event) {
+        // Xử lý gửi câu hỏi và kết nối Backend Deno Deploy
+        async function handleChatSubmit(event) {
             event.preventDefault();
             if (trialCount <= 0) return;
 
@@ -285,9 +271,6 @@
 
             if(!query) return;
 
-            // AI tự động phát hiện ngôn ngữ người dùng nhập vào để trả lời đúng ngôn ngữ đó
-            const detectedLang = detectLanguage(query);
-
             trialCount--;
             localStorage.setItem('soloweld_trial', trialCount);
             document.getElementById('trial-counter').textContent = trialCount;
@@ -295,7 +278,7 @@
                 document.getElementById('inner-counter').textContent = trialCount;
             }
 
-            // Hiển thị tin nhắn user
+            // Hiển thị tin nhắn người dùng
             const userBubble = document.createElement('div');
             userBubble.className = "flex items-start space-x-3 justify-end";
             userBubble.innerHTML = `
@@ -314,7 +297,7 @@
                 setTimeout(checkTrialStatus, 1000);
             }
 
-            // Hiển thị trạng thái đang xử lý
+            // Hiển thị loading
             const loadingId = 'loading-' + Date.now();
             const aiLoadingBubble = document.createElement('div');
             aiLoadingBubble.id = loadingId;
@@ -325,37 +308,22 @@
                 </div>
                 <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl text-slate-400 italic text-sm flex items-center space-x-2">
                     <i class="fa-solid fa-circle-notch fa-spin text-orange-500"></i>
-                    <span>Searching AWS D1.1 knowledge base (Temperature = 0)...</span>
+                    <span>Querying AWS D1.1 Deno RAG Engine (Temperature = 0)...</span>
                 </div>
             `;
             chatMessages.appendChild(aiLoadingBubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Phản hồi dựa trên ngôn ngữ phát hiện được của câu hỏi
-            setTimeout(() => {
-                document.getElementById(loadingId).remove();
-                
-                let responseText = "";
-                let sourceText = "";
-                let trialNotice = "";
+            // Gọi API sang Deno Deploy Backend
+            try {
+                const response = await fetch(DENO_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: query })
+                });
 
-                if (detectedLang === 'vi') {
-                    responseText = `Dựa trên tra cứu trong <strong>AWS D1.1 (Structural Welding Code - Steel)</strong> cho câu hỏi: <em>"${escapeHtml(query)}"</em>`;
-                    sourceText = `[Trích xuất chuẩn AWS D1.1]: Điều khoản kỹ thuật tuân thủ quy định về biến số thiết yếu, nhiệt độ gia nhiệt trước (preheat) và kiểm định mối hàn kết cấu thép.`;
-                    trialNotice = `Bạn còn lại <strong class="text-orange-400">${trialCount}</strong> lượt dùng thử miễn phí.`;
-                } else if (detectedLang === 'ja') {
-                    responseText = `<strong>AWS D1.1（構造物溶接規格 - 鋼材）</strong>の検索結果に基づきます: <em>"${escapeHtml(query)}"</em>`;
-                    sourceText = `[AWS D1.1 基準抽出]: 必須変数、予熱温度、および鋼構造物溶接の検査に関する規定に準拠しています。`;
-                    trialNotice = `無料トライアルの残りはあと <strong class="text-orange-400">${trialCount}</strong> 回です。`;
-                } else if (detectedLang === 'zh') {
-                    responseText = `根据 <strong>AWS D1.1（钢结构焊接规范）</strong> 对以下问题的检索结果: <em>"${escapeHtml(query)}"</em>`;
-                    sourceText = `[AWS D1.1 标准提取]: 技术条款严格遵守基本变量、预热温度及钢结构焊接检验规定。`;
-                    trialNotice = `您还剩 <次免费试用机会 <strong class="text-orange-400">${trialCount}</strong> 次。`;
-                } else {
-                    responseText = `Based on retrieval from <strong>AWS D1.1 (Structural Welding Code - Steel)</strong> for query: <em>"${escapeHtml(query)}"</em>`;
-                    sourceText = `[AWS D1.1 Standard Extraction]: Technical clauses comply with essential variables, preheat temperature, and structural steel welding inspection rules.`;
-                    trialNotice = `You have <strong class="text-orange-400">${trialCount}</strong> free trial questions remaining.`;
-                }
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
 
                 const aiBubble = document.createElement('div');
                 aiBubble.className = "flex items-start space-x-3";
@@ -363,22 +331,4 @@
                     <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
-                    <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed space-y-2">
-                        <p>${responseText}</p>
-                        <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-xs text-slate-300 font-mono">
-                            ${sourceText}
-                        </div>
-                        <p class="text-xs text-slate-400">${trialNotice}</p>
-                    </div>
-                `;
-                chatMessages.appendChild(aiBubble);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1200);
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
-    </script>
-</body>
-</html>
+                    <div class="bg-slate-800/80 border
