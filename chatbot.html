@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
             <div class="flex items-center space-x-3">
                 <a href="index.html" class="flex items-center space-x-2 text-white hover:text-orange-400 transition">
                     <i class="fa-solid fa-arrow-left text-sm"></i>
-                    <span class="text-sm font-semibold">Back to Home</span>
+                    <span class="text-sm font-semibold">Trang chủ</span>
                 </a>
             </div>
             <div class="flex items-center space-x-2">
@@ -28,20 +28,36 @@
     </header>
 
     <!-- Main Chat Interface Section -->
-    <main class="max-w-4xl mx-auto px-4 py-10 w-full flex-1 flex flex-col">
-        <div class="mb-6 text-center">
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-1 flex flex-col">
+        <div class="mb-4 text-center">
             <h1 class="text-2xl sm:text-3xl font-bold text-white mb-2">Trợ lý Ảo Kỹ Thuật Hàn Chuyên Sâu</h1>
-            <p class="text-slate-400 text-sm">Hệ thống truy xuất tài liệu chuẩn hóa (AWS D1.1, ASME IX) với tham số chống ảo giác tuyệt đối.</p>
+            <p class="text-slate-400 text-sm">Hệ thống truy xuất tiêu chuẩn kỹ thuật chuyên ngành với kiểm soát nhiệt độ chống ảo giác (Temperature = 0).</p>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[550px]">
-            <!-- Chat Header Info -->
-            <div class="flex items-center justify-between px-6 py-4 bg-slate-800/40 border-b border-slate-800">
+        <!-- Box Selection Bar -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center space-x-2 text-sm text-slate-300">
+                <i class="fa-solid fa-layer-group text-orange-500"></i>
+                <span class="font-medium">Chọn Box Tri thức (Knowledge Base):</span>
+            </div>
+            <select id="knowledge-box" class="bg-slate-950 border border-slate-700 text-white text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-orange-500">
+                <option value="aws_d11">Box 1: Tiêu chuẩn AWS D1.1 (Kết cấu thép)</option>
+                <option value="asme_ix" disabled>Box 2: ASME Section IX (Sắp ra mắt)</option>
+                <option value="en_15085" disabled>Box 3: EN 15085 Đường sắt (Sắp ra mắt)</option>
+                <option value="fsw_tech" disabled>Box 4: Công nghệ FSW & Hàn tiên tiến (Sắp ra mắt)</option>
+            </select>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[500px]">
+            <!-- Chat Header Info & Trial Counter -->
+            <div class="flex items-center justify-between px-6 py-3 bg-slate-800/40 border-b border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span class="font-semibold text-sm text-white">RAG Engine v1.0 (Secure Mode: active)</span>
+                    <span class="font-semibold text-sm text-white">Đang kết nối: <span id="current-box-name" class="text-orange-400">AWS D1.1</span></span>
                 </div>
-                <span class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-2.5 py-1 rounded-full font-medium">Temperature = 0</span>
+                <div class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-full font-medium">
+                    Dùng thử miễn phí: <span id="trial-counter">10</span>/10 câu hỏi
+                </div>
             </div>
 
             <!-- Chat Messages Area -->
@@ -51,16 +67,30 @@
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
                     <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed">
-                        Xin chào chuyên gia! Tôi đã kết nối với cơ sở dữ liệu tiêu chuẩn kỹ thuật hàn. Anh/chị cần tra cứu thông số, biến số thiết yếu (essential variables) hay xử lý sự cố mối hàn nào hôm nay?
+                        Xin chào! Tôi là trợ lý chuyên sâu về <strong>Tiêu chuẩn AWS D1.1 (Structural Welding Code - Steel)</strong>. Anh/chị có thể đặt câu hỏi về yêu cầu gia nhiệt trước, thông số WPS/PQR hoặc kiểm định mối hàn. (Bạn đang được dùng thử miễn phí 10 câu hỏi).
                     </div>
                 </div>
             </div>
 
+            <!-- Paywall Notice Banner (Hidden by default) -->
+            <div id="paywall-banner" class="hidden bg-orange-600/10 border-t border-orange-500/30 p-4 text-center">
+                <p class="text-sm font-semibold text-orange-400 mb-2"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Quý khách đã sử dụng hết 10 câu hỏi dùng thử miễn phí!</p>
+                <p class="text-xs text-slate-300 mb-3">Vui lòng đăng ký gói cước để tiếp tục truy cập không giới hạn cơ sở dữ liệu chuyên sâu:</p>
+                <div class="flex justify-center gap-3 text-xs">
+                    <button onclick="alert('Chức năng thanh toán qua Cổng điện tử / Pi Wallet đang được tích hợp.')" class="bg-orange-600 hover:bg-orange-500 text-white font-semibold px-4 py-2 rounded-lg transition shadow">
+                        Gói Tuần: 50.000 VNĐ (50 câu/ngày)
+                    </button>
+                    <button onclick="alert('Chức năng thanh toán qua Cổng điện tử / Pi Wallet đang được tích hợp.')" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded-lg transition shadow">
+                        Gói Tháng: 200.000 VNĐ (100 câu/ngày)
+                    </button>
+                </div>
+            </div>
+
             <!-- Chat Input Area -->
-            <div class="p-4 bg-slate-900 border-t border-slate-800">
+            <div class="p-4 bg-slate-900 border-t border-slate-800" id="input-area">
                 <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-3">
-                    <input type="text" id="chat-input" placeholder="Nhập câu hỏi kỹ thuật (Ví dụ: Yêu cầu nhiệt độ gia nhiệt trước theo AWS D1.1...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition">
-                    <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center space-x-2 shadow-lg shadow-orange-600/20">
+                    <input type="text" id="chat-input" placeholder="Nhập câu hỏi về tiêu chuẩn AWS D1.1 (Ví dụ: Yêu cầu Preheat cho thép dày 50mm...)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                    <button type="submit" id="send-btn" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center space-x-2 shadow-lg shadow-orange-600/20">
                         <span>Gửi</span>
                         <i class="fa-solid fa-paper-plane text-xs"></i>
                     </button>
@@ -74,15 +104,39 @@
         <p>&copy; 2026 SoloWeld.io - AI RAG Module. All rights reserved.</p>
     </footer>
 
-    <!-- Script xử lý giao diện chat tương tác -->
+    <!-- Script quản lý giới hạn dùng thử & tương tác -->
     <script>
+        // Khởi tạo số câu hỏi dùng thử (Tối đa 10 câu)
+        let trialCount = localStorage.getItem('soloweld_trial') !== null ? parseInt(localStorage.getItem('soloweld_trial')) : 10;
+        
+        // Cập nhật giao diện số lượng ngay khi tải trang
+        document.getElementById('trial-counter').textContent = trialCount;
+        checkTrialStatus();
+
+        function checkTrialStatus() {
+            if (trialCount <= 0) {
+                document.getElementById('paywall-banner').classList.remove('hidden');
+                document.getElementById('chat-input').disabled = true;
+                document.getElementById('chat-input').placeholder = "Đã hết lượt dùng thử miễn phí. Vui lòng đăng ký gói cước.";
+                document.getElementById('send-btn').disabled = true;
+                document.getElementById('send-btn').classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
         function handleChatSubmit(event) {
             event.preventDefault();
+            if (trialCount <= 0) return;
+
             const input = document.getElementById('chat-input');
             const chatMessages = document.getElementById('chat-messages');
             const query = input.value.trim();
 
             if(!query) return;
+
+            // Trừ lượt dùng thử
+            trialCount--;
+            localStorage.setItem('soloweld_trial', trialCount);
+            document.getElementById('trial-counter').textContent = trialCount;
 
             // 1. Hiển thị tin nhắn của User
             const userBubble = document.createElement('div');
@@ -99,7 +153,12 @@
             input.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 2. Hiển thị trạng thái AI đang xử lý (Simulating RAG Search)
+            // Kiểm tra nếu vừa hết lượt sau khi gửi
+            if (trialCount <= 0) {
+                checkTrialStatus();
+            }
+
+            // 2. Hiển thị trạng thái AI đang quét dữ liệu AWS D1.1
             const loadingId = 'loading-' + Date.now();
             const aiLoadingBubble = document.createElement('div');
             aiLoadingBubble.id = loadingId;
@@ -110,13 +169,13 @@
                 </div>
                 <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl text-slate-400 italic text-sm flex items-center space-x-2">
                     <i class="fa-solid fa-circle-notch fa-spin text-orange-500"></i>
-                    <span>Đang quét cơ sở dữ liệu vector tiêu chuẩn kỹ thuật hàn...</span>
+                    <span>Đang truy xuất cơ sở dữ liệu AWS D1.1 (Temperature = 0)...</span>
                 </div>
             `;
             chatMessages.appendChild(aiLoadingBubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 3. Phản hồi mô phỏng (Sau này sẽ thay bằng fetch() gọi Cloudflare Worker API tích hợp Groq/Gemini)
+            // 3. Phản hồi mô phỏng tiêu chuẩn AWS D1.1
             setTimeout(() => {
                 document.getElementById(loadingId).remove();
                 
@@ -127,11 +186,11 @@
                         <i class="fa-solid fa-robot text-xs"></i>
                     </div>
                     <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[85%] text-slate-200 leading-relaxed space-y-2">
-                        <p>Dựa trên việc truy xuất tài liệu gốc (RAG Engine), đối với nội dung liên quan đến câu hỏi: <em>"${escapeHtml(query)}"</em></p>
+                        <p>Dựa trên tra cứu trong <strong>AWS D1.1 (Structural Welding Code - Steel)</strong> cho nội dung: <em>"${escapeHtml(query)}"</em></p>
                         <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-xs text-slate-300 font-mono">
-                            [Trích dẫn tham chiếu]: Tiêu chuẩn kỹ thuật cơ sở / ASME Sec. IX / AWS D1.1 - Tham số kiểm định an toàn đạt ngưỡng tiêu chuẩn.
+                            [Trích xuất chuẩn]: Điều khoản kỹ thuật tuân thủ nghiêm ngặt bảng biến số thiết yếu (Essential Variables) của AWS D1.1. Các thông số nhiệt độ và biên độ dòng điện đã được kiểm chứng an toàn.
                         </div>
-                        <p class="text-xs text-slate-400">Hệ thống sẵn sàng đấu nối API khóa bảo mật (Cloudflare Worker) để phân tích sâu hơn theo yêu cầu thực tế của dự án.</p>
+                        <p class="text-xs text-slate-400">Bạn còn lại <strong class="text-orange-400">${trialCount}</strong> lượt dùng thử miễn phí.</p>
                     </div>
                 `;
                 chatMessages.appendChild(aiBubble);
@@ -139,7 +198,6 @@
             }, 1200);
         }
 
-        // Hàm phụ trợ chống lỗi ký tự đặc biệt
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
