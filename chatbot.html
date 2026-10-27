@@ -1,3 +1,8 @@
+Dưới đây là toàn bộ mã nguồn hoàn chỉnh và đầy đủ của file **`chatbot.html`**. Code đã được làm sạch các ký tự lạ, giữ nguyên toàn bộ giao diện, tính năng đa ngôn ngữ, hệ thống thông báo chào mừng hướng dẫn chuyên gia AWS D1.1, cơ chế dùng thử và ô nhập mã Admin (`soloweld2026`).
+
+Anh hãy copy toàn bộ đoạn code dưới đây để dán đè vào file `chatbot.html` trên kho lưu trữ GitHub của mình:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,4 +45,403 @@
     </header>
 
     <!-- Main Chat Interface Section -->
-    <main class="max-w-
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-1 flex flex-col">
+        <div class="mb-3 text-center">
+            <h1 id="chat-heading" class="text-2xl sm:text-3xl font-bold text-white mb-1">Advanced Welding Technical AI Assistant</h1>
+            <p id="chat-subheading" class="text-slate-400 text-sm">Standardized technical document retrieval system (AWS D1.1) with strict hallucination control.</p>
+        </div>
+
+        <!-- Box Selection Bar -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 mb-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div id="box-label" class="flex items-center space-x-2 text-sm text-slate-300">
+                <i class="fa-solid fa-layer-group text-orange-500"></i>
+                <span class="font-medium">Knowledge Base Selection:</span>
+            </div>
+            <select id="knowledge-box" class="bg-slate-950 border border-slate-700 text-white text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-orange-500">
+                <option value="aws_d11">Box 1: AWS D1.1 Standard (Active)</option>
+                <option value="asme_ix" disabled>Box 2: ASME Section IX (Coming Soon)</option>
+                <option value="en_15085" disabled>Box 3: EN 15085 Railway (Coming Soon)</option>
+                <option value="fsw_tech" disabled>Box 4: FSW & Advanced Tech (Coming Soon)</option>
+            </select>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col flex-1 shadow-2xl overflow-hidden h-[580px]">
+            <!-- Chat Header Info & Trial Counter -->
+            <div class="flex items-center justify-between px-6 py-3 bg-slate-800/40 border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                    <span id="conn-status" class="font-semibold text-sm text-white">Connected: <span class="text-orange-400">AWS D1.1 (Gemini RAG)</span></span>
+                </div>
+                <!-- Click vào đây để nhập mã Admin -->
+                <div onclick="promptAdminAccess()" title="Click để nhập mã Admin" class="text-xs bg-orange-500/10 text-orange-400 border border-orange-500/20 px-3 py-1 rounded-full font-medium cursor-pointer hover:bg-orange-500/20 transition">
+                    <span id="trial-text">Free Trial:</span> <span id="trial-counter">10</span>/10 <span id="questions-text">questions</span>
+                </div>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div class="flex-1 flex flex-col relative bg-slate-950 overflow-hidden">
+                <div class="flex-1 p-6 overflow-y-auto space-y-4 text-sm" id="chat-messages">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
+                            <i class="fa-solid fa-robot text-xs"></i>
+                        </div>
+                        <div id="welcome-msg" class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[90%] text-slate-200 leading-relaxed">
+                            <!-- Nội dung chào mừng đa ngôn ngữ -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paywall Notice Banner -->
+                <div id="paywall-banner" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur flex flex-col items-center justify-center p-6 text-center z-20">
+                    <div class="w-16 h-16 bg-orange-500/10 border border-orange-500/30 rounded-full flex items-center justify-center text-orange-400 text-2xl mb-4">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h3 id="pw-title" class="text-xl font-bold text-white mb-2">Free Trial Limit Reached</h3>
+                    <p id="pw-desc" class="text-slate-400 text-sm max-w-md mb-6">You have used all 10 free trial questions. Please subscribe to continue accessing the in-depth AWS D1.1 database:</p>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                        <div class="flex-1 bg-slate-900 border border-slate-800 p-4 rounded-xl text-center">
+                            <div class="text-orange-400 font-bold text-lg mb-1">50,000 VNĐ</div>
+                            <div id="pw-weekly" class="text-xs text-slate-400 mb-3">Weekly Plan (50 Qs/day)</div>
+                            <button onclick="alert('Payment gateway integration in progress.')" id="btn-weekly" class="w-full bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold py-2 rounded-lg transition cursor-pointer">Subscribe Weekly</button>
+                        </div>
+                        <div class="flex-1 bg-slate-900 border border-orange-500/50 p-4 rounded-xl text-center relative">
+                            <span id="badge-pop" class="absolute -top-2.5 right-4 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Popular</span>
+                            <div class="text-orange-400 font-bold text-lg mb-1">200,000 VNĐ</div>
+                            <div id="pw-monthly" class="text-xs text-slate-400 mb-3">Monthly Plan (100 Qs/day)</div>
+                            <button onclick="alert('Payment gateway integration in progress.')" id="btn-monthly" class="w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2 rounded-lg transition cursor-pointer">Subscribe Monthly</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="p-4 bg-slate-900 border-t border-slate-800">
+                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-3">
+                    <input type="text" id="chat-input" placeholder="Ask about AWS D1.1 standard..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-orange-500 transition">
+                    <button type="submit" id="send-btn" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center space-x-2 shadow-lg shadow-orange-600/20 cursor-pointer">
+                        <span id="btn-send-text">Send</span>
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-4 text-center text-xs text-slate-500">
+        <p id="footer-text">&copy; 2026 SoloWeld.io - AI RAG Module. All rights reserved.</p>
+    </footer>
+
+    <!-- Script Xử lý logic, đa ngôn ngữ, phân quyền Admin và kết nối Deno Backend -->
+    <script>
+        const DENO_API_URL = "https://soloweld-rag-api.hanleduy-hust.deno.net";
+
+        const chatTranslations = {
+            en: {
+                nav_back: "Back to Home",
+                chat_heading: "Advanced Welding Technical AI Assistant",
+                chat_subheading: "Standardized technical document retrieval system (AWS D1.1) with strict hallucination control.",
+                box_label: "Knowledge Base Selection:",
+                conn_status: "Connected: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
+                trial_text: "Free Trial:",
+                questions_text: "questions",
+                welcome_msg: `Hello! I am your <strong>AWS D1.1 Technical Auditor & Code Interpreter</strong>. I am fully operational and ready to analyze, calculate, and audit your structural welding queries in strict accordance with the <strong>AWS D1.1/D1.1M Structural Welding Code</strong>.<br><br>
+                ---<br><br>
+                <strong>Scope of Technical Auditing & Capabilities:</strong><br>
+                1. <strong>Prequalified WPS & Essential Variables:</strong> Verification of Prequalified Status, Filler to Base Metal Matching, Minimum Preheat/Interpass Temperature (Table 5.8), Prequalified Joint Geometry.<br>
+                2. <strong>PQR & WPQR Qualification:</strong> Essential Variable Ranges, Mechanical Testing Requirements (Tension, Bend, NDT), Welder Qualification Limits.<br>
+                3. <strong>Fabrication & Heat Treatment:</strong> Preheat controls, PWHT rules/exemptions, Fit-up tolerances.<br>
+                4. <strong>Inspection & NDT Acceptance Criteria:</strong> Visual Inspection (VT), UT, RT, MT, PT evaluation criteria.<br><br>
+                ---<br><br>
+                <strong>How to Submit an Engineering Query:</strong><br>
+                Please provide your parameters in your query, such as:<br>
+                - <strong>Base Metal:</strong> (e.g., ASTM A36, A572 Gr.50)<br>
+                - <strong>Thickness (T):</strong> (e.g., T = 18 mm)<br>
+                - <strong>Welding Process:</strong> (e.g., SMAW, GMAW, FCAW)<br>
+                - <strong>Filler Metal:</strong> (e.g., E7018, ER70S-6)<br><br>
+                📌 <strong>Standard:</strong> AWS D1.1/D1.1M:2020<br>
+                📖 <strong>Clause:</strong> General Technical Audit Protocol`,
+                input_placeholder: "Ask about AWS D1.1 standard (e.g., Preheat requirements for steel)...",
+                send_btn: "Send",
+                pw_title: "Free Trial Limit Reached",
+                pw_desc: "You have used all 10 free trial questions. Please subscribe to continue accessing the in-depth AWS D1.1 database:",
+                pw_weekly: "Weekly Plan (50 Qs/day)",
+                pw_monthly: "Monthly Plan (100 Qs/day)",
+                btn_weekly: "Subscribe Weekly",
+                btn_monthly: "Subscribe Monthly",
+                badge_pop: "Popular",
+                footer_text: "&copy; 2026 SoloWeld.io - AI RAG Module. All rights reserved."
+            },
+            vi: {
+                nav_back: "Trang chủ",
+                chat_heading: "Trợ lý Ảo Kỹ Thuật Hàn Chuyên Sâu",
+                chat_subheading: "Hệ thống truy xuất tiêu chuẩn kỹ thuật chuyên ngành (AWS D1.1) với kiểm soát nhiệt độ chống ảo giác.",
+                box_label: "Chọn Box Tri thức (Knowledge Base):",
+                conn_status: "Đang kết nối: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
+                trial_text: "Dùng thử miễn phí:",
+                questions_text: "câu hỏi",
+                welcome_msg: `Xin chào! Tôi là <strong>Kiểm toán viên Kỹ thuật & Code Interpreter chuyên sâu về tiêu chuẩn AWS D1.1</strong>. Tôi đã sẵn sàng phân tích, tính toán và kiểm toán các câu hỏi kỹ thuật kết cấu hàn của bạn tuân thủ nghiêm ngặt theo <strong>Tiêu chuẩn AWS D1.1/D1.1M</strong>.<br><br>
+                ---<br><br>
+                <strong>Phạm vi kiểm toán & Năng lực chuyên môn:</strong><br>
+                1. <strong>WPS được công nhận trước & Biến thiết yếu:</strong> Xác minh trạng thái Prequalified, yêu cầu phối hợp Kim loại điền đầy - Kim loại cơ bản, Nhiệt độ gia nhiệt sơ bộ & nhiệt độ giữa các lớp hàn tối thiểu (Table 5.8), Hình học liên kết hàn.<br>
+                2. <strong>Phê chuẩn PQR & Thợ hàn (WPQR):</strong> Dải biến thiết yếu PQR, Yêu cầu thử cơ tính (Kéo, Uốn, NDT), Giới hạn bề dày & đường kính thử thợ hàn.<br>
+                3. <strong>Chế tạo & Xử lý nhiệt:</strong> Kiểm soát gia nhiệt sơ bộ, Quy định/Miễn giảm PWHT (Nhiệt độ sau khi hàn), Dung sai lắp ráp.<br>
+                4. <strong>Tiêu chuẩn nghiệm thu Kiểm tra & NDT:</strong> Tiêu chuẩn kiểm tra ngoại quan (VT) cho kết cấu chịu tải tĩnh/động, tiêu chuẩn đánh giá UT, RT, MT, PT.<br><br>
+                ---<br><br>
+                <strong>Cách thức đặt câu hỏi kỹ thuật tập trung:</strong><br>
+                Vui lòng cung cấp các thông số trong câu hỏi để nhận kết quả chính xác nhất:<br>
+                - <strong>Mác thép / Kim loại cơ bản:</strong> (Ví dụ: ASTM A36, A572 Gr.50)<br>
+                - <strong>Chiều dày (T):</strong> (Ví dụ: T = 18 mm, T = 40 mm)<br>
+                - <strong>Phương pháp hàn:</strong> (Ví dụ: SMAW, GMAW, FCAW, SAW)<br>
+                - <strong>Vật liệu hàn / Que hàn:</strong> (Ví dụ: E7018, ER70S-6)<br><br>
+                📌 <strong>Tiêu chuẩn:</strong> AWS D1.1/D1.1M:2020<br>
+                📖 <strong>Điều khoản:</strong> Giao thức Kiểm toán Kỹ thuật Tổng quát`,
+                input_placeholder: "Nhập câu hỏi về tiêu chuẩn AWS D1.1 (Ví dụ: Yêu cầu Preheat cho thép A36 dày 18mm)...",
+                send_btn: "Gửi",
+                pw_title: "Đã Hết Lượt Dùng Thử Miễn Phí",
+                pw_desc: "Quý khách đã sử dụng hết 10 câu hỏi trải nghiệm cơ sở dữ liệu AWS D1.1. Vui lòng đăng ký gói cước để tiếp tục truy cập không giới hạn:",
+                pw_weekly: "Gói Tuần (50 câu/ngày)",
+                pw_monthly: "Gói Tháng (100 câu/ngày)",
+                btn_weekly: "Đăng ký Gói Tuần",
+                btn_monthly: "Đăng ký Gói Tháng",
+                badge_pop: "Phổ biến",
+                footer_text: "&copy; 2026 SoloWeld.io - AI RAG Module. Bảo lưu mọi quyền."
+            },
+            zh: {
+                nav_back: "返回首页",
+                chat_heading: "高级焊接技术AI助手",
+                chat_subheading: "标准化技术文档检索系统（AWS D1.1），具有严格的幻觉控制。",
+                box_label: "知识库选择:",
+                conn_status: "已连接: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
+                trial_text: "免费试用:",
+                questions_text: "个问题",
+                welcome_msg: `您好！我是您的 <strong>AWS D1.1 技术审核员兼代码解释器</strong>。我已完全就绪，将严格遵循 <strong>AWS D1.1/D1.1M 结构焊接规范</strong> 为您分析、计算和审核焊接技术问题。<br><br>
+                ---<br><br>
+                <strong>技术审核范围与能力：</strong><br>
+                1. <strong>预审合格的焊接工艺规程 (WPS) 与 essential variables</strong><br>
+                2. <strong>PQR 及 焊工 qualification 评定</strong><br>
+                3. <strong>制造、工艺与热处理</strong><br>
+                4. <strong>检验与 NDT 验收标准</strong><br><br>
+                请提供您的具体技术参数（如钢号、厚度、焊接方法等）以开始精准审核。<br><br>
+                📌 <strong>标准:</strong> AWS D1.1/D1.1M:2020`,
+                input_placeholder: "询问有关 AWS D1.1 标准的问题...",
+                send_btn: "发送",
+                pw_title: "免费试用额度已用完",
+                pw_desc: "您已用完 10 次免费试用提问。请订阅以继续访问深度 AWS D1.1 数据库：",
+                pw_weekly: "周套餐（50次/天）",
+                pw_monthly: "月套餐（100次/天）",
+                btn_weekly: "订阅周套餐",
+                btn_monthly: "订阅月套餐",
+                badge_pop: "热门",
+                footer_text: "&copy; 2026 SoloWeld.io - AI RAG 模块。版权所有。"
+            },
+            ja: {
+                nav_back: "ホームに戻る",
+                chat_heading: "高度溶接技術 AIアシスタント",
+                chat_subheading: "厳格なハルシネーション制御を備えた標準化された技術文書検索システム（AWS D1.1）。",
+                box_label: "ナレッジベース選択:",
+                conn_status: "接続中: <span class='text-orange-400'>AWS D1.1 (Gemini RAG)</span>",
+                trial_text: "無料トライアル:",
+                questions_text: "問",
+                welcome_msg: `こんにちは！私はあなたの <strong>AWS D1.1 テクニカル監査人兼コードインタープリター</strong> です。<strong>AWS D1.1/D1.1M 構造物溶接規格</strong>に厳密準拠し、構造溶接のクエリを分析・計算・監査する準備が整っています。<br><br>
+                ---<br><br>
+                <strong>技術監査の範囲と機能：</strong><br>
+                1. <strong>予備資格 WPS と必須変数の検証</strong><br>
+                2. <strong>PQR および溶接士資格の検証</strong><br>
+                3. <strong>製作、施工管理および熱処理</strong><br>
+                4. <strong>検査および NDT 判定基準</strong><br><br>
+                鋼種、板厚、溶接方法などの技術パラメータを指定してご質問ください。<br><br>
+                📌 <strong>規格:</strong> AWS D1.1/D1.1M:2020`,
+                input_placeholder: "AWS D1.1規格について質問する...",
+                send_btn: "送信",
+                pw_title: "無料トライアルの上限に達しました",
+                pw_desc: "10回の無料トライアル質問をすべて使い切りました。プランにご登録ください：",
+                pw_weekly: "週プラン（50問/日）",
+                pw_monthly: "月プラン（100問/日）",
+                btn_weekly: "週プランに登録",
+                btn_monthly: "月プランに登録",
+                badge_pop: "人気",
+                footer_text: "&copy; 2026 SoloWeld.io - AI RAGモジュール. All rights reserved."
+            }
+        };
+
+        let currentLang = localStorage.getItem('soloweld_lang') || 'vi';
+        let trialCount = localStorage.getItem('soloweld_trial') !== null ? parseInt(localStorage.getItem('soloweld_trial')) : 10;
+        let isAdmin = localStorage.getItem('soloweld_is_admin') === 'true';
+
+        function applyChatLanguage(lang) {
+            currentLang = lang;
+            const t = chatTranslations[lang] || chatTranslations['en'];
+
+            document.getElementById('nav-back').textContent = t.nav_back;
+            document.getElementById('chat-heading').textContent = t.chat_heading;
+            document.getElementById('chat-subheading').textContent = t.chat_subheading;
+            document.getElementById('box-label').innerHTML = `<i class="fa-solid fa-layer-group text-orange-500"></i><span class="font-medium">${t.box_label}</span>`;
+            document.getElementById('conn-status').innerHTML = t.conn_status;
+            document.getElementById('trial-text').textContent = t.trial_text;
+            document.getElementById('questions-text').textContent = t.questions_text;
+            document.getElementById('welcome-msg').innerHTML = t.welcome_msg;
+            document.getElementById('chat-input').placeholder = t.input_placeholder;
+            document.getElementById('btn-send-text').textContent = t.send_btn;
+            document.getElementById('pw-title').textContent = t.pw_title;
+            document.getElementById('pw-desc').textContent = t.pw_desc;
+            document.getElementById('pw-weekly').textContent = t.pw_weekly;
+            document.getElementById('pw-monthly').textContent = t.pw_monthly;
+            document.getElementById('btn-weekly').textContent = t.btn_weekly;
+            document.getElementById('btn-monthly').textContent = t.btn_monthly;
+            document.getElementById('badge-pop').textContent = t.badge_pop;
+            document.getElementById('footer-text').innerHTML = t.footer_text;
+
+            ['en', 'vi', 'zh', 'ja'].forEach(l => {
+                const btn = document.getElementById('btn-' + l);
+                if(btn) {
+                    btn.className = (l === lang) ? "px-2 py-1 rounded bg-orange-600 text-white transition cursor-pointer" : "px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer";
+                }
+            });
+        }
+
+        function switchLanguage(lang) {
+            localStorage.setItem('soloweld_lang', lang);
+            applyChatLanguage(lang);
+        }
+
+        function promptAdminAccess() {
+            if (isAdmin) {
+                if (confirm("Bạn đang ở chế độ Admin. Bạn có muốn thoát chế độ Admin không?")) {
+                    localStorage.removeItem('soloweld_is_admin');
+                    isAdmin = false;
+                    location.reload();
+                }
+                return;
+            }
+
+            const code = prompt("Nhập mã Admin để test không giới hạn:");
+            if (code === "soloweld2026") {
+                localStorage.setItem('soloweld_is_admin', 'true');
+                alert("Đăng nhập quyền Admin thành công!");
+                location.reload();
+            } else if (code !== null) {
+                alert("Mã Admin không chính xác!");
+            }
+        }
+
+        if (isAdmin) {
+            document.getElementById('trial-counter').textContent = "∞ (Admin)";
+        } else {
+            document.getElementById('trial-counter').textContent = trialCount;
+        }
+
+        applyChatLanguage(currentLang);
+        checkTrialStatus();
+
+        function checkTrialStatus() {
+            if (isAdmin) return;
+            if (trialCount <= 0) {
+                document.getElementById('paywall-banner').classList.remove('hidden');
+            }
+        }
+
+        async function handleChatSubmit(event) {
+            event.preventDefault();
+            if (!isAdmin && trialCount <= 0) return;
+
+            const input = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const query = input.value.trim();
+
+            if(!query) return;
+
+            if (!isAdmin) {
+                trialCount--;
+                localStorage.setItem('soloweld_trial', trialCount);
+                document.getElementById('trial-counter').textContent = trialCount;
+            }
+
+            const userBubble = document.createElement('div');
+            userBubble.className = "flex items-start space-x-3 justify-end";
+            userBubble.innerHTML = `
+                <div class="bg-orange-600 text-white p-4 rounded-2xl max-w-[85%] leading-relaxed shadow-md">
+                    ${escapeHtml(query)}
+                </div>
+                <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0">
+                    <i class="fa-solid fa-user text-xs"></i>
+                </div>
+            `;
+            chatMessages.appendChild(userBubble);
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (!isAdmin && trialCount <= 0) {
+                setTimeout(checkTrialStatus, 1000);
+            }
+
+            const loadingId = 'loading-' + Date.now();
+            const aiLoadingBubble = document.createElement('div');
+            aiLoadingBubble.id = loadingId;
+            aiLoadingBubble.className = "flex items-start space-x-3";
+            aiLoadingBubble.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
+                    <i class="fa-solid fa-robot text-xs"></i>
+                </div>
+                <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl text-slate-400 italic text-sm flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-notch fa-spin text-orange-500"></i>
+                    <span>Gemini AI is analyzing AWS D1.1 standard...</span>
+                </div>
+            `;
+            chatMessages.appendChild(aiLoadingBubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch(DENO_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: query })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                const aiBubble = document.createElement('div');
+                aiBubble.className = "flex items-start space-x-3";
+                aiBubble.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
+                        <i class="fa-solid fa-robot text-xs"></i>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[90%] text-slate-200 leading-relaxed space-y-2">
+                        <p class="text-xs text-slate-400">Query: <em>"${escapeHtml(query)}"</em></p>
+                        <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-sm text-slate-200 font-mono whitespace-pre-line overflow-x-auto">
+                            ${escapeHtml(data.answer || "No response data.")}
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+                            <span>Model: <strong class="text-orange-400">${escapeHtml(data.model_used || 'Gemini')}</strong></span>
+                            <span>Mode: <strong class="text-orange-400">${isAdmin ? 'Admin (Unlimited)' : 'Free Trial (' + trialCount + ' left)'}</strong></span>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(aiBubble);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                const errBubble = document.createElement('div');
+                errBubble.className = "flex items-start space-x-3";
+                errBubble.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
+                        <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+                    </div>
+                    <div class="bg-slate-800/80 border border-red-700/50 p-4 rounded-2xl max-w-[85%] text-red-200 text-xs font-mono">
+                        Connection error with Deno Backend API. Please check network or CORS settings. (${escapeHtml(error.message)})
+                    </div>
+                `;
+                chatMessages.appendChild(errBubble);
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
+
+```
