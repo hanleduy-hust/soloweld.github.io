@@ -753,12 +753,9 @@ def collect_figures(papers, post_id):
 
 PREFERRED_GEMINI_MODELS = [
     os.environ.get("GEMINI_MODEL", "").strip(),
-    os.environ.get("GEMINI_MODEL", "").strip(),
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
-    "gemini-1.5-flash",
+    "gemini-3.8-flash",
+    "gemini-3.5-flash",
+    "gemini-3.5-flash-lite",
 ]
 
 BLOCKED_MODEL_PATTERNS = re.compile(
@@ -795,7 +792,7 @@ def gemini_candidates():
         log("Không lấy được danh sách model động; dùng danh sách cấu hình mặc định.")
     names = list(dict.fromkeys(preferred))[:5]
     if not names:
-        names = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+        names = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"]
     return [(name, metadata.get(name, {})) for name in names]
 
 
@@ -816,9 +813,9 @@ def gemini_json(prompt):
                 "maxOutputTokens": min(65536, metadata.get("outputTokenLimit") or 65536),
             },
         }
-        for attempt in range(3):
-            if time.monotonic() - started > 720:
-                raise RuntimeError("Quá thời gian chờ Gemini API (12 phút).")
+        for attempt in range(5):
+            if time.monotonic() - started > 1200:
+                raise RuntimeError("Quá thời gian chờ Gemini API (20 phút).")
             retry_after = 0
             try:
                 response = SESSION.post(
@@ -874,8 +871,8 @@ def gemini_json(prompt):
                         pass
             errors.append(f"{model}: {reason}")
             log(f"Gemini {model}, lần thử {attempt + 1}/3: {reason}")
-            if attempt < 2:
-                delay = min(30, max(retry_after, 8 * (2 ** attempt) + random.uniform(0, 3)))
+            if attempt < 4:
+                delay = min(90, max(retry_after, 15 * (2 ** attempt) + random.uniform(0, 5)))
                 time.sleep(delay)
     raise RuntimeError("Tất cả model Gemini đều thất bại: " + " | ".join(errors[-8:]))
 
