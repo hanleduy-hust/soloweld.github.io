@@ -1,0 +1,32 @@
+[
+  {
+    "id": "2026-11-12-soloweld-blockchain-cert-traceability",
+    "date": "2026-11-12",
+    "topic_key": "blockchain_cert_traceability",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "Blockchain, Smart Contract & Chuyển đổi số Quản lý Chứng chỉ Hàn Quốc tế",
+    "title_en": "Blockchain, Smart Contracts & Digital Transformation in International Welding Certification Management",
+    "title_zh": "区块链与智能合约在国际焊接认证管理数字化转型中的应用",
+    "title_ja": "国際溶接認証管理のデジタル変革におけるブロックチェーンとスマートコントラクト",
+    "summary_vi": "Khám phá xu hướng chuyển đổi số toàn diện trong quản lý quy trình hàn (WPS), hồ sơ phê duyệt (PQR) và chứng chỉ thợ hàn (WPQ) theo tiêu chuẩn AWS D1.1, ASME và ISO thông qua công nghệ blockchain và hợp đồng thông minh. Bài viết phân tích các mô hình kiến trúc phân tán, thuật toán đồng thuận và cơ chế bảo mật nhằm chống giả mạo hồ sơ kỹ thuật trong ngành chế tạo cơ khí nặng.",
+    "summary_en": "An in-depth technical examination of how blockchain technology and smart contracts are transforming the management of welding procedure specifications (WPS), procedure qualification records (PQR), and welder performance qualifications (WPQ) under AWS, ASME, and ISO standards. This insight explores decentralized architectures, consensus algorithms, and tamper-evident cryptographic ledgers for heavy fabrication QA/QC.",
+    "summary_zh": "深入探讨区块链和智能合约技术如何根据AWS、ASME和ISO标准变革焊接工艺规程（WPS）、工艺评定记录（PQR）以及焊工技能评定（WPQ）的管理。本文分析了重型机械制造质量保证与控制（QA/QC）中的分布式架构、共识算法及防篡改加密账本。",
+    "summary_ja": "AWS、ASME、ISO規格に基づく溶接施工要領書（WPS）、施工確認記録（PQR）、および溶接士資格証明書（WPQ）の管理をブロックチェーンとスマートコントラクトがどのように変革しているかについての詳細な技術的考察。重工業の品質保証・品質管理（QA/QC）における分散型アーキテクチャ、合意形成アルゴリズム、および耐改ざん暗号台帳を分析します。",
+    "tags": [
+      "Blockchain",
+      "Smart Contract",
+      "Welding Certification",
+      "AWS D1.1",
+      "ASME Section IX",
+      "Digital Twin"
+    ],
+    "cover": "images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig3.jpg",
+    "paper_count": 16,
+    "figure_count": 7,
+    "file": "news/posts/2026-11-12-soloweld-blockchain-cert-traceability.json"
+  }
+]

@@ -1,0 +1,297 @@
+{
+  "id": "2026-11-12-soloweld-blockchain-cert-traceability",
+  "date": "2026-11-12",
+  "topic_key": "blockchain_cert_traceability",
+  "type": "feature",
+  "category_vi": "Chuyên đề AI & Hàn",
+  "category_en": "AI & Welding Insight",
+  "category_zh": "AI与焊接专题",
+  "category_ja": "AI・溶接技術特集",
+  "title_vi": "Blockchain, Smart Contract & Chuyển đổi số Quản lý Chứng chỉ Hàn Quốc tế",
+  "title_en": "Blockchain, Smart Contracts & Digital Transformation in International Welding Certification Management",
+  "title_zh": "区块链与智能合约在国际焊接认证管理数字化转型中的应用",
+  "title_ja": "国際溶接認証管理のデジタル変革におけるブロックチェーンとスマートコントラクト",
+  "summary_vi": "Khám phá xu hướng chuyển đổi số toàn diện trong quản lý quy trình hàn (WPS), hồ sơ phê duyệt (PQR) và chứng chỉ thợ hàn (WPQ) theo tiêu chuẩn AWS D1.1, ASME và ISO thông qua công nghệ blockchain và hợp đồng thông minh. Bài viết phân tích các mô hình kiến trúc phân tán, thuật toán đồng thuận và cơ chế bảo mật nhằm chống giả mạo hồ sơ kỹ thuật trong ngành chế tạo cơ khí nặng.",
+  "summary_en": "An in-depth technical examination of how blockchain technology and smart contracts are transforming the management of welding procedure specifications (WPS), procedure qualification records (PQR), and welder performance qualifications (WPQ) under AWS, ASME, and ISO standards. This insight explores decentralized architectures, consensus algorithms, and tamper-evident cryptographic ledgers for heavy fabrication QA/QC.",
+  "summary_zh": "深入探讨区块链和智能合约技术如何根据AWS、ASME和ISO标准变革焊接工艺规程（WPS）、工艺评定记录（PQR）以及焊工技能评定（WPQ）的管理。本文分析了重型机械制造质量保证与控制（QA/QC）中的分布式架构、共识算法及防篡改加密账本。",
+  "summary_ja": "AWS、ASME、ISO規格に基づく溶接施工要領書（WPS）、施工確認記録（PQR）、および溶接士資格証明書（WPQ）の管理をブロックチェーンとスマートコントラクトがどのように変革しているかについての詳細な技術的考察。重工業の品質保証・品質管理（QA/QC）における分散型アーキテクチャ、合意形成アルゴリズム、および耐改ざん暗号台帳を分析します。",
+  "tags": [
+    "Blockchain",
+    "Smart Contract",
+    "Welding Certification",
+    "AWS D1.1",
+    "ASME Section IX",
+    "Digital Twin"
+  ],
+  "cover": "images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig3.jpg",
+  "paper_count": 16,
+  "figure_count": 7,
+  "content_vi": "<p class=\"lead\">Quản lý chứng chỉ kỹ sư hàn, hồ sơ quy trình hàn (WPS/PQR) và năng lực thợ hàn (WPQ) theo các tiêu chuẩn khắt khe như AWS D1.1, ASME Section IX và ISO 9606 đang đứng trước bước chuyển mình mang tính cách mạng nhờ sự tích hợp của công nghệ blockchain và hợp đồng thông minh (smart contracts). Việc chuyển đổi từ hệ thống lưu trữ tập trung sang mạng lưới phân tán bất biến giúp giải quyết triệt để vấn đề gian lận hồ sơ, sai lệch thông số kỹ thuật và độ trễ trong kiểm định chất lượng mối hàn. Bài viết này phân tích các cơ sở kiến trúc số hóa tiên tiến nhằm tối ưu hóa chuỗi cung ứng chế tạo cơ khí nặng và nâng cao độ tin cậy trong kiểm tra không phá hủy (NDT).</p>\n<h3>Bối cảnh Công nghiệp &amp; Tiêu chuẩn Quốc tế</h3>\n<p>Trong ngành chế tạo kết cấu thép, bình áp lực và thiết bị áp lực hạt nhân, việc tuân thủ các tiêu chuẩn quốc tế như AWS D1.1 (Structural Welding Code - Steel), ASME Section IX (Welding, Brazing, and Fusing Qualifications) và ISO đối với kim loại cơ bản (base metal), kim loại điền đầy (filler metal) đóng vai trò sống còn. Tuy nhiên, các phương pháp quản lý truyền thống hiện nay đang bộc lộ nhiều điểm nghẽn nghiêm trọng. Hệ thống quản lý thủ công hoặc cơ sở dữ liệu tập trung dễ bị thao túng, thiếu minh bạch trong việc xác thực thâm niên làm việc của thợ hàn, lịch sử bảo dưỡng máy hàn cũng như tính toàn vẹn của các biên bản kiểm tra không phá hủy (NDT) <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<p>Các nghiên cứu chỉ ra rằng việc thiếu một khung giám sát đồng bộ giữa nhân sự, nguyên vật liệu và thiết bị dẫn đến rủi ro pháp lý và kỹ thuật cao trong các dự án năng lượng và hàng không vũ trụ <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>. Theo các nhà nghiên cứu, mặc dù các hệ thống quản lý chất lượng theo chuẩn ISO 9001 được áp dụng rộng rãi, việc giám sát các yếu tố đầu vào vẫn diễn ra dưới dạng các số liệu rời rạc, chưa có một chỉ số động tích hợp để đánh giá trạng thái toàn diện của hệ thống sản xuất <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>. Do đó, việc ứng dụng công nghệ chuỗi kết hợp với các thuật toán phân tích lớn (big data analytics) trở thành yêu cầu cấp thiết để xây dựng một hệ sinh thái chứng chỉ số minh bạch và tự động hóa <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig3.jpg\" alt=\"Thời gian dừng máy hàn thực tế trên dây chuyền mạ kẽm thép [10].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 1.</strong> Thời gian dừng máy hàn thực tế trên dây chuyền mạ kẽm thép [10]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 3 trong bài gốc – Matos et al. (2026), “Lean maintenance 4.0: Enhancing welding machine reliability in steel galvanizing processes”, <em>International Journal of Industrial Engineering and Management</em>, <a href=\"https://doi.org/10.24867/ijiem-430\" target=\"_blank\" rel=\"noopener\">doi:10.24867/ijiem-430</a> [<a href=\"#ref-10\">10</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure><h3>Kiến trúc Blockchain và Smart Contract trong Chống giả mạo Chứng chỉ Hàn</h3>\n<p>Nhằm khắc phục tình trạng gian lận hồ sơ và giả mạo chứng chỉ năng lực thợ hàn (WPQ) hay chứng chỉ kiểm định viên, các mô hình bảo mật tiên tiến kết hợp Trí tuệ nhân tạo (AI) và Blockchain đã được phát triển <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. Nghiên cứu về hệ thống SmartGate đã chứng minh khả năng sử dụng các thuật toán học máy (như XGBoost kết hợp kỹ nghệ đặc trưng) để sàng lọc các hành vi bất thường và gian lận trong suốt vòng đời của chứng chỉ trước khi được neo giữ (anchoring) lên mạng blockchain Ethereum cục bộ <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. Mô hình này tích hợp phương pháp giải thích AI (SHAP - SHapley Additive exPlanations) nhằm đảm bảo tính minh bạch và độ tin cậy trong quá trình ra quyết định của hệ thống <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig4.jpg\" alt=\"Kiến trúc hệ thống SmartGate được đề xuất kết hợp AI và blockchain [4].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 2.</strong> Kiến trúc hệ thống SmartGate được đề xuất kết hợp AI và blockchain [4]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 1 trong bài gốc – Khormi et al. (2026), “SmartGate: A Prototype of AI–Blockchain-Enabled Academic Certificate Management System”, <em>Future Internet</em>, <a href=\"https://doi.org/10.3390/fi18110577\" target=\"_blank\" rel=\"noopener\">doi:10.3390/fi18110577</a> [<a href=\"#ref-4\">4</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<p>Bên cạnh đó, việc tự động hóa quá trình sinh mã hợp đồng thông minh an toàn cũng đạt được bước tiến lớn nhờ các mô hình ngôn ngữ lớn chuyên biệt như SmartCoder-R1 (dựa trên nền tảng Qwen2.5-Coder-7B) <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>. Thông qua quy trình huấn luyện trước liên tục (CPT), tinh chỉnh có giám sát chuỗi suy luận dài (L-CoT SFT) trên 7.998 mẫu được chuyên gia bảo mật kiểm định, và tối ưu hóa chính sách nhóm nhạy cảm bảo mật (S-GRPO) với 1.691 mẫu, hệ thống này đạt hiệu suất vượt trội trong việc tạo ra các hợp đồng thông minh không có lỗ hổng bảo mật <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>. Các hợp đồng thông minh này tự động thực thi các điều kiện phê duyệt quy trình hàn (WPS) và cấp phép WPQ khi thợ hàn hoàn thành các bài kiểm tra thực tế đạt chuẩn AWS hoặc ASME.</p>\n<h3>Truy xuất nguồn gốc vật liệu và Nhật ký thông số hàn WPS/PQR bất biến</h3>\n<p>Quản lý minh bạch vật liệu hàn gồm kim loại cơ bản, kim loại điền đầy (que hàn, dây hàn, thuốc hàn) và các thông số nhiệt độ nung sơ bộ, dòng điện, điện hàn, tốc độ hàn trong nhật ký WPS/PQR đóng vai trò quyết định đến chất lượng vùng ảnh hưởng nhiệt (HAZ) và mối hàn (welded joint). Các hệ thống truy xuất nguồn gốc đa tầng sử dụng cơ chế “link-chain” kết hợp mạng cảm biến IoT và thuật toán dung hợp trọng số thích ứng đã ghi nhận hơn 50.000 điểm dữ liệu trên 12 đơn vị vận hành với độ chính xác và độ bền vững dữ liệu cực cao <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig1.jpg\" alt=\"Kiến trúc phân tầng đề xuất liên kết giao diện thiết bị, đầu vào nông nghiệp, dữ liệu an toàn [7].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 3.</strong> Kiến trúc phân tầng đề xuất liên kết giao diện thiết bị, đầu vào nông nghiệp, dữ liệu an toàn [7]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 2 trong bài gốc – Ola et al. (2026), “Laborguard Blockchain-Enabled Agricultural Labor Verification and Anti-Human-Trafficking Compliance Device”, <em>International Journal of Technology and Applied Science</em>, <a href=\"https://doi.org/10.71097/ijtas.v17.i11.1480\" target=\"_blank\" rel=\"noopener\">doi:10.71097/ijtas.v17.i11.1480</a> [<a href=\"#ref-7\">7</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY-SA</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<p>Thông qua việc mã hóa dữ liệu trên chuỗi blockchain kết hợp lưu trữ phụ trợ ngoài chuỗi (off-chain databases) và hệ thống tệp liên hành tinh (IPFS), toàn bộ lịch sử nhiệt luyện, thông số dòng điện hàn và kết quả kiểm tra cơ tính của mối hàn được ghi nhận bất biến <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>. Điều này giúp các kỹ sư QA/QC dễ dàng kiểm tra nguồn gốc lô vật liệu kim loại có cấu trúc tinh thể đóng kín HCP (như titan, magiê, zirconium) dùng trong ngành hàng không vũ trụ và hạt nhân, nơi mà sai sót nhỏ về thành phần hóa học có thể dẫn đến hình thành pha mác-tenxit alpha không mong muốn hoặc khuyết tật rỗ khí <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>.</p>\n<h3>Tự động hóa Nghiệm thu Chất lượng Mối hàn và Kiểm tra NDT thông qua Smart Contracts</h3>\n<p>Quá trình kiểm tra không phá hủy (NDT) đối với các mối hàn quan trọng trong bình áp lực và kết cấu thép thường đối mặt với thách thức lớn về tính chủ quan và thiếu hụt khả năng giải thích của mô hình AI <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. Các nghiên cứu chỉ ra rằng việc sử dụng trí tuệ nhân tạo thông báo vật lý (physics-informed AI) và các mô hình lai kết hợp kiểm tra siêu âm, bức xạ (radiographic) và quang học giúp cải thiện đáng kể độ tin cậy và tính nhất quán với các định luật vật lý thực tế so với các phương pháp học máy hộp đen truyền thống <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig7.jpg\" alt=\"Theo dõi thời gian thực động lực học vũng hàn và lỗ khóa trong quá trình hàn laser tổ hợp [8].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 4.</strong> Theo dõi thời gian thực động lực học vũng hàn và lỗ khóa trong quá trình hàn laser tổ hợp [8]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 1 trong bài gốc – Zwoliński et al. (2025), “Laser Technologies of Welding, Surfacing and Regeneration of Metals with HCP Structure (Mg, Ti, Zr): State of the Art, Challenges and Prospects”, <em>Materials</em>, <a href=\"https://doi.org/10.3390/ma18225237\" target=\"_blank\" rel=\"noopener\">doi:10.3390/ma18225237</a> [<a href=\"#ref-8\">8</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<p>Khi tích hợp các kết quả kiểm định NDT này vào hợp đồng thông minh, hệ thống sẽ tự động đối chiếu các chỉ tiêu chấp nhận khuyết tật theo tiêu chuẩn AWS D1.1 hoặc ASME Sec. VIII. Nếu mối hàn đạt yêu cầu, hợp đồng thông minh sẽ tự động phát hành chứng nhận chất lượng kỹ thuật số, cập nhật trạng thái vào hồ sơ số của kỹ sư hàn mà không cần sự can thiệp thủ công từ con người, qua đó loại bỏ hoàn toàn rủi ro gian lận thương mại và giả mạo biên bản thử nghiệm <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<h3>Lợi ích Minh bạch hóa Chuỗi cung ứng Chế tạo Cơ khí và Kết cấu Thép Quốc tế</h3>\n<p>Việc áp dụng công nghệ chuỗi khối kết hợp với năng lực phân tích dữ liệu lớn (BDAC - Big Data Analytics Capabilities) mang lại những lợi ích chiến lược toàn diện cho các doanh nghiệp chế tạo cơ khí toàn cầu. Nghiên cứu thực nghiệm dựa trên phương pháp mô hình phương trình cấu trúc bình phương tối thiểu phần riêng phần (PLS-SEM) với dữ liệu từ 420 nhà quản lý sản xuất cho thấy công nghệ blockchain tạo ra nền tảng kỹ thuật số vững chắc, trong khi BDAC đóng vai trò trung gian cốt lõi để chuyển hóa dữ liệu thô thành hành động thực tiễn nhằm tối ưu hóa chuỗi cung ứng và thực hành kinh tế tuần hoàn <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-9\" class=\"hover:underline\">9</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig2.jpg\" alt=\"Các công nghệ cốt lõi trong Công nghiệp 4.0 [9] đối với chuỗi cung ứng thông minh.\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 5.</strong> Các công nghệ cốt lõi trong Công nghiệp 4.0 [9] đối với chuỗi cung ứng thông minh. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 4 trong bài gốc – Pandya et al. (2026), “The Mix-Match Concept of Digital Supply Chain and Digital Sustainability Practices”, <em>International Journal of Environmental Engineering and Development</em>, <a href=\"https://doi.org/10.37394/232033.2026.4.9\" target=\"_blank\" rel=\"noopener\">doi:10.37394/232033.2026.4.9</a> [<a href=\"#ref-3\">3</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<p>Bên cạnh đó, việc áp dụng các nguyên lý bảo trì tinh gọn kết hợp Công nghiệp 4.0 (Lean Maintenance 4.0) đối với các thiết bị hàn trong dây chuyền sản xuất thép mạ kẽm đã chứng minh việc chuẩn hóa quy trình thay thế đĩa hàn, áp dụng checklist vận hành và đào tạo nhân sự giúp giảm thiểu đáng kể thời gian dừng máy (downtime giảm tới 375 phút mỗi năm so với mức lịch sử 496 phút), qua đó tối ưu hóa hiệu suất tổng thể của thiết bị (OEE) và đảm bảo tính liên tục của chuỗi cung ứng chế tạo kết cấu thép quốc tế <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-10\" class=\"hover:underline\">10</a>]</sup>.</p>\n<h3>Thách thức Triển khai Thực tế trong Môi trường Hàn Công nghiệp</h3>\n<p>Mặc dù tiềm năng của blockchain và hợp đồng thông minh trong quản lý chứng chỉ hàn là rất lớn, việc triển khai thực tế tại các xưởng cơ khí nặng vẫn gặp phải nhiều rào cản kỹ thuật đáng kể. Môi trường hàn nóng chảy chịu ảnh hưởng khắc nghiệt từ bức xạ hồ quang cực mạnh, từ trường cao, nhiệt độ biến động và lượng xỉ hàn, văng tóe (spatter) lớn, gây khó khăn cho việc duy trì các thiết bị phần cứng thu thập dữ liệu tự động tại chỗ <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-7\" class=\"hover:underline\">7</a>]</sup>. Thêm vào đó, sự thiếu đồng bộ giữa các tiêu chuẩn quốc tế (AWS, ASME, ISO, JWES) trong việc quy định cấu trúc dữ liệu chứng chỉ tạo ra thách thức lớn về khả năng tương thích liên hệ thống (interoperability) <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. Vấn đề chi phí đầu tư hạ tầng ban đầu, năng lực số hóa của đội ngũ nhân sự kỹ thuật, cùng với độ trễ xử lý giao dịch của mạng blockchain công khai cũng là những bài toán cần được giải quyết triệt để trước khi triển khai quy mô lớn <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-11\" class=\"hover:underline\">11</a>, <a href=\"#ref-12\" class=\"hover:underline\">12</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig5.jpg\" alt=\"Các ứng dụng thực tiễn của công nghệ Blockchain trong công nghiệp và chuỗi cung ứng [12].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 6.</strong> Các ứng dụng thực tiễn của công nghệ Blockchain trong công nghiệp và chuỗi cung ứng [12]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 1 trong bài gốc – Kumar (2026), “Sustainable Agriculture Using Block Chain Technologies and Assistive AI”, <em>International Journal of Innovative Science and Research Technology (IJISRT)</em>, <a href=\"https://doi.org/10.38124/ijisrt/26jan1038\" target=\"_blank\" rel=\"noopener\">doi:10.38124/ijisrt/26jan1038</a> [<a href=\"#ref-12\">12</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY-NC</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure><h3>Ứng dụng trong Đào tạo Kỹ sư Hàn &amp; Quản lý Chứng chỉ</h3>\n<p>Để tận dụng tối đa các thành tựu của chuyển đổi số, các trung tâm đào tạo kỹ sư hàn, cơ quan kiểm định (Authorized Inspection Agencies - AIA) và các tổ chức chứng nhận quốc tế cần khẩn trương định hình lại chiến lược đào tạo và quản lý vận hành. Cụ thể:</p>\n<ul>\n<li><strong>Chuẩn hóa Chương trình Đào tạo:</strong> Tích hợp kiến thức về công nghệ blockchain, hợp đồng thông minh, và phân tích dữ liệu lớn vào chương trình đào tạo Kỹ sư Hàn Quốc tế (IWE) và Kiểm định viên hàn (CWI).</li>\n<li><strong>Hệ sinh thái Chứng chỉ Số Toàn cầu:</strong> Xây dựng các cổng thông tin xác thực chứng chỉ thợ hàn (WPQ) và quy trình hàn (WPS) dựa trên nền tảng phi tập trung, cho phép chủ đầu tư và nhà thầu tra cứu tức thời, minh bạch, loại bỏ hoàn toàn chứng chỉ giả.</li>\n<li><strong>Quản lý Vòng đời Tài sản Kỹ thuật:</strong> Ứng dụng mô hình bản sao số (Digital Twin) kết hợp trí tuệ nhân tạo để giám sát thời gian thực trạng thái thiết bị hàn, lịch sử bảo dưỡng và năng lực thực tế của thợ hàn trên xưởng sản xuất <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>, <a href=\"#ref-13\" class=\"hover:underline\">13</a>]</sup>.</li>\n</ul><figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig6.jpg\" alt=\"Các chủ đề nghiên cứu liên quan đến việc áp dụng Blockchain trong phát triển bền vững [15].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 7.</strong> Các chủ đề nghiên cứu liên quan đến việc áp dụng Blockchain trong phát triển bền vững [15]. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình trích từ bài gốc – Ordoñez et al. (2024), “Blockchain and agricultural sustainability in South America: a systematic review”, <em>Frontiers in Sustainable Food Systems</em>, <a href=\"https://doi.org/10.3389/fsufs.2024.1347116\" target=\"_blank\" rel=\"noopener\">doi:10.3389/fsufs.2024.1347116</a> [<a href=\"#ref-15\">15</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>",
+  "content_en": "<p class=\"lead\">The management of welding engineer certifications, welding procedure specifications (WPS), procedure qualification records (PQR), and welder performance qualifications (WPQ) under stringent international standards such as AWS D1.1, ASME Section IX, and ISO 9606 is undergoing a revolutionary transformation driven by the integration of blockchain technology and smart contracts. Transitioning from centralized legacy databases to immutable distributed ledgers fundamentally resolves certificate forgery, technical parameter discrepancies, and verification latency in heavy fabrication quality assurance. This technical insight examines advanced digital architectures designed to optimize heavy mechanical manufacturing supply chains and elevate non-destructive testing (NDT) reliability.</p>\n<h3>Industrial Context &amp; International Standards</h3>\n<p>Within steel structure fabrication, pressure vessels, and nuclear components, strict compliance with international standards such as AWS D1.1 (Structural Welding Code - Steel), ASME Section IX (Welding, Brazing, and Fusing Qualifications), and ISO regulations regarding base metals and filler metals is paramount. However, traditional management methodologies face severe bottlenecks. Manual record-keeping or centralized databases remain vulnerable to manipulation, lacking transparency regarding welders' work histories, welding machine maintenance logs, and the integrity of non-destructive testing (NDT) reports <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<p>Research indicates that the absence of a synchronized governance framework across personnel, raw materials, and equipment introduces high technical and legal risks in aerospace and energy projects <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>. According to cited authors, while ISO 9001 quality management frameworks are widely implemented, input monitoring traditionally relies on disparate, disconnected metrics rather than an integrated dynamic operational index assessing systemic enterprise health <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>. Consequently, coupling distributed ledger technology with big data analytics capabilities has become imperative to construct a transparent and automated digital certification ecosystem <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig3.jpg\" alt=\"Welding machine downtime reduction data from industrial galvanizing lines [10].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 1.</strong> Welding machine downtime reduction data from industrial galvanizing lines [10]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 3 of the original article – Matos et al. (2026), “Lean maintenance 4.0: Enhancing welding machine reliability in steel galvanizing processes”, <em>International Journal of Industrial Engineering and Management</em>, <a href=\"https://doi.org/10.24867/ijiem-430\" target=\"_blank\" rel=\"noopener\">doi:10.24867/ijiem-430</a> [<a href=\"#ref-10\">10</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure><h3>Blockchain Architecture and Smart Contracts for Anti-Counterfeiting in Welding Certification</h3>\n<p>To eradicate credential forgery and fraudulent welder performance qualifications (WPQ) or inspector certifications, advanced security frameworks combining Artificial Intelligence (AI) and blockchain have emerged <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. The SmartGate research demonstrated the application of machine learning algorithms (such as XGBoost paired with feature engineering) to screen behavioral anomalies and fraud throughout a certificate's lifecycle prior to anchoring on a local Ethereum blockchain <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. This framework incorporates SHAP (SHapley Additive exPlanations) to ensure explainability, transparency, and trust in system decision-making <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig4.jpg\" alt=\"The Proposed SmartGate System Architecture integrating AI and blockchain [4].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 2.</strong> The Proposed SmartGate System Architecture integrating AI and blockchain [4]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 1 of the original article – Khormi et al. (2026), “SmartGate: A Prototype of AI–Blockchain-Enabled Academic Certificate Management System”, <em>Future Internet</em>, <a href=\"https://doi.org/10.3390/fi18110577\" target=\"_blank\" rel=\"noopener\">doi:10.3390/fi18110577</a> [<a href=\"#ref-4\">4</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<p>Furthermore, automated generation of secure smart contracts has achieved significant milestones through specialized Large Language Models like SmartCoder-R1 (built on Qwen2.5-Coder-7B) <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>. Utilizing Continual Pre-training (CPT), Long Chain-of-Thought Supervised Fine-Tuning (L-CoT SFT) on 7,998 expert-validated samples, and Security-Aware Group Relative Policy Optimization (S-GRPO) across 1,691 samples, this model achieves top-tier performance in generating vulnerability-free smart contract code <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>. These smart contracts autonomously execute verification conditions for Welding Procedure Specifications (WPS) and issue WPQ credentials upon successful completion of AWS- or ASME-compliant welding tests.</p>\n<h3>Material Traceability and Immutable WPS/PQR Welding Parameter Logs</h3>\n<p>Transparent governance of welding consumables—including base metals, filler metals (electrodes, welding wires, fluxes), and critical parameters such as preheat temperatures, welding current, voltage, and travel speed recorded in WPS/PQR logs—directly dictates the integrity of heat-affected zones (HAZ) and welded joints. Multi-tier traceability frameworks utilizing 'link-chain' mapping mechanisms combined with IoT sensor networks and improved adaptive weighted fusion algorithms have recorded over 50,000 traceable data points across 12 operational units with exceptional data accuracy and robustness <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig1.jpg\" alt=\"Proposed layered architecture linking device interfaces, agricultural inputs, secure data processing [7].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 3.</strong> Proposed layered architecture linking device interfaces, agricultural inputs, secure data processing [7]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 2 of the original article – Ola et al. (2026), “Laborguard Blockchain-Enabled Agricultural Labor Verification and Anti-Human-Trafficking Compliance Device”, <em>International Journal of Technology and Applied Science</em>, <a href=\"https://doi.org/10.71097/ijtas.v17.i11.1480\" target=\"_blank\" rel=\"noopener\">doi:10.71097/ijtas.v17.i11.1480</a> [<a href=\"#ref-7\">7</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY-SA</a>; resized, content unchanged.</span></figcaption></figure>\n<p>By anchoring cryptographic hashes on-chain while storing auxiliary data in off-client databases and the Interplanetary File System (IPFS), the thermal history, electrical parameters, and mechanical test results of welded joints are immutably preserved <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>. This empowers QA/QC engineers to seamlessly verify the provenance of hexagonal close-packed (HCP) structural metals (such as titanium, magnesium, and zirconium) utilized in aerospace and nuclear engineering, where minor compositional deviations can trigger undesirable alpha-prime martensite formation or gas porosity defects <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>.</p>\n<p>Automation of Weld Quality Acceptance and NDT Inspection via Smart Contracts</p>\n<p>Non-destructive testing (NDT) inspection of critical welds in pressure vessels and structural steel often encounters significant subjectivity and a lack of explainability in AI models <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. Studies indicate that employing physics-informed AI and hybrid modeling across ultrasonic, radiographic, and optical inspection modalities substantially enhances reliability and consistency with established physical behaviors compared to traditional black-box machine learning models <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig7.jpg\" alt=\"Real-time monitoring of keyhole and weld pool dynamics during composite laser welding [8].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 4.</strong> Real-time monitoring of keyhole and weld pool dynamics during composite laser welding [8]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 1 of the original article – Zwoliński et al. (2025), “Laser Technologies of Welding, Surfacing and Regeneration of Metals with HCP Structure (Mg, Ti, Zr): State of the Art, Challenges and Prospects”, <em>Materials</em>, <a href=\"https://doi.org/10.3390/ma18225237\" target=\"_blank\" rel=\"noopener\">doi:10.3390/ma18225237</a> [<a href=\"#ref-8\">8</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<p>Integrating these NDT inspection outcomes into smart contracts allows the system to autonomously cross-reference defect acceptance criteria against AWS D1.1 or ASME Sec. VIII standards. Upon meeting quality thresholds, the smart contract automatically issues digital quality certificates and updates the welding engineer's digital profile without manual intervention, entirely eliminating commercial fraud and testing report falsification <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<h3>Transparency Benefits in International Mechanical and Steel Structure Supply Chains</h3>\n<p>Adopting blockchain technology alongside Big Data Analytics Capabilities (BDAC) yields comprehensive strategic advantages for global mechanical manufacturing enterprises. Empirical research utilizing Partial Least Squares Structural Equation Modeling (PLS-SEM) with data collected from 420 production managers reveals that blockchain establishes a reliable technological foundation, while BDAC acts as a vital mediating capability translating digital raw data into actionable circular economy and supply chain optimization practices <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-9\" class=\"hover:underline\">9</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig2.jpg\" alt=\"Technologies in Industry 4.0 [9] supporting smart supply chains and manufacturing.\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 5.</strong> Technologies in Industry 4.0 [9] supporting smart supply chains and manufacturing. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 4 of the original article – Pandya et al. (2026), “The Mix-Match Concept of Digital Supply Chain and Digital Sustainability Practices”, <em>International Journal of Environmental Engineering and Development</em>, <a href=\"https://doi.org/10.37394/232033.2026.4.9\" target=\"_blank\" rel=\"noopener\">doi:10.37394/232033.2026.4.9</a> [<a href=\"#ref-3\">3</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<p>Moreover, applying Lean Maintenance 4.0 principles to welding machinery within steel galvanizing production lines has demonstrated that standardizing disc replacement procedures, implementing operational checklists, and providing staff training successfully reduced total welding machine downtime by 375 minutes per year compared to the historical baseline of 496 minutes specifically tied to welding disk failures, thereby maximizing overall equipment effectiveness (OEE) and ensuring supply chain continuity <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-10\" class=\"hover:underline\">10</a>]</sup>.</p>\n<h3>Practical Deployment Challenges in Industrial Welding Environments</h3>\n<p>Despite the immense potential of blockchain and smart contracts in welding certification management, practical deployment in heavy fabrication shops faces substantial technical barriers. Fusion welding environments endure harsh conditions including intense arc radiation, high magnetic fields, fluctuating temperatures, and heavy spatter, complicating the deployment of on-site automated IoT data-acquisition hardware <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-7\" class=\"hover:underline\">7</a>]</sup>. Furthermore, a lack of harmonization among international standards (AWS, ASME, ISO, JWES) regarding certificate data structures creates interoperability hurdles <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. Initial capital investment costs, workforce digital literacy, and public blockchain transaction latency must also be systematically addressed prior to large-scale adoption <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-11\" class=\"hover:underline\">11</a>, <a href=\"#ref-12\" class=\"hover:underline\">12</a>]</sup>.</p>\n<p>Implications for Welding Engineer Training &amp; Certification Management</p>\n<p>To fully leverage digital transformation, welding training centers, Authorized Inspection Agencies (AIAs), and international certification bodies must urgently reshape their operational and training strategies:</p>\n<ul>\n<li><strong>Curriculum Standardization:</strong> Integrate foundational knowledge of blockchain technology, smart contracts, and big data analytics into International Welding Engineer (IWE) and Certified Welding Inspector (CWI) training programs.</li>\n<li><strong>Global Digital Certification Ecosystems:</strong> Establish decentralized portals for validating Welder Performance Qualifications (WPQ) and WPS procedures, enabling stakeholders to execute instant, tamper-proof verifications and eradicate credential fraud.</li>\n<li><strong>Asset Lifecycle Management:</strong> Implement Digital Twin frameworks powered by artificial intelligence to monitor real-time welding equipment health, maintenance logs, and active welder competencies on the shop floor <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>, <a href=\"#ref-13\" class=\"hover:underline\">13</a>]</sup>.</li>\n</ul><figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig5.jpg\" alt=\"Applications of Blockchain Technology in industrial and agricultural supply chains [12].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 6.</strong> Applications of Blockchain Technology in industrial and agricultural supply chains [12]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 1 of the original article – Kumar (2026), “Sustainable Agriculture Using Block Chain Technologies and Assistive AI”, <em>International Journal of Innovative Science and Research Technology (IJISRT)</em>, <a href=\"https://doi.org/10.38124/ijisrt/26jan1038\" target=\"_blank\" rel=\"noopener\">doi:10.38124/ijisrt/26jan1038</a> [<a href=\"#ref-12\">12</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY-NC</a>; resized, content unchanged.</span></figcaption></figure><figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-12-soloweld-blockchain-cert-traceability/fig6.jpg\" alt=\"Topics related to the adoption of Blockchain in sustainable manufacturing and supply networks [15].\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 7.</strong> Topics related to the adoption of Blockchain in sustainable manufacturing and supply networks [15]. <span class=\"block mt-1 text-xs text-slate-500\">Source: Figure reproduced from the original article – Ordoñez et al. (2024), “Blockchain and agricultural sustainability in South America: a systematic review”, <em>Frontiers in Sustainable Food Systems</em>, <a href=\"https://doi.org/10.3389/fsufs.2024.1347116\" target=\"_blank\" rel=\"noopener\">doi:10.3389/fsufs.2024.1347116</a> [<a href=\"#ref-15\">15</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>",
+  "content_zh": "<h3>引言与国际标准背景</h3>\n<p>在AWS D1.1、ASME Section IX及ISO 9606等严苛国际标准的指导下，焊接工程师认证、焊接工艺规程（WPS）、工艺评定记录（PQR）以及焊工技能评定（WPQ）的管理正经历由区块链与智能合约驱动的深刻变革。将传统集中式数据库转变为不可篡改的分布式账本，从根本上解决了重型机械制造质量保证中的证书伪造、参数偏差及验证延迟问题 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>, <a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>。</p>\n<h3>区块链与智能合约防伪架构</h3>\n<p>为根除焊工资格证（WPQ）伪造及行为欺诈，研究人员开发了结合人工智能与区块链的SmartGate安全框架 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。该框架利用XGBoost等机器学习算法对证书生命周期中的行为异常进行筛查，并引入SHAP（SHapley Additive exPlanations）可解释性AI技术，确保系统决策的透明度，随后将获批证书锚定至本地以太坊区块链 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。此外，基于Qwen2.5-Coder-7B开发的SmartCoder-R1大模型通过持续预训练（CPT）、长思维链监督微调（L-CoT SFT）及安全感知组相对策略优化（S-GRPO），实现了无漏洞智能合约的自动化生成，可自动执行AWS及ASME标准的焊接验证 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>。</p>\n<h3>材料追溯与WPS/PQR参数不可篡改日志</h3>\n<p>焊接消耗品（母材、填充金属如焊条、焊丝、焊剂）及WPS/PQR日志中记录的预热温度、焊接电流、电压、速度等参数的管理直接决定了热影响区（HAZ）和焊接接头的质量 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>。多层追溯框架采用“链接-链”映射机制，结合物联网传感器网络与自适应加权融合算法，在12个运营单元记录了超过50,000个可追溯数据点 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>。通过链上加密哈希与链下数据库及星际文件系统（IPFS）的结合，焊接接头的热历史与力学测试结果得以永久保存，确保了航空航天和核能领域使用的密排六方（HCP）结构金属（如钛、镁、锆）的纯正性 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>。</p>\n<h3>智能合约驱动的焊缝质量验收与NDT检测</h3>\n<p>无损检测（NDT）面临传统黑盒AI模型缺乏可解释性的挑战 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。研究表明，采用物理信息神经网络（Physics-informed AI）及超声、射线和光学检测的混合建模可显著提升模型的可靠性 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。通过将NDT检测结果接入智能合约，系统能够自动比对AWS D1.1或ASME Sec. VIII标准的缺陷验收标准。一旦达标，智能合约将自动签发数字质量证书并更新焊工数字档案，彻底杜绝商业欺诈 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。</p>\n<h3>供应链透明化与精益运维效益</h3>\n<p>区块链与大数据分析能力（BDAC）的结合为全球制造企业带来了战略优势。基于偏最小二乘结构方程模型（PLS-SEM）对420名生产经理的研究表明，区块链奠定了可靠的技术基础，而BDAC则充当了将数字原生数据转化为循环经济与供应链优化实践的关键中介 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-9\" class=\"hover:underline\">9</a>]</sup>。同时，在钢材镀锌生产线中应用精益运维4.0（Lean Maintenance 4.0）原则，通过标准化工装更换、制定操作清单和员工培训，使焊机年停机时间减少了375分钟，极大提升了设备综合效率（OEE） <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-10\" class=\"hover:underline\">10</a>]</sup>。</p>",
+  "content_ja": "<h3>産業コンテキストと国際基準</h3>\n<p>AWS D1.1、ASME Section IX、ISO 9606などの厳格な国際規格に基づく溶接エンジニア認証、溶接施工要領書（WPS）、施工確認記録（PQR）、および溶接士資格証明書（WPQ）の管理は、ブロックチェーンとスマートコントラクトの統合により革命的な変革を迎えています。従来の集中型データベースから改ざん不可能な分散型台帳への移行により、重工業における証明書の偽造、技術パラメータの乖離、検証の遅延が根本的に解決されます <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>, <a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>。</p>\n<h3>ブロックチェーンとスマートコントラクトによる偽造防止アーキテクチャ</h3>\n<p>溶接士資格（WPQ）や検査員の認証偽造を根絶するため、AIとブロックチェーンを融合したSmartGateセキュリティフレームワークが開発されました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。このフレームワークは、XGBoostなどの機械学習アルゴリズムを用いて証明書のライフサイクル全体における異常行動を検知し、SHAP（SHapley Additive exPlanations）による説明可能AI（XAI）を通じてシステム判断の透明性を確保した上で、ローカルEthereumブロックチェーンにアンカリングします <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。さらに、Qwen2.5-Coder-7BをベースにしたSmartCoder-R1モデルは、連続事前学習（CPT）や長思考連鎖教師あり微調整（L-CoT SFT）を経て、脆弱性のないスマートコードの自動生成を実現し、AWSおよびASME規格に準拠した溶接テストの検証条件を自動実行します <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>]</sup>。</p>\n<h3>材料トレーサビリティとWPS/PQRパラメータの不変ログ</h3>\n<p>母材、溶加材（溶接棒、ワイヤ、フラックス）、およびWPS/PQRに記録される予熱温度、溶接電流、電圧、速度などの溶接パラメータの透明な管理は、熱影響部（HAZ）および溶接継手の品質を左右します <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>。IoTセンサーネットワークと適応型重み付き融合アルゴリズムを統合した多層トレーサビリティフレームワークにより、12の運用ユニットで50,000件以上の追跡データポイントが記録されています <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-6\" class=\"hover:underline\">6</a>]</sup>。オンチェーンの暗号学的ハッシュとオフチェーンデータベース・IPFSの組み合わせにより、溶接継手の熱履歴や機械試験結果が不変に保存され、航空宇宙や原子力分野で使用される六方最密充填（HCP）構造金属（チタン、マグネシウム、ジルコニウム等）の品質保証が強化されます <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>。</p>\n<h3>スマートコントラクトによる溶接品質合否判定とNDT検査</h3>\n<p>非破壊検査（NDT）は、従来のブラックボックス型AIモデルにおける解釈性の欠如という課題に直面しています <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。物理情報に基づくAI（Physics-informed AI）や、超音波・放射線・光学検査を組み合わせたハイブリッドモデリングを採用することで、物理的挙動との一貫性が大幅に向上することが示されています <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。これらのNDT検査結果をスマートコントラクトに統合することにより、システムはAWS D1.1またはASME Sec. VIIIの規格に基づく欠陥許容基準を自動照合し、基準を満たした場合にはデジタル品質証明書を自動発行して溶接士のプロファイルを更新します <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。</p>\n<h3>国際サプライチェーンの透明化とリーン保守のメリット</h3>\n<p>ブロックチェーン技術とビッグデータ分析能力（BDAC）の統合は、グローバル製造企業に戦略的な優位性をもたらします。420名の生産管理者を対象とした部分最小二乗構造方程式モデリング（PLS-SEM）の研究によると、ブロックチェーンが信頼性の高い技術基盤を構築し、BDACがデジタルデータを循環型経済やサプライチェーン最適化の実践へと変換する中核的役割を果たします <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-9\" class=\"hover:underline\">9</a>]</sup>。さらに、亜鉛メッキ鋼板製造ラインの溶接機にリーン保守4.0（Lean Maintenance 4.0）の原則を適用し、交換手順の標準化やチェックリストの導入を行うことで、溶接機の年間停止時間を375分削減し、設備総合効率（OEE）を最大化することに成功しています <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-10\" class=\"hover:underline\">10</a>]</sup>。</p>",
+  "references": [
+    {
+      "n": 1,
+      "authors": [
+        "Rexcharles Enyinna Donatus",
+        "Loveth  O. Uhiah"
+      ],
+      "more_authors": false,
+      "title": "CERTIFICATION AND TRUSTWORTHY DEPLOYMENT OF EXPLAINABLE AND PHYSICS-INFORMED ARTIFICIAL INTELLIGENCE FOR AEROSPACE NON-DESTRUCTIVE TESTING",
+      "journal": "International Journal of Engineering Processing and Safety Research",
+      "date": "2026-04-03",
+      "doi": "10.70382/caijepsr.v11i5.010",
+      "url": "https://doi.org/10.70382/caijepsr.v11i5.010",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 2,
+      "authors": [
+        "Nasibakhon Sokhibjamol kizi Sotvoldieva"
+      ],
+      "more_authors": false,
+      "title": "Integrated Assessment Model for Quality and Safety Resources at A Textile Enterprise",
+      "journal": "Academia Open",
+      "date": "2026-11-09",
+      "doi": "10.21070/acopen.12.2027.16284",
+      "url": "https://doi.org/10.21070/acopen.12.2027.16284",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 3,
+      "authors": [
+        "Jay Pandya",
+        "Satya R Shah",
+        "Elmira Naghi Ganji"
+      ],
+      "more_authors": false,
+      "title": "The Mix-Match Concept of Digital Supply Chain and Digital Sustainability Practices",
+      "journal": "International Journal of Environmental Engineering and Development",
+      "date": "2026-11-09",
+      "doi": "10.37394/232033.2026.4.9",
+      "url": "https://doi.org/10.37394/232033.2026.4.9",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 4,
+      "authors": [
+        "Ibrahim Khormi",
+        "Priyadarsi Nanda",
+        "Mohammed Y. Aalsalem",
+        "Manoranjan Mohanty",
+        "Ibrahim Aqeel"
+      ],
+      "more_authors": false,
+      "title": "SmartGate: A Prototype of AI–Blockchain-Enabled Academic Certificate Management System",
+      "journal": "Future Internet",
+      "date": "2026-10-22",
+      "doi": "10.3390/fi18110577",
+      "url": "https://doi.org/10.3390/fi18110577",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 5,
+      "authors": [
+        "Lei Yu",
+        "Jingyuan Zhang",
+        "Xin Wang",
+        "Li Yang",
+        "Fengjun Zhang",
+        "Jiajia Ma"
+      ],
+      "more_authors": false,
+      "title": "SmartCoder-R1: Towards Secure and Explainable Smart Contract Generation with Security-Aware Group Relative Policy Optimization",
+      "journal": "Proceedings of the ACM on software engineering.",
+      "date": "2026-06-30",
+      "doi": "10.1145/3808104",
+      "url": "https://doi.org/10.1145/3808104",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 6,
+      "authors": [
+        "Hongyan Guo",
+        "Wei Xu",
+        "Mingxia Lin",
+        "Xingguo Zhang",
+        "Pingzeng Liu"
+      ],
+      "more_authors": false,
+      "title": "Design of a Blockchain-Enabled Traceability System for Pleurotus ostreatus Supply Chains",
+      "journal": "Foods",
+      "date": "2025-11-19",
+      "doi": "10.3390/foods14223959",
+      "url": "https://doi.org/10.3390/foods14223959",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 7,
+      "authors": [
+        "Oluwaseun Ola",
+        "Amina Peter-Anyebe",
+        "Bhavesh Kataria"
+      ],
+      "more_authors": false,
+      "title": "Laborguard Blockchain-Enabled Agricultural Labor Verification and Anti-Human-Trafficking Compliance Device",
+      "journal": "International Journal of Technology and Applied Science",
+      "date": "2026-11-06",
+      "doi": "10.71097/ijtas.v17.i11.1480",
+      "url": "https://doi.org/10.71097/ijtas.v17.i11.1480",
+      "license": "cc-by-sa",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 8,
+      "authors": [
+        "Adam Zwoliński",
+        "Sylwester Samborski",
+        "Jakub Rzeczkowski"
+      ],
+      "more_authors": false,
+      "title": "Laser Technologies of Welding, Surfacing and Regeneration of Metals with HCP Structure (Mg, Ti, Zr): State of the Art, Challenges and Prospects",
+      "journal": "Materials",
+      "date": "2025-11-19",
+      "doi": "10.3390/ma18225237",
+      "url": "https://doi.org/10.3390/ma18225237",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 9,
+      "authors": [
+        "Sidra Batool",
+        "Guitao Zhang"
+      ],
+      "more_authors": false,
+      "title": "Digital drivers of circularity: examining the mediating role of big data analytics capabilities in the blockchain-circular economy nexus",
+      "journal": "Future Business Journal",
+      "date": "2026-11-09",
+      "doi": "10.1186/s43093-026-00997-1",
+      "url": "https://doi.org/10.1186/s43093-026-00997-1",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 10,
+      "authors": [
+        "Lucas Matos",
+        "Nuno  Torre Torre",
+        "Andrei Bonamigo"
+      ],
+      "more_authors": false,
+      "title": "Lean maintenance 4.0: Enhancing welding machine reliability in steel galvanizing processes",
+      "journal": "International Journal of Industrial Engineering and Management",
+      "date": "2026-11-05",
+      "doi": "10.24867/ijiem-430",
+      "url": "https://doi.org/10.24867/ijiem-430",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 11,
+      "authors": [
+        "Yohanes Dicka Parama",
+        "Andri Hermawan"
+      ],
+      "more_authors": false,
+      "title": "Utilization of Nuclear Technology in Supply Chains: A Review of the Literature",
+      "journal": "Jurnal Improsci",
+      "date": "2026-11-10",
+      "doi": "10.62885/improsci.v4i2.1360",
+      "url": "https://doi.org/10.62885/improsci.v4i2.1360",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 12,
+      "authors": [
+        "K. Santhosh Kumar"
+      ],
+      "more_authors": false,
+      "title": "Sustainable Agriculture Using Block Chain Technologies and Assistive AI",
+      "journal": "International Journal of Innovative Science and Research Technology (IJISRT)",
+      "date": "2026-01-28",
+      "doi": "10.38124/ijisrt/26jan1038",
+      "url": "https://doi.org/10.38124/ijisrt/26jan1038",
+      "license": "cc-by-nc",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 13,
+      "authors": [
+        "Mahdi Sadeqi Bajestani",
+        "Duhwan Mun",
+        "Duck Bong Kim"
+      ],
+      "more_authors": false,
+      "title": "A digital twin-based architecture for human-humanoid-machine interaction (DT-H2MI) in smart manufacturing",
+      "journal": "Journal of Intelligent Manufacturing",
+      "date": "2026-11-10",
+      "doi": "10.1007/s10845-026-03024-w",
+      "url": "https://doi.org/10.1007/s10845-026-03024-w",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 14,
+      "authors": [
+        "Budi Harsanto",
+        "Joval Ifghaniyafi Farras",
+        "Egi Arvian Firmansyah",
+        "Mahir Pradana",
+        "Ardi Apriliadi"
+      ],
+      "more_authors": false,
+      "title": "Digital Technology 4.0 on Halal Supply Chain: A Systematic Review",
+      "journal": "Logistics",
+      "date": "2024-02-18",
+      "doi": "10.3390/logistics8010021",
+      "url": "https://doi.org/10.3390/logistics8010021",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 15,
+      "authors": [
+        "Cristian Camilo Ordoñez",
+        "Gustavo A. Ramírez González",
+        "Juan Carlos Corrales"
+      ],
+      "more_authors": false,
+      "title": "Blockchain and agricultural sustainability in South America: a systematic review",
+      "journal": "Frontiers in Sustainable Food Systems",
+      "date": "2024-02-13",
+      "doi": "10.3389/fsufs.2024.1347116",
+      "url": "https://doi.org/10.3389/fsufs.2024.1347116",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    },
+    {
+      "n": 16,
+      "authors": [
+        "Kai Yu",
+        "Mingming Zhong",
+        "Wenjing Zhu",
+        "Arif Rashid",
+        "Rongwei Han",
+        "Muhammad Safiullah Virk"
+      ],
+      "more_authors": true,
+      "title": "Advances in Computer Vision and Spectroscopy Techniques for Non-Destructive Quality Assessment of Citrus Fruits: A Comprehensive Review",
+      "journal": "Foods",
+      "date": "2025-01-24",
+      "doi": "10.3390/foods14030386",
+      "url": "https://doi.org/10.3390/foods14030386",
+      "license": "cc-by",
+      "topic": "blockchain_cert_traceability"
+    }
+  ],
+  "generated_by": "SoloWeld AI Editorial Engine (Gemini)"
+}
