@@ -1,4 +1,4 @@
-zf<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,19 +18,17 @@ zf<!DOCTYPE html>
                 <i class="fa-solid fa-fire-flame-curved text-orange-500 text-2xl"></i>
                 <span class="text-xl font-bold tracking-wider text-white">Solo<span class="text-orange-500">Weld</span>.io</span>
             </div>
+            
+            <!-- Menu duy nhất, đã loại bỏ trùng lặp -->
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
                 <a href="#features" class="hover:text-orange-400 transition" data-i18n="nav_ecosystem">Ecosystem</a>
-                <a href="#news" class="hover:text-orange-400 transition" data-i18n="nav_news">News & Insights</a> <!-- Thêm dòng này -->
+                <a href="#news" class="hover:text-orange-400 transition" data-i18n="nav_news">News & Insights</a>
                 <a href="chatbot.html" class="hover:text-orange-400 transition" data-i18n="nav_ai">AI Assistant (RAG)</a>
-                <a href="https://hanleduy-hust.github.io/" target="_blank" class="nav-link">Contact</a>
+                <a href="https://hanleduy-hust.github.io/" target="_blank" class="hover:text-orange-400 transition" data-i18n="nav_contact">Contact</a>
             </nav>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                <a href="#features" class="hover:text-orange-400 transition" data-i18n="nav_ecosystem">Ecosystem</a>
-                <a href="chatbot.html" class="hover:text-orange-400 transition" data-i18n="nav_ai">AI Assistant (RAG)</a>
-                <a href="https://hanleduy-hust.github.io/" target="_blank" class="nav-link">Contact</a>
-            </nav>
+
             <div class="flex items-center space-x-3">
-                <!-- Nút chọn 4 ngôn ngữ (Đã sửa sự kiện bấm) -->
+                <!-- Nút chọn 4 ngôn ngữ -->
                 <div class="bg-slate-800 border border-slate-700 rounded-lg p-1 flex text-xs font-semibold space-x-1">
                     <button type="button" onclick="switchLanguage('en')" id="btn-en" class="px-2 py-1 rounded bg-orange-600 text-white transition cursor-pointer">EN</button>
                     <button type="button" onclick="switchLanguage('vi')" id="btn-vi" class="px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer">VI</button>
@@ -53,7 +51,6 @@ zf<!DOCTYPE html>
         <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6" data-i18n="hero_title">
             Next-Gen Joining Technology <br>Powered by <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">AI & Blockchain</span>
         </h1>
-        <!-- Đã bổ sung data-i18n="hero_desc" để đoạn văn tự đổi theo ngôn ngữ -->
         <p class="max-w-2xl mx-auto text-lg text-slate-400 mb-10" data-i18n="hero_desc">
             An automated advanced welding technology ecosystem: Micro-learning, automated WPS/PQR workflows, hallucination-free AI technical assistant, and blockchain credentials.
         </p>
@@ -118,62 +115,64 @@ zf<!DOCTYPE html>
             </div>
         </div>
     </section>
-<!-- News & Expert Insights Section -->
-<section id="news" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-900">
-    <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-white mb-3" data-i18n="news_heading">Latest News & Expert Insights</h2>
-        <p class="text-slate-400" data-i18n="news_subheading">Weekly updates on AI, Machine Learning, Computer Vision, and Blockchain in Welding 4.0</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Bài viết mẫu 1 -->
-        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
-                    <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_1">AI & Computer Vision</span>
-                    <span>2026-11-15</span>
-                </div>
-                <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_1">Automated Weld Defect Detection Using YOLOv11 and Edge AI</h3>
-                <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_1">Exploring real-time radiographic and visual inspection integration on NVIDIA Jetson Orin NX for industrial manufacturing lines.</p>
-            </div>
-            <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
-                <span data-i18n="read_more">Read Article</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
 
-        <!-- Bài viết mẫu 2 -->
-        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
-                    <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_2">Blockchain & Credentials</span>
-                    <span>2026-11-08</span>
-                </div>
-                <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_2">Tamper-Proof Welder Qualification Management via Blockcerts</h3>
-                <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_2">Securing JWES and AWS welder certifications on decentralized ledgers to prevent certificate fraud and streamline surveillance audits.</p>
-            </div>
-            <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
-                <span data-i18n="read_more">Read Article</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+    <!-- News & Expert Insights Section -->
+    <section id="news" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-900">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white mb-3" data-i18n="news_heading">Latest News & Expert Insights</h2>
+            <p class="text-slate-400" data-i18n="news_subheading">Weekly updates on AI, Machine Learning, Computer Vision, and Blockchain in Welding 4.0</p>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Bài viết mẫu 1 -->
+            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
+                        <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_1">AI & Computer Vision</span>
+                        <span>2026-11-15</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_1">Automated Weld Defect Detection Using YOLOv11 and Edge AI</h3>
+                    <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_1">Exploring real-time radiographic and visual inspection integration on NVIDIA Jetson Orin NX for industrial manufacturing lines.</p>
+                </div>
+                <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
+                    <span data-i18n="read_more">Read Article</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
 
-        <!-- Bài viết mẫu 3 -->
-        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
-            <div>
-                <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
-                    <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_3">Smart Contracts & Tech Transfer</span>
-                    <span>2026-11-01</span>
+            <!-- Bài viết mẫu 2 -->
+            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
+                        <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_2">Blockchain & Credentials</span>
+                        <span>2026-11-08</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_2">Tamper-Proof Welder Qualification Management via Blockcerts</h3>
+                    <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_2">Securing JWES and AWS welder certifications on decentralized ledgers to prevent certificate fraud and streamline surveillance audits.</p>
                 </div>
-                <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_3">Smart Contracts for Automated Settlement in Global Tech Transfer</h3>
-                <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_3">Leveraging multi-sig smart contracts and automated milestones for seamless international welding technology transfer projects.</p>
+                <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
+                    <span data-i18n="read_more">Read Article</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
-            <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
-                <span data-i18n="read_more">Read Article</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+
+            <!-- Bài viết mẫu 3 -->
+            <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 transition flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between text-xs text-orange-400 mb-3">
+                        <span class="bg-orange-500/10 px-2.5 py-1 rounded-full font-semibold" data-i18n="news_tag_3">Smart Contracts & Tech Transfer</span>
+                        <span>2026-11-01</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2" data-i18n="news_title_3">Smart Contracts for Automated Settlement in Global Tech Transfer</h3>
+                    <p class="text-slate-400 text-sm mb-4" data-i18n="news_desc_3">Leveraging multi-sig smart contracts and automated milestones for seamless international welding technology transfer projects.</p>
+                </div>
+                <a href="#" class="text-orange-400 hover:text-orange-300 text-xs font-semibold flex items-center space-x-1 mt-auto">
+                    <span data-i18n="read_more">Read Article</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
-        </div>
-        </section>
+    </section>
+
     <!-- Footer -->
     <footer class="border-t border-slate-900 py-8 text-center text-xs text-slate-500">
         <p data-i18n="footer_text">&copy; 2026 SoloWeld.io - Solopreneur Welding 4.0 Ecosystem. Powered by GitHub Pages.</p>
@@ -182,74 +181,9 @@ zf<!DOCTYPE html>
     <!-- JavaScript xử lý đa ngôn ngữ chuẩn xác -->
     <script>
         const translations = {
-    en: {
-        // ... các từ khóa cũ giữ nguyên ...
-        nav_news: "News & Insights",
-        news_heading: "Latest News & Expert Insights",
-        news_subheading: "Weekly updates on AI, Machine Learning, Computer Vision, and Blockchain in Welding 4.0",
-        news_tag_1: "AI & Computer Vision",
-        news_title_1: "Automated Weld Defect Detection Using YOLOv11 and Edge AI",
-        news_desc_1: "Exploring real-time radiographic and visual inspection integration on NVIDIA Jetson Orin NX for industrial manufacturing lines.",
-        news_tag_2: "Blockchain & Credentials",
-        news_title_2: "Tamper-Proof Welder Qualification Management via Blockcerts",
-        news_desc_2: "Securing JWES and AWS welder certifications on decentralized ledgers to prevent certificate fraud and streamline surveillance audits.",
-        news_tag_3: "Smart Contracts & Tech Transfer",
-        news_title_3: "Smart Contracts for Automated Settlement in Global Tech Transfer",
-        news_desc_3: "Leveraging multi-sig smart contracts and automated milestones for seamless international welding technology transfer projects.",
-        read_more: "Read Article"
-    },
-    vi: {
-        // ... các từ khóa cũ giữ nguyên ...
-        nav_news: "Tin tức & Chuyên đề",
-        news_heading: "Tin Tức & Góc Chuyên Gia",
-        news_subheading: "Cập nhật hàng tuần về ứng dụng AI, Machine Learning, Thị giác máy tính và Blockchain trong Hàn 4.0",
-        news_tag_1: "AI & Thị giác máy tính",
-        news_title_1: "Phát hiện khuyết tật mối hàn tự động sử dụng YOLOv11 và Edge AI",
-        news_desc_1: "Khám phá tích hợp kiểm tra ngoại quan và X-ray thời gian thực trên phần cứng NVIDIA Jetson Orin NX cho dây chuyền chế tạo công nghiệp.",
-        news_tag_2: "Blockchain & Chứng chỉ",
-        news_title_2: "Quản lý chứng chỉ thợ hàn chống giả mạo thông qua Blockcerts",
-        news_desc_2: "Bảo mật chứng nhận thợ hàn JWES và AWS trên sổ cái phân tán để ngăn chặn giả mạo và tối ưu hóa việc kiểm tra giám sát định kỳ.",
-        news_tag_3: "Smart Contracts & Chuyển giao",
-        news_title_3: "Hợp đồng thông minh cho thanh toán tự động trong chuyển giao công nghệ",
-        news_desc_3: "Ứng dụng hợp đồng thông minh đa chữ ký và mốc tiến độ tự động hóa cho các dự án chuyển giao công nghệ hàn quốc tế.",
-        read_more: "Đọc bài viết"
-    },
-    zh: {
-        // ... các từ khóa cũ giữ nguyên ...
-        nav_news: "新闻与洞察",
-        news_heading: "最新新闻与专家洞察",
-        news_subheading: "关于焊接 4.0 中人工智能、机器学习、计算机视觉和区块链应用的每周更新",
-        news_tag_1: "AI 与计算机视觉",
-        news_title_1: "使用 YOLOv11 和边缘 AI 的自动焊缝缺陷检测",
-        news_desc_1: "探索在 NVIDIA Jetson Orin NX 上集成实时射线照相和目视检查，用于工业制造流水线。",
-        news_tag_2: "区块链与凭证",
-        news_title_2: "通过 Blockcerts 进行防篡改焊工资格管理",
-        news_desc_2: "在去中心化账本上保护 JWES 和 AWS 焊工认证，以防止证书欺诈并简化监督审核。",
-        news_tag_3: "智能合约与技术转让",
-        news_title_3: "全球技术转让中自动结算的智能合约",
-        news_desc_3: "利用多签智能合约和自动化里程碑实现无缝的国际焊接技术转让项目。",
-        read_more: "阅读文章"
-    },
-    ja: {
-        // ... các từ khóa cũ giữ nguyên ...
-        nav_news: "ニュース＆インサイト",
-        news_heading: "最新ニュース＆専門家インサイト",
-        news_subheading: "溶接4.0におけるAI、機械学習、コンピュータビジョン、ブロックチェーンに関する毎週のアップデート",
-        news_tag_1: "AI & コンピューータビジョン",
-        news_title_1: "YOLOv11とエッジAIを活用した自動溶接欠陥検出",
-        news_desc_1: "NVIDIA Jetson Orin NX上でのリアルタイム放射線・外観検査統合による産業用製造ラインの効率化。",
-        news_tag_2: "ブロックチェーン & 資格",
-        news_title_2: "Blockcertsによる改ざん不可能な溶接士資格管理",
-        news_desc_2: "分散型台帳でJWESおよびAWS溶接士資格を保護し、証明書の偽造防止とサーベイランス監査の効率化を実現。",
-        news_tag_3: "スマートコントラクト & 技術移転",
-        news_title_3: "グローバル技術移転における自動決済のためのスマートコントラクト",
-        news_desc_3: "マルチシグ・スマートコントラクトと自動マイルストーンを活用した、シームレスな国際溶接技術移転プロジェクト。",
-        read_more: "記事を読む"
-    }
-};
-        const translations = {
             en: {
                 nav_ecosystem: "Ecosystem",
+                nav_news: "News & Insights",
                 nav_ai: "AI Assistant (RAG)",
                 nav_contact: "Contact",
                 btn_try_ai: "Try AI Demo",
@@ -271,10 +205,23 @@ zf<!DOCTYPE html>
                 link_try: "Try Now",
                 m5_title: "5. Global Tech Transfer & Smart Contracts",
                 m5_desc: "High-end welding technology transfer brokerage, project coordination, and automated settlement via multi-sig smart contracts.",
+                news_heading: "Latest News & Expert Insights",
+                news_subheading: "Weekly updates on AI, Machine Learning, Computer Vision, and Blockchain in Welding 4.0",
+                news_tag_1: "AI & Computer Vision",
+                news_title_1: "Automated Weld Defect Detection Using YOLOv11 and Edge AI",
+                news_desc_1: "Exploring real-time radiographic and visual inspection integration on NVIDIA Jetson Orin NX for industrial manufacturing lines.",
+                news_tag_2: "Blockchain & Credentials",
+                news_title_2: "Tamper-Proof Welder Qualification Management via Blockcerts",
+                news_desc_2: "Securing JWES and AWS welder certifications on decentralized ledgers to prevent certificate fraud and streamline surveillance audits.",
+                news_tag_3: "Smart Contracts & Tech Transfer",
+                news_title_3: "Smart Contracts for Automated Settlement in Global Tech Transfer",
+                news_desc_3: "Leveraging multi-sig smart contracts and automated milestones for seamless international welding technology transfer projects.",
+                read_more: "Read Article",
                 footer_text: "&copy; 2026 SoloWeld.io - Solopreneur Welding 4.0 Ecosystem. Powered by GitHub Pages."
             },
             vi: {
                 nav_ecosystem: "Hệ sinh thái",
+                nav_news: "Tin tức & Chuyên đề",
                 nav_ai: "Trợ lý AI (RAG)",
                 nav_contact: "Liên hệ",
                 btn_try_ai: "Dùng thử AI",
@@ -296,89 +243,11 @@ zf<!DOCTYPE html>
                 link_try: "Trải nghiệm ngay",
                 m5_title: "5. Chuyển giao Công nghệ & Smart Contracts",
                 m5_desc: "Môi giới chuyển giao công nghệ hàn cao cấp, điều phối dự án và thanh toán tự động qua hợp đồng thông minh đa chữ ký.",
-                footer_text: "&copy; 2026 SoloWeld.io - Hệ sinh thái Solopreneur Welding 4.0. Vận hành trên GitHub Pages."
-            },
-            zh: {
-                nav_ecosystem: "生态系统",
-                nav_ai: "AI 助手 (RAG)",
-                nav_contact: "联系我们",
-                btn_try_ai: "试用 AI 演示",
-                hero_badge: "Welding 4.0 个人企业生态系统",
-                hero_title: '新一代焊接技术 <br>由 <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">AI & 区块链</span> 驱动',
-                hero_desc: "自动化高级焊接技术生态系统：微学习、自动 WPS/PQR 工作流、无幻觉 AI 技术助手以及区块链凭证。",
-                btn_explore: "探索模块",
-                btn_test_ai: "测试 AI 聊天机器人",
-                mod_heading: "5大核心生态模块",
-                mod_subheading: "通过自动化个人企业模型实现精简运营架构",
-                m1_title: "1. 微学习与 LMS",
-                m1_desc: "利用 AI 虚拟形象、微学习模块和自动化选择题测试的在线培训。",
-                m2_title: "2. 自动 WPS/PQR",
-                m2_desc: "根据 ASME、AWS、ISO 标准自动查询、参数建议和生成标准化焊接工艺规程。",
-                m3_title: "3. 区块链凭证",
-                m3_desc: "使用 Blockcerts 技术签发和管理不可篡改、防伪的焊工资格证书。",
-                m4_title: "4. AI RAG 专家聊天机器人",
-                m4_desc: "基于核心标准数据库的深入技术咨询虚拟助手，具有严格的幻觉控制（temperature=0）。",
-                link_try: "立即体验",
-                m5_title: "5. 全球技术转让与智能合约",
-                m5_desc: "高端焊接技术转让经纪、项目协调并通过多签智能合约自动结算。",
-                footer_text: "&copy; 2026 SoloWeld.io - Welding 4.0 个人企业生态系统。由 GitHub Pages 提供支持。"
-            },
-            ja: {
-                nav_ecosystem: "エコシステム",
-                nav_ai: "AIアシスタント (RAG)",
-                nav_contact: "お問い合わせ",
-                btn_try_ai: "AIデモを試す",
-                hero_badge: "Welding 4.0 ソロプレナーエコシステム",
-                hero_title: '次世代接合技術 <br>搭載 <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-200">AI & ブロックチェーン</span>',
-                hero_desc: "自動化された高度な溶接技術エコシステム：マイクロラーニング、自動 WPS/PQR ワークフロー、ハルシネーションのないAI技術アシスタント、ブロックチェーン証明書。",
-                btn_explore: "モジュールを探索",
-                btn_test_ai: "AIチャットボットをテスト",
-                mod_heading: "5つのコアエコシステムモジュール",
-                mod_subheading: "自動化されたソロプレナーモデルによる効率的な運用アーキテクチャ",
-                m1_title: "1. マイクロラーニング & LMS",
-                m1_desc: "AIアバター、マイクロラーニングモジュール、自動選択式テストを活用したオンライン研修。",
-                m2_title: "2. 自動 WPS/PQR",
-                m2_desc: "ASME、AWS、ISO規格に基づく自動検索、パラメータ提案、および標準化された溶接施工要領書の作成。",
-                m3_title: "3. ブロックチェーン証明書",
-                m3_desc: "Blockcerts技術を使用した、改ざん不可能で信頼性の高い溶接士資格の発行と管理。",
-                m4_title: "4. AI RAG エキスパートチャットボット",
-                m4_desc: "厳格なハルシネーション制御（temperature=0）を備えた、コア規格データベースに基づく高度な技術アドバイザリーAI。",
-                link_try: "今すぐ体験",
-                m5_title: "5. グローバル技術移転 & スマートコントラクト",
-                m5_desc: "ハイエンド溶接技術移転の仲介、プロジェクト調整、マルチシグ・スマートコントラクトによる自動決済。",
-                footer_text: "&copy; 2026 SoloWeld.io - ソロプレナー溶接4.0エコシステム. Powered by GitHub Pages."
-            }
-        };
-
-        function switchLanguage(lang) {
-            const langs = ['en', 'vi', 'zh', 'ja'];
-            
-            langs.forEach(l => {
-                const btn = document.getElementById('btn-' + l);
-                if(btn) {
-                    if(l === lang) {
-                        btn.className = "px-2 py-1 rounded bg-orange-600 text-white transition cursor-pointer";
-                    } else {
-                        btn.className = "px-2 py-1 rounded text-slate-400 hover:text-white transition cursor-pointer";
-                    }
-                }
-            });
-
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if(translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-
-            localStorage.setItem('soloweld_lang', lang);
-        }
-
-        window.onload = function() {
-            const savedLang = localStorage.getItem('soloweld_lang') || 'en';
-            switchLanguage(savedLang);
-        };
-    </script>
-</body>
-</html>
+                news_heading: "Tin Tức & Góc Chuyên Gia",
+                news_subheading: "Cập nhật hàng tuần về ứng dụng AI, Machine Learning, Thị giác máy tính và Blockchain trong Hàn 4.0",
+                news_tag_1: "AI & Thị giác máy tính",
+                news_title_1: "Phát hiện khuyết tật mối hàn tự động sử dụng YOLOv11 và Edge AI",
+                news_desc_1: "Khám phá tích hợp kiểm tra ngoại quan và X-ray thời gian thực trên phần cứng NVIDIA Jetson Orin NX cho dây chuyền chế tạo công nghiệp.",
+                news_tag_2: "Blockchain & Chứng chỉ",
+                news_title_2: "Quản lý chứng chỉ thợ hàn chống giả mạo thông qua Blockcerts",
+                news_desc_2: "
