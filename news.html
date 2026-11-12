@@ -135,6 +135,12 @@
 
         <div id="reader-tags" class="flex flex-wrap gap-1.5 mb-6"></div>
 
+        <aside id="reader-disclosure" aria-labelledby="disclosure-title" class="mb-6 space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-slate-700">
+          <h2 id="disclosure-title" class="font-bold text-slate-900"></h2>
+          <p id="disclosure-ai"></p>
+          <p id="disclosure-responsibility"></p>
+        </aside>
+
         <!-- Thanh chọn ngôn ngữ đọc nội dung chi tiết -->
         <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 mb-6 text-xs text-slate-600">
           <span id="ui-content-lang-note">Nội dung phân tích kỹ thuật chi tiết:</span>
@@ -154,6 +160,13 @@
             Tài liệu tham khảo khoa học (Open Access DOI)
           </h3>
           <ol id="reader-refs" class="space-y-3 text-sm text-slate-600 list-decimal pl-5"></ol>
+        </section>
+
+        <section id="reader-citation" aria-labelledby="citation-title" class="mt-8 space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700">
+          <h2 id="citation-title" class="font-bold text-slate-900"></h2>
+          <p id="citation-original"></p>
+          <p id="citation-digest"></p>
+          <p id="citation-example" class="rounded-lg bg-white p-3 break-words"></p>
         </section>
       </div>
     </article>
@@ -457,6 +470,71 @@
       renderActivePost();
     }
 
+
+    const editorialNotes = {
+      "vi": [
+        "Công bố về AI và trách nhiệm sử dụng",
+        "Bản tin này được AI tự động biên soạn toàn bộ dựa trên các tài liệu được liệt kê trong mục Tài liệu tham khảo.",
+        "Nội dung chỉ dùng để tham khảo và có thể có sai sót. Người đọc tự chịu trách nhiệm về việc áp dụng vào công việc của mình. Trước khi sử dụng cho thiết kế, chế tạo, kiểm định hoặc nghiên cứu, hãy đối chiếu bài báo gốc và các tiêu chuẩn áp dụng.",
+        "Hướng dẫn trích dẫn",
+        "Khi sử dụng kết quả, số liệu hoặc hình ảnh, hãy trích dẫn bài báo gốc theo DOI trong danh mục trên. Nếu tái sử dụng hình ảnh, hãy ghi nguồn và tuân thủ giấy phép của hình.",
+        "Nếu cần dẫn chính phần tổng hợp, hãy trích dẫn bản tin SoloWeld theo mẫu dưới đây và ghi rõ nội dung do AI biên soạn.",
+        "Bản tin do AI biên soạn",
+        "Truy cập"
+      ],
+      "en": [
+        "AI disclosure and responsibility for use",
+        "This digest was written entirely by AI based on the sources listed in the References section.",
+        "The content is for reference and may contain errors. Readers are responsible for how they apply it in their work. For design, manufacturing, inspection, or research, verify the information against the original papers and applicable standards.",
+        "How to cite",
+        "When using a finding, data point, or figure, cite the original paper using the DOI listed above. When reusing figures, credit the source and follow its license.",
+        "When referring to this synthesis itself, cite the SoloWeld digest using the example below and identify it as AI-generated.",
+        "AI-generated digest",
+        "Accessed"
+      ],
+      "zh": [
+        "AI 编写声明与使用责任",
+        "本简报完全由 AI 根据参考文献中列出的资料自动编写。",
+        "内容仅供参考，可能存在错误。读者应自行承担将其用于工作的责任。用于设计、制造、检验或研究前，请核对原始论文及适用标准。",
+        "引用指南",
+        "引用研究结果、数据或图片时，请通过上方所列 DOI 引用原始论文。转载图片时，请注明来源并遵守其许可。",
+        "引用本综述时，请参照下方示例引用 SoloWeld 简报，并注明其由 AI 编写。",
+        "AI 编写简报",
+        "访问日期"
+      ],
+      "ja": [
+        "AIによる作成の開示と利用責任",
+        "本ダイジェストは、参考文献に記載した資料に基づき、全編をAIが自動で作成しました。",
+        "内容は参考用であり、誤りを含む可能性があります。業務への適用は読者自身の責任で行ってください。設計、製造、検査、研究に用いる前に、原著論文と適用規格を確認してください。",
+        "引用ガイド",
+        "研究結果、データ、図を利用する場合は、上記のDOIを用いて原著論文を引用してください。図を再利用する際は、出典を明記し、ライセンスに従ってください。",
+        "本ダイジェストの要約自体を参照する場合は、下記の例に従ってSoloWeldの記事を引用し、AIが作成したことを明記してください。",
+        "AI作成ダイジェスト",
+        "閲覧日"
+      ]
+    };
+
+    function renderEditorialNotes() {
+      const sample = activePost.id === FALLBACK_SAMPLE_POST.id;
+      document.getElementById("reader-disclosure").hidden = sample;
+      document.getElementById("reader-citation").hidden = sample;
+      if (sample) return;
+
+      const notes = editorialNotes[readerContentLang] || editorialNotes.en;
+      const fields = ["disclosure-title", "disclosure-ai", "disclosure-responsibility",
+        "citation-title", "citation-original", "citation-digest"];
+      fields.forEach((id, index) => {
+        document.getElementById(id).textContent = notes[index];
+      });
+
+      const url = new URL("news.html", window.location.href);
+      url.hash = "post=" + encodeURIComponent(activePost.id);
+      const title = activePost["title_" + readerContentLang] || pickLocalized(activePost, "title");
+      const accessed = new Date().toLocaleDateString(readerContentLang);
+      document.getElementById("citation-example").textContent =
+        `SoloWeld. (${activePost.date}). ${title} [${notes[6]}]. ${notes[7]} ${accessed}. ${url.href}`;
+    }
+
     function renderActivePost() {
       if (!activePost) return;
       const t = translations[currentLang];
@@ -480,6 +558,7 @@
 
       const bodyHtml = activePost[`content_${readerContentLang}`] || activePost.content_en || activePost.content_vi || "";
       document.getElementById("reader-body").innerHTML = bodyHtml;
+      renderEditorialNotes();
 
       const refsList = document.getElementById("reader-refs");
       refsList.innerHTML = (activePost.references || []).map(r => {
