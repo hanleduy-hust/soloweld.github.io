@@ -1,6 +1,10 @@
 name: SoloWeld Weekly AI & Welding News
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/auto_news.yml'
   schedule:
     # Chạy tự động vào 01:00 UTC (tức 08:00 sáng giờ Việt Nam GMT+7) Thứ Bảy hằng tuần
     - cron: '0 1 * * 6'
@@ -15,16 +19,22 @@ on:
           - 'auto'
           - 'digest'
           - 'ai_cv_welding'
-          - 'blockchain_cert'
-          - 'robotics_automation'
-          - 'training_standards'
+          - 'blockchain_cert_traceability'
+          - 'smart_robotic_waam'
+          - 'welder_training_digital'
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: soloweld-news
+  cancel-in-progress: false
 
 jobs:
   build-and-publish-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,7 +45,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -44,24 +53,32 @@ jobs:
 
       - name: Ensure directories exist
         run: |
-          mkdir -p data news/posts news/images
+          mkdir -p data news/posts images/news
 
       - name: Run SoloWeld AI News Generator
+        id: gen
         env:
+          DRAFT_DIR: ${{ runner.temp }}/soloweld-draft
+          OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TOPIC_ROTATION: ${{ inputs.topic_rotation || 'auto' }}
-          SOLOWELD_TOPIC: ${{ inputs.topic_rotation || 'auto' }}
         run: |
           python scripts/generate_soloweld_news.py
 
-      - name: Commit and push updated news
-        run: |
-          git config --global user.name "SoloWeld AI Bot"
-          git config --global user.email "actions@github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "Không có thay đổi mới nào cần commit."
-          else
-            git commit -m "chore(news): cập nhật bản tin AI & Công nghệ Hàn hàng tuần ($(date +'%Y-%m-%d'))"
-            git push origin main || git push
-          fi
+      - name: Open news pull request
+        if: steps.gen.outputs.skipped == 'false'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          branch: auto-news/${{ steps.gen.outputs.post_id }}
+          delete-branch: true
+          commit-message: "chore(news): ${{ steps.gen.outputs.title_vi }}"
+          title: "[Cần duyệt] ${{ steps.gen.outputs.title_vi }}"
+          body: |
+            Bản tin SoloWeld được tạo theo lịch chuyên đề.
+            Kiểm tra nội dung trong Files changed, sau đó merge PR để xuất bản.
+          add-paths: |
+            data/news_index.json
+            data/used_dois.json
+            news/posts/**
+            images/news/**
