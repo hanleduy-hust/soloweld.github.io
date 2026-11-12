@@ -250,10 +250,9 @@
       }
     };
 
-    // Dữ liệu mẫu khởi tạo sẵn để trang hiển thị mượt mà ngay cả khi chưa chạy GitHub Actions lần đầu
     const FALLBACK_SAMPLE_POST = {
       id: "sample-soloweld-ai-cv-welding",
-      date: "2026-11-07",
+      date: "2026-11-14",
       topic_key: "ai_cv_welding",
       type: "feature",
       category_vi: "Chuyên đề AI & Hàn",
@@ -299,7 +298,7 @@
           more_authors: false,
           title: "Sample Preview Article — Run the GitHub Actions workflow 'SoloWeld Weekly AI & Welding News' to populate live OpenAlex papers",
           journal: "SoloWeld Technical Portal",
-          date: "2026-11-07",
+          date: "2026-11-14",
           doi: "10.1000/soloweld.preview"
         }
       ]
@@ -526,7 +525,7 @@
           }
         }
       } catch (e) {
-        // Khi xem bản xem trước (Preview) hoặc chưa tạo data/news_index.json, tự động hiển thị bài mẫu FALLBACK_SAMPLE_POST
+        // Khi chưa có data/news_index.json, tự động hiển thị bài mẫu FALLBACK_SAMPLE_POST
       }
       renderPostGrid();
       handleHashRoute();
