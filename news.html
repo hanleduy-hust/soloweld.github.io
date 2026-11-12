@@ -50,12 +50,12 @@
           <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600 text-white font-extrabold">SW</span>
           <span>SoloWeld</span>
         </a>
-        <span class="text-slate-300">|</span>
-        <span id="ui-page-badge" class="text-sm font-medium text-blue-700 bg-blue-50 px-3 py-1 rounded-full">News & Insights</span>
+        <span class="hidden sm:inline text-slate-300">|</span>
+        <span id="ui-page-badge" class="hidden md:inline text-sm font-medium text-blue-700 bg-blue-50 px-3 py-1 rounded-full">News & Insights</span>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="index.html" id="ui-back-home" class="text-sm font-medium text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
+        <a href="index.html" id="ui-back-home" class="hidden sm:inline text-sm font-medium text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
           ← Trang chủ
         </a>
         <!-- Bộ chuyển đổi 4 ngôn ngữ đồng bộ localStorage -->
@@ -69,52 +69,55 @@
     </div>
   </header>
 
-  <!-- Hero Banner -->
-  <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-300 bg-blue-900/50 border border-blue-700/50 px-3 py-1 rounded-full mb-4">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="ui-schedule-badge">Cập nhật tự động 08:00 Thứ Bảy hằng tuần</span>
-        </div>
-        <h1 id="ui-hero-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
-          Bản tin Khoa học & Công nghệ Hàn Quốc tế
-        </h1>
-        <p id="ui-hero-desc" class="text-slate-300 text-base sm:text-lg leading-relaxed">
-          Tổng hợp chuyên sâu từ các công bố quốc tế Open Access về AI, Thị giác máy tính, Blockchain quản lý chứng chỉ (JWES, AWS, ASME, ISO) và Tự động hóa quy trình hàn.
-        </p>
-      </div>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-10 flex-1 w-full">
+    <div id="news-intro" class="mb-8">
+      <h1 id="ui-hero-title" class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3"></h1>
+      <p id="ui-hero-desc" class="max-w-3xl text-base sm:text-lg text-slate-600 leading-relaxed"></p>
+      <section aria-labelledby="news-about-title" class="mt-7 space-y-3 rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-sm">
+        <h2 id="news-about-title" class="text-lg font-bold text-slate-900"></h2>
+        <p id="news-about-ai" class="text-slate-600"></p>
+        <p id="ui-schedule-badge" class="text-sm text-slate-500"></p>
+        <p id="news-about-responsibility" class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950"></p>
+        <details class="text-sm">
+          <summary id="news-citation-label" class="cursor-pointer font-semibold text-blue-700 hover:underline"></summary>
+          <p id="news-citation-original" class="mt-2 text-slate-600"></p>
+          <p id="news-citation-digest" class="mt-2 text-slate-600"></p>
+        </details>
+      </section>
     </div>
-  </section>
-
-  <!-- Main Workspace -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
     <!-- Filter & Search Bar -->
-    <div id="list-controls" class="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between mb-8">
-      <div class="flex flex-wrap gap-2" id="topic-filters">
-        <button type="button" onclick="filterTopic('all')" data-topic="all" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-blue-600 text-white cursor-pointer">Tất cả</button>
-        <button type="button" onclick="filterTopic('ai_cv_welding')" data-topic="ai_cv_welding" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">AI & Computer Vision</button>
-        <button type="button" onclick="filterTopic('blockchain_cert_traceability')" data-topic="blockchain_cert_traceability" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Blockchain & Chứng chỉ số</button>
-        <button type="button" onclick="filterTopic('welder_training_digital')" data-topic="welder_training_digital" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Đào tạo Kỹ sư & VR/AR</button>
-        <button type="button" onclick="filterTopic('smart_robotic_waam')" data-topic="smart_robotic_waam" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Robot Hàn & WAAM</button>
+    <div id="list-controls" class="space-y-3 mb-6">
+      <div class="flex flex-wrap gap-2" id="type-filters">
+        <button type="button" data-type="all" onclick="filterType('all')">Tất cả</button>
+        <button type="button" data-type="feature" onclick="filterType('feature')">Chuyên đề</button>
+        <button type="button" data-type="digest" onclick="filterType('digest')">Điểm tin khoa học</button>
       </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="flex flex-wrap gap-2" id="topic-filters">
+          <button type="button" onclick="filterTopic('all')" data-topic="all" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-blue-600 text-white cursor-pointer">Tất cả</button>
+          <button type="button" onclick="filterTopic('ai_cv_welding')" data-topic="ai_cv_welding" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">AI & Computer Vision</button>
+          <button type="button" onclick="filterTopic('blockchain_cert_traceability')" data-topic="blockchain_cert_traceability" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Blockchain & Chứng chỉ số</button>
+          <button type="button" onclick="filterTopic('welder_training_digital')" data-topic="welder_training_digital" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Đào tạo Kỹ sư & VR/AR</button>
+          <button type="button" onclick="filterTopic('smart_robotic_waam')" data-topic="smart_robotic_waam" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Robot Hàn & WAAM</button>
+        </div>
 
-      <div class="relative w-full md:w-72">
-        <input
-          type="search"
-          id="search-input"
-          oninput="renderPostGrid()"
-          placeholder="Tìm từ khóa (AWS, YOLO, Blockchain...)"
-          class="w-full pl-9 pr-4 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
-        </svg>
+        <div class="relative w-full md:w-72">
+          <input
+            type="search"
+            id="search-input"
+            oninput="renderPostGrid()"
+            placeholder="Tìm từ khóa (AWS, YOLO, Blockchain...)"
+            class="w-full pl-9 pr-4 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+          </svg>
+        </div>
       </div>
     </div>
 
-    <!-- Danh sách bài viết (Grid View) -->
-    <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <!-- Danh sách bài viết -->
+    <div id="posts-grid" class="space-y-5"></div>
 
     <!-- Chi tiết bài viết (Reader View) -->
     <article id="post-reader" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden max-w-4xl mx-auto">
@@ -319,6 +322,7 @@
 
     let currentLang = localStorage.getItem("soloweld_lang") || "vi";
     let currentTopic = "all";
+    let currentType = "all";
     let postsIndex = [FALLBACK_SAMPLE_POST];
     let activePost = null;
     let readerContentLang = currentLang;
@@ -326,6 +330,61 @@
     function pickLocalized(obj, prefix) {
       if (!obj) return "";
       return obj[`${prefix}_${currentLang}`] || obj[`${prefix}_en`] || obj[`${prefix}_vi`] || "";
+    }
+
+    function updateListLabels(t) {
+      const labels = {
+        "vi": [
+          "Giới thiệu về chuyên mục",
+          "Các bản tin được AI tự động biên soạn toàn bộ dựa trên các tài liệu tham khảo liệt kê trong từng bài.",
+          "Chuyên đề",
+          "Điểm tin khoa học",
+          "Để trích dẫn chính bản tin, dùng mẫu ở cuối bài và ghi rõ nội dung do AI biên soạn."
+        ],
+        "en": [
+          "About this section",
+          "Each digest is written entirely by AI based on the sources listed in the article.",
+          "Features",
+          "Research digests",
+          "To cite the digest itself, use the example at the end of the article and identify it as AI-generated."
+        ],
+        "zh": [
+          "栏目简介",
+          "每篇简报均由 AI 根据文中列出的参考资料自动编写。",
+          "专题",
+          "科研简报",
+          "引用简报本身时，请使用文末示例并注明由 AI 编写。"
+        ],
+        "ja": [
+          "このコーナーについて",
+          "各記事は、記事内の参考文献に基づいてAIが全編を自動作成します。",
+          "特集",
+          "研究ダイジェスト",
+          "記事自体を引用する場合は、文末の例に従い、AIが作成したことを明記してください。"
+        ]
+      }[currentLang];
+      const notes = editorialNotes[currentLang];
+      document.getElementById("news-about-title").textContent = labels[0];
+      document.getElementById("news-about-ai").textContent = labels[1];
+      document.getElementById("news-about-responsibility").textContent = notes[2];
+      document.getElementById("news-citation-label").textContent = notes[3];
+      document.getElementById("news-citation-original").textContent = notes[4];
+      document.getElementById("news-citation-digest").textContent = labels[4];
+
+      const typeLabels = { all: t.filterAll, feature: labels[2], digest: labels[3] };
+      document.querySelectorAll("#type-filters button").forEach(button => {
+        const active = button.dataset.type === currentType;
+        button.textContent = typeLabels[button.dataset.type];
+        button.setAttribute("aria-pressed", active);
+        button.className = "rounded-full border px-4 py-1.5 text-sm font-semibold cursor-pointer " +
+          (active ? "bg-blue-600 border-blue-600 text-white" : "bg-white border-slate-200 text-slate-700 hover:border-blue-400");
+      });
+    }
+
+    function filterType(type) {
+      currentType = type;
+      updateListLabels(translations[currentLang]);
+      renderPostGrid();
     }
 
     function setLanguage(lang) {
@@ -344,6 +403,7 @@
       });
 
       const t = translations[lang];
+      updateListLabels(t);
       document.getElementById("ui-page-badge").textContent = t.pageBadge;
       document.getElementById("ui-back-home").textContent = t.backHome;
       document.getElementById("ui-schedule-badge").textContent = t.scheduleBadge;
@@ -387,6 +447,7 @@
       const t = translations[currentLang];
 
       const filtered = postsIndex.filter(p => {
+        if (currentType !== "all" && p.type !== currentType) return false;
         if (currentTopic !== "all" && p.topic_key !== currentTopic) return false;
         if (!q) return true;
         const hay = [
@@ -407,21 +468,21 @@
         const summary = pickLocalized(p, "summary");
         const cat = pickLocalized(p, "category");
         const coverHtml = p.cover
-          ? `<img src="${p.cover}" alt="${title}" loading="lazy" class="w-full h-48 object-cover border-b border-slate-100">`
-          : `<div class="w-full h-48 bg-gradient-to-br from-blue-900 to-slate-800 flex items-center justify-center text-blue-200 font-bold text-sm px-6 text-center">${cat}</div>`;
+          ? `<img src="${p.cover}" alt="${title}" loading="lazy" class="w-full h-48 sm:h-full object-contain bg-slate-50">`
+          : `<div class="w-full h-48 sm:h-full bg-gradient-to-br from-blue-900 to-slate-800 flex items-center justify-center text-blue-200 font-bold text-sm px-6 text-center">${cat}</div>`;
         const tagsHtml = (p.tags || []).slice(0, 4).map(tag =>
           `<span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">${tag}</span>`
         ).join("");
 
         return `
-          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col">
-            <a href="#post=${encodeURIComponent(p.id)}" class="block overflow-hidden">${coverHtml}</a>
-            <div class="p-5 flex-1 flex flex-col">
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col sm:flex-row">
+            <a href="#post=${encodeURIComponent(p.id)}" class="block overflow-hidden sm:w-1/4 sm:shrink-0">${coverHtml}</a>
+            <div class="p-5 sm:p-7 flex-1 flex flex-col min-w-0">
               <div class="flex items-center justify-between gap-2 text-xs text-slate-500 mb-2">
                 <span class="font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md">${cat}</span>
                 <time>${p.date}</time>
               </div>
-              <h2 class="text-lg font-bold text-slate-900 mb-2 line-clamp-2 hover:text-blue-600 transition">
+              <h2 class="text-xl font-bold text-slate-900 mb-2 hover:text-blue-600 transition">
                 <a href="#post=${encodeURIComponent(p.id)}">${title}</a>
               </h2>
               <p class="text-sm text-slate-600 line-clamp-3 mb-4 flex-1">${summary}</p>
@@ -442,6 +503,7 @@
         readerContentLang = currentLang;
         document.getElementById("posts-grid").classList.add("hidden");
         document.getElementById("list-controls").classList.add("hidden");
+        document.getElementById("news-intro").classList.add("hidden");
         document.getElementById("post-reader").classList.remove("hidden");
         renderActivePost();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -457,6 +519,7 @@
         readerContentLang = currentLang;
         document.getElementById("posts-grid").classList.add("hidden");
         document.getElementById("list-controls").classList.add("hidden");
+        document.getElementById("news-intro").classList.add("hidden");
         document.getElementById("post-reader").classList.remove("hidden");
         renderActivePost();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -477,7 +540,7 @@
         "Bản tin này được AI tự động biên soạn toàn bộ dựa trên các tài liệu được liệt kê trong mục Tài liệu tham khảo.",
         "Nội dung chỉ dùng để tham khảo và có thể có sai sót. Người đọc tự chịu trách nhiệm về việc áp dụng vào công việc của mình. Trước khi sử dụng cho thiết kế, chế tạo, kiểm định hoặc nghiên cứu, hãy đối chiếu bài báo gốc và các tiêu chuẩn áp dụng.",
         "Hướng dẫn trích dẫn",
-        "Khi sử dụng kết quả, số liệu hoặc hình ảnh, hãy trích dẫn bài báo gốc theo DOI trong danh mục trên. Nếu tái sử dụng hình ảnh, hãy ghi nguồn và tuân thủ giấy phép của hình.",
+        "Khi sử dụng kết quả, số liệu hoặc hình ảnh, hãy trích dẫn bài báo gốc theo DOI trong danh mục của từng bài. Nếu tái sử dụng hình ảnh, hãy ghi nguồn và tuân thủ giấy phép của hình.",
         "Nếu cần dẫn chính phần tổng hợp, hãy trích dẫn bản tin SoloWeld theo mẫu dưới đây và ghi rõ nội dung do AI biên soạn.",
         "Bản tin do AI biên soạn",
         "Truy cập"
@@ -487,7 +550,7 @@
         "This digest was written entirely by AI based on the sources listed in the References section.",
         "The content is for reference and may contain errors. Readers are responsible for how they apply it in their work. For design, manufacturing, inspection, or research, verify the information against the original papers and applicable standards.",
         "How to cite",
-        "When using a finding, data point, or figure, cite the original paper using the DOI listed above. When reusing figures, credit the source and follow its license.",
+        "When using a finding, data point, or figure, cite the original paper using the DOI listed in the article. When reusing figures, credit the source and follow its license.",
         "When referring to this synthesis itself, cite the SoloWeld digest using the example below and identify it as AI-generated.",
         "AI-generated digest",
         "Accessed"
@@ -497,7 +560,7 @@
         "本简报完全由 AI 根据参考文献中列出的资料自动编写。",
         "内容仅供参考，可能存在错误。读者应自行承担将其用于工作的责任。用于设计、制造、检验或研究前，请核对原始论文及适用标准。",
         "引用指南",
-        "引用研究结果、数据或图片时，请通过上方所列 DOI 引用原始论文。转载图片时，请注明来源并遵守其许可。",
+        "引用研究结果、数据或图片时，请通过文章中所列 DOI 引用原始论文。转载图片时，请注明来源并遵守其许可。",
         "引用本综述时，请参照下方示例引用 SoloWeld 简报，并注明其由 AI 编写。",
         "AI 编写简报",
         "访问日期"
@@ -507,7 +570,7 @@
         "本ダイジェストは、参考文献に記載した資料に基づき、全編をAIが自動で作成しました。",
         "内容は参考用であり、誤りを含む可能性があります。業務への適用は読者自身の責任で行ってください。設計、製造、検査、研究に用いる前に、原著論文と適用規格を確認してください。",
         "引用ガイド",
-        "研究結果、データ、図を利用する場合は、上記のDOIを用いて原著論文を引用してください。図を再利用する際は、出典を明記し、ライセンスに従ってください。",
+        "研究結果、データ、図を利用する場合は、記事に記載されたDOIを用いて原著論文を引用してください。図を再利用する際は、出典を明記し、ライセンスに従ってください。",
         "本ダイジェストの要約自体を参照する場合は、下記の例に従ってSoloWeldの記事を引用し、AIが作成したことを明記してください。",
         "AI作成ダイジェスト",
         "閲覧日"
@@ -581,6 +644,7 @@
       document.getElementById("post-reader").classList.add("hidden");
       document.getElementById("posts-grid").classList.remove("hidden");
       document.getElementById("list-controls").classList.remove("hidden");
+      document.getElementById("news-intro").classList.remove("hidden");
     }
 
     function handleHashRoute() {
