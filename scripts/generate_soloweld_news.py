@@ -38,7 +38,8 @@ TOPIC_ROTATION = os.environ.get("TOPIC_ROTATION", "auto").strip().lower()
 MAX_PAPERS = int(os.environ.get("MAX_PAPERS", "16"))
 MIN_PAPERS = int(os.environ.get("MIN_PAPERS", "4"))
 LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "60"))
-MAX_FIGURES = 8
+MAX_FIGURES = int(os.environ.get("MAX_FIGURES", "8"))
+COMPACT_TEST = os.environ.get("COMPACT_TEST") == "true"
 
 VN_TZ = dt.timezone(dt.timedelta(hours=7))
 
@@ -752,6 +753,7 @@ def collect_figures(papers, post_id):
 
 PREFERRED_GEMINI_MODELS = [
     os.environ.get("GEMINI_MODEL", "").strip(),
+    os.environ.get("GEMINI_MODEL", "").strip(),
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
     "gemini-2.0-flash",
@@ -1191,6 +1193,9 @@ def main():
         encoding="utf-8",
     )
 
+    if COMPACT_TEST:
+        prompt = prompt.replace("~2000–2800 words", "~450–650 words")
+        prompt = prompt.replace("~400–600 words", "~120–180 words")
     ai = gemini_json(prompt)
     papers = renumber_citations(ai, papers, figures)
 
