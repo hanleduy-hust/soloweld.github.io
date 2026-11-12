@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoloWeld | News & Technical Insights</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    .post-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      padding-left: 0.75rem;
+      border-left: 4px solid #2563eb;
+    }
+    .post-content p {
+      margin-bottom: 1rem;
+      line-height: 1.75;
+      color: #334155;
+    }
+    .post-content p.lead {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #1e293b;
+      background-color: #f8fafc;
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+      border: 1px solid #e2e8f0;
+    }
+    .post-content ul, .post-content ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      color: #334155;
+    }
+    .post-content li {
+      margin-bottom: 0.4rem;
+      line-height: 1.65;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col font-sans">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-slate-900 hover:text-blue-600 transition">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600 text-white font-extrabold">SW</span>
+          <span>SoloWeld</span>
+        </a>
+        <span class="text-slate-300">|</span>
+        <span id="ui-page-badge" class="text-sm font-medium text-blue-700 bg-blue-50 px-3 py-1 rounded-full">News & Insights</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="index.html" id="ui-back-home" class="text-sm font-medium text-slate-600 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
+          ← Trang chủ
+        </a>
+        <!-- Bộ chuyển đổi 4 ngôn ngữ đồng bộ localStorage -->
+        <div class="inline-flex rounded-lg border border-slate-200 bg-slate-100 p-0.5" role="group">
+          <button type="button" onclick="setLanguage('vi')" id="lang-btn-vi" class="px-2.5 py-1 text-xs font-semibold rounded-md transition cursor-pointer">VI</button>
+          <button type="button" onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 text-xs font-semibold rounded-md transition cursor-pointer">EN</button>
+          <button type="button" onclick="setLanguage('zh')" id="lang-btn-zh" class="px-2.5 py-1 text-xs font-semibold rounded-md transition cursor-pointer">ZH</button>
+          <button type="button" onclick="setLanguage('ja')" id="lang-btn-ja" class="px-2.5 py-1 text-xs font-semibold rounded-md transition cursor-pointer">JA</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-300 bg-blue-900/50 border border-blue-700/50 px-3 py-1 rounded-full mb-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="ui-schedule-badge">Cập nhật tự động 08:00 Thứ Bảy hằng tuần</span>
+        </div>
+        <h1 id="ui-hero-title" class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
+          Bản tin Khoa học & Công nghệ Hàn Quốc tế
+        </h1>
+        <p id="ui-hero-desc" class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Tổng hợp chuyên sâu từ các công bố quốc tế Open Access về AI, Thị giác máy tính, Blockchain quản lý chứng chỉ (JWES, AWS, ASME, ISO) và Tự động hóa quy trình hàn.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    <!-- Filter & Search Bar -->
+    <div id="list-controls" class="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between mb-8">
+      <div class="flex flex-wrap gap-2" id="topic-filters">
+        <button type="button" onclick="filterTopic('all')" data-topic="all" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-blue-600 text-white cursor-pointer">Tất cả</button>
+        <button type="button" onclick="filterTopic('ai_cv_welding')" data-topic="ai_cv_welding" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">AI & Computer Vision</button>
+        <button type="button" onclick="filterTopic('blockchain_cert_traceability')" data-topic="blockchain_cert_traceability" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Blockchain & Chứng chỉ số</button>
+        <button type="button" onclick="filterTopic('welder_training_digital')" data-topic="welder_training_digital" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Đào tạo Kỹ sư & VR/AR</button>
+        <button type="button" onclick="filterTopic('smart_robotic_waam')" data-topic="smart_robotic_waam" class="topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer">Robot Hàn & WAAM</button>
+      </div>
+
+      <div class="relative w-full md:w-72">
+        <input
+          type="search"
+          id="search-input"
+          oninput="renderPostGrid()"
+          placeholder="Tìm từ khóa (AWS, YOLO, Blockchain...)"
+          class="w-full pl-9 pr-4 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Danh sách bài viết (Grid View) -->
+    <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <!-- Chi tiết bài viết (Reader View) -->
+    <article id="post-reader" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden max-w-4xl mx-auto">
+      <div class="p-6 sm:p-10">
+        <button type="button" onclick="closePost()" id="ui-back-list" class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-800 mb-6 cursor-pointer">
+          ← Quay lại danh sách bản tin
+        </button>
+
+        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-3">
+          <span id="reader-category" class="font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md"></span>
+          <span>•</span>
+          <time id="reader-date" class="font-medium"></time>
+          <span>•</span>
+          <span id="reader-stats"></span>
+        </div>
+
+        <h1 id="reader-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight mb-4"></h1>
+
+        <div id="reader-tags" class="flex flex-wrap gap-1.5 mb-6"></div>
+
+        <!-- Thanh chọn ngôn ngữ đọc nội dung chi tiết -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 mb-6 text-xs text-slate-600">
+          <span id="ui-content-lang-note">Nội dung phân tích kỹ thuật chi tiết:</span>
+          <div class="inline-flex rounded-lg border border-slate-200 bg-white p-0.5">
+            <button type="button" onclick="switchReaderContentLang('vi')" id="reader-lang-vi" class="px-2.5 py-1 rounded-md font-semibold cursor-pointer">Tiếng Việt</button>
+            <button type="button" onclick="switchReaderContentLang('en')" id="reader-lang-en" class="px-2.5 py-1 rounded-md font-semibold cursor-pointer">English</button>
+            <button type="button" onclick="switchReaderContentLang('zh')" id="reader-lang-zh" class="px-2.5 py-1 rounded-md font-semibold cursor-pointer">中文摘要</button>
+            <button type="button" onclick="switchReaderContentLang('ja')" id="reader-lang-ja" class="px-2.5 py-1 rounded-md font-semibold cursor-pointer">日本語要約</button>
+          </div>
+        </div>
+
+        <div id="reader-body" class="post-content text-base"></div>
+
+        <!-- Danh mục tài liệu tham khảo DOI -->
+        <section class="mt-10 pt-6 border-t border-slate-200">
+          <h3 id="ui-refs-title" class="text-lg font-bold text-slate-900 mb-4">
+            Tài liệu tham khảo khoa học (Open Access DOI)
+          </h3>
+          <ol id="reader-refs" class="space-y-3 text-sm text-slate-600 list-decimal pl-5"></ol>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+      <span>© SoloWeld Portal — AI-Powered Welding Engineering & Standards Ecosystem</span>
+      <span>Powered by OpenAlex Open Access & Gemini API</span>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      vi: {
+        pageBadge: "Tin tức & Chuyên đề",
+        backHome: "← Trang chủ SoloWeld",
+        scheduleBadge: "Cập nhật tự động 08:00 Thứ Bảy hằng tuần",
+        heroTitle: "Bản tin Khoa học & Công nghệ Hàn Quốc tế",
+        heroDesc: "Tổng hợp chuyên sâu từ các công bố quốc tế Open Access về AI, Thị giác máy tính, Blockchain quản lý chứng chỉ (JWES, AWS, ASME, ISO) và Tự động hóa quy trình hàn.",
+        filterAll: "Tất cả chủ đề",
+        filterAI: "AI & Thị giác máy tính",
+        filterBlockchain: "Blockchain & Chứng chỉ số",
+        filterTraining: "Đào tạo Kỹ sư & VR/AR",
+        filterRobotic: "Robot Hàn & WAAM",
+        searchPlaceholder: "Tìm từ khóa (AWS, YOLO, Blockchain...)",
+        readMore: "Đọc phân tích chuyên sâu →",
+        backList: "← Quay lại danh sách bản tin",
+        refsTitle: "Tài liệu tham khảo khoa học (Peer-Reviewed Open Access)",
+        contentLangNote: "Ngôn ngữ hiển thị bài phân tích:",
+        emptyState: "Chưa có bài viết nào phù hợp với bộ lọc hiện tại.",
+        papersLabel: "bài báo",
+        figuresLabel: "hình minh họa"
+      },
+      en: {
+        pageBadge: "News & Technical Insights",
+        backHome: "← Back to SoloWeld Home",
+        scheduleBadge: "Auto-updated every Saturday at 08:00 ICT (01:00 UTC)",
+        heroTitle: "International Welding AI & Technology Digest",
+        heroDesc: "In-depth weekly synthesis from peer-reviewed Open Access research on AI, Computer Vision, Blockchain Certification (JWES, AWS, ASME, ISO), and Welding Automation.",
+        filterAll: "All Topics",
+        filterAI: "AI & Computer Vision",
+        filterBlockchain: "Blockchain & Certification",
+        filterTraining: "Welder Training & VR/AR",
+        filterRobotic: "Robotic Welding & WAAM",
+        searchPlaceholder: "Search keywords (AWS, YOLO, Blockchain...)",
+        readMore: "Read full technical analysis →",
+        backList: "← Back to article list",
+        refsTitle: "Scientific References (Peer-Reviewed Open Access)",
+        contentLangNote: "Article analysis language:",
+        emptyState: "No articles match your current filter.",
+        papersLabel: "papers",
+        figuresLabel: "figures"
+      },
+      zh: {
+        pageBadge: "技术资讯与专题",
+        backHome: "← 返回 SoloWeld 首页",
+        scheduleBadge: "每周六 08:00 (GMT+7) 自动更新",
+        heroTitle: "国际焊接人工智能与数字化技术周刊",
+        heroDesc: "基于开放获取 (Open Access) 权威论文，深度解析人工智能、计算机视觉、区块链焊工认证管理 (JWES, AWS, ASME, ISO) 与智能焊接自动化。",
+        filterAll: "全部专题",
+        filterAI: "AI与计算机视觉",
+        filterBlockchain: "区块链与数字认证",
+        filterTraining: "焊工培训与数字孪生",
+        filterRobotic: "智能机器人与电弧增材",
+        searchPlaceholder: "搜索关键词 (AWS, YOLO, Blockchain...)",
+        readMore: "阅读深度技术解析 →",
+        backList: "← 返回文章列表",
+        refsTitle: "参考文献 (Open Access DOI)",
+        contentLangNote: "选择文章阅读语言：",
+        emptyState: "暂无符合筛选条件的技术文章。",
+        papersLabel: "篇论文",
+        figuresLabel: "幅插图"
+      },
+      ja: {
+        pageBadge: "技術ニュース＆インサイト",
+        backHome: "← SoloWeld ホームへ戻る",
+        scheduleBadge: "毎週土曜日 08:00 (GMT+7) 自動更新",
+        heroTitle: "国際溶接AI・デジタル技術ウィークリーダイジェスト",
+        heroDesc: "オープンアクセス論文に基づき、AI、コンピュータビジョン、ブロックチェーン資格証明管理 (JWES, AWS, ASME, ISO)、溶接自動化を徹底解説。",
+        filterAll: "すべてのトピック",
+        filterAI: "AI & コンピュータビジョン",
+        filterBlockchain: "ブロックチェーン & 資格管理",
+        filterTraining: "溶接技術者育成 & VR/AR",
+        filterRobotic: "ロボット溶接 & WAAM",
+        searchPlaceholder: "キーワード検索 (AWS, YOLO, Blockchain...)",
+        readMore: "詳細な技術解説を読む →",
+        backList: "← 記事一覧に戻る",
+        refsTitle: "参考文献 (Open Access DOI)",
+        contentLangNote: "記事の表示言語：",
+        emptyState: "条件に一致する記事が見つかりませんでした。",
+        papersLabel: "件の論文",
+        figuresLabel: "点の図表"
+      }
+    };
+
+    // Dữ liệu mẫu khởi tạo sẵn để trang hiển thị mượt mà ngay cả khi chưa chạy GitHub Actions lần đầu
+    const FALLBACK_SAMPLE_POST = {
+      id: "sample-soloweld-ai-cv-welding",
+      date: "2026-11-07",
+      topic_key: "ai_cv_welding",
+      type: "feature",
+      category_vi: "Chuyên đề AI & Hàn",
+      category_en: "AI & Welding Insight",
+      category_zh: "AI与焊接专题",
+      category_ja: "AI・溶接技術特集",
+      title_vi: "Ứng dụng Thị giác máy tính (YOLO/CNN) và Blockchain trong Giám sát Mối hàn & Quản lý Chứng chỉ AWS/ISO",
+      title_en: "Computer Vision (YOLO/CNN) and Blockchain in Weld Pool Monitoring & AWS/ISO Certification Traceability",
+      title_zh: "计算机视觉 (YOLO/CNN) 与区块链在熔池监测及 AWS/ISO 焊工认证溯源中的应用",
+      title_ja: "溶融池モニタリングおよびAWS/ISO溶接資格トレーサビリティにおけるコンピュータビジョンとブロックチェーンの応用",
+      summary_vi: "Tổng hợp các tiến bộ mới nhất về mô hình học sâu theo dõi vũng hàn thời gian thực, phát hiện khuyết tật NDT và tích hợp hợp đồng thông minh (Smart Contract) trong minh bạch hóa hồ sơ WPS/PQR/WPQ.",
+      summary_en: "Synthesis of recent breakthroughs in deep learning for real-time weld pool tracking, automated NDT defect recognition, and smart contracts for immutable WPS/PQR/WPQ certification.",
+      summary_zh: "汇总实时熔池跟踪深度学习模型、无损检测缺陷识别以及用于 WPS/PQR/WPQ 认证溯源的智能合约最新进展。",
+      summary_ja: "リアルタイム溶融池追跡、自動非破壊検査（NDT）、およびWPS/PQR/WPQ資格証明のスマートコントラクト管理に関する最新研究を解説。",
+      tags: ["Computer Vision", "Blockchain", "AWS D1.1", "ISO 9606", "Smart Contract", "NDT"],
+      cover: "",
+      paper_count: 12,
+      figure_count: 4,
+      content_vi: `<p class="lead">Sự hội tụ giữa Thị giác máy tính (Computer Vision), Học sâu (Deep Learning) và Chuỗi khối (Blockchain) đang định hình lại toàn bộ quy trình kiểm soát chất lượng mối hàn (welded joint) và quản lý chứng chỉ thợ hàn quốc tế (AWS, ASME, ISO, JWES).</p>
+      <h3>1. Thị giác máy tính dẫn đường mối hàn và giám sát vũng hàn</h3>
+      <p>Các kiến trúc mạng nơ-ron tích chập (CNN) và Vision Transformer thế hệ mới cho phép trích xuất biên dạng vũng hàn (weld pool) dưới nhiễu hồ quang mạnh với tốc độ xử lý trên 60 FPS, hỗ trợ điều khiển vòng kín chiều rộng và chiều sâu ngấu cho cả hàn hồ quang dây lõi thuốc (FCAW) và hàn TIG/MIG tự động.</p>
+      <h3>2. Minh bạch hóa hồ sơ WPS/PQR và chứng chỉ thợ hàn bằng Blockchain</h3>
+      <p>Thông số dòng điện, điện áp, tốc độ hàn và kết quả kiểm tra không phá hủy (NDT) được băm (hash) và ghi nhận trực tiếp lên sổ cái phân tán thông qua Smart Contract, giúp các tổ chức đăng kiểm và chủ đầu tư xác thực tức thì chứng chỉ thợ hàn theo tiêu chuẩn ISO 9606 và ASME Section IX.</p>`,
+      content_en: `<p class="lead">The convergence of Computer Vision, Deep Learning, and Blockchain is transforming weld quality assurance and international welder qualification management across AWS, ASME, ISO, and JWES frameworks.</p>
+      <h3>1. Vision-Based Seam Tracking and In-Situ Melt Pool Monitoring</h3>
+      <p>Modern Convolutional Neural Networks (CNNs) and lightweight Vision Transformers enable real-time segmentation of the weld pool under intense arc glare at over 60 FPS, supporting closed-loop penetration and bead geometry control.</p>
+      <h3>2. Immutable WPS/PQR and Welder Qualification via Smart Contracts</h3>
+      <p>By anchoring welding parameters and Non-Destructive Testing (NDT) radiographs onto a permissioned blockchain, QA/QC inspectors can verify welder continuity logs (WPQ) against ASME Section IX and ISO 9606 requirements without manual paperwork bottlenecks.</p>`,
+      content_zh: `<p class="lead">计算机视觉、深度学习与区块链技术的融合正在重塑焊接质量控制与国际焊工资格认证管理（AWS、ASME、ISO、JWES）。</p>
+      <h3>1. 视觉焊缝跟踪与熔池实时监测</h3>
+      <p>轻量化卷积神经网络与视觉Transformer可在强弧光干扰下实现每秒60帧以上的熔池形态分割与闭环控制。</p>
+      <h3>2. 基于区块链的 WPS/PQR 与焊工证书溯源</h3>
+      <p>通过智能合约将焊接参数与无损检测结果上链存证，实现焊工资格证书的防伪核验与全生命周期透明管理。</p>`,
+      content_ja: `<p class="lead">コンピュータビジョン、ディープラーニング、ブロックチェーンの融合により、溶接品質保証と国際溶接資格（AWS、ASME、ISO、JWES）の管理体制が大きく進化しています。</p>
+      <h3>1. 視覚センサによるシームトラッキングと溶融池監視</h3>
+      <p>最新の軽量CNNおよびVision Transformerにより、強いアーク光下でも60 FPS以上で溶融池形状をリアルタイム抽出し、溶け込み深さの閉ループ制御を実現します。</p>
+      <h3>2. スマートコントラクトによるWPS/PQRと溶接技能者資格の透明化</h3>
+      <p>溶接施工条件や非破壊検査（NDT）データをブロックチェーン上に記録することで、改ざん防止と迅速な資格認証を可能にします。</p>`,
+      references: [
+        {
+          n: 1,
+          authors: ["SoloWeld Editorial System"],
+          more_authors: false,
+          title: "Sample Preview Article — Run the GitHub Actions workflow 'SoloWeld Weekly AI & Welding News' to populate live OpenAlex papers",
+          journal: "SoloWeld Technical Portal",
+          date: "2026-11-07",
+          doi: "10.1000/soloweld.preview"
+        }
+      ]
+    };
+
+    let currentLang = localStorage.getItem("soloweld_lang") || "vi";
+    let currentTopic = "all";
+    let postsIndex = [FALLBACK_SAMPLE_POST];
+    let activePost = null;
+    let readerContentLang = currentLang;
+
+    function pickLocalized(obj, prefix) {
+      if (!obj) return "";
+      return obj[`${prefix}_${currentLang}`] || obj[`${prefix}_en`] || obj[`${prefix}_vi`] || "";
+    }
+
+    function setLanguage(lang) {
+      if (!translations[lang]) lang = "vi";
+      currentLang = lang;
+      readerContentLang = lang;
+      localStorage.setItem("soloweld_lang", lang);
+
+      ["vi", "en", "zh", "ja"].forEach(l => {
+        const btn = document.getElementById(`lang-btn-${l}`);
+        if (btn) {
+          btn.className = l === lang
+            ? "px-2.5 py-1 text-xs font-bold rounded-md bg-blue-600 text-white shadow-xs transition cursor-pointer"
+            : "px-2.5 py-1 text-xs font-semibold rounded-md text-slate-600 hover:text-slate-900 transition cursor-pointer";
+        }
+      });
+
+      const t = translations[lang];
+      document.getElementById("ui-page-badge").textContent = t.pageBadge;
+      document.getElementById("ui-back-home").textContent = t.backHome;
+      document.getElementById("ui-schedule-badge").textContent = t.scheduleBadge;
+      document.getElementById("ui-hero-title").textContent = t.heroTitle;
+      document.getElementById("ui-hero-desc").textContent = t.heroDesc;
+      document.getElementById("search-input").placeholder = t.searchPlaceholder;
+      document.getElementById("ui-back-list").textContent = t.backList;
+      document.getElementById("ui-refs-title").textContent = t.refsTitle;
+      document.getElementById("ui-content-lang-note").textContent = t.contentLangNote;
+
+      const filterMap = {
+        all: t.filterAll,
+        ai_cv_welding: t.filterAI,
+        blockchain_cert_traceability: t.filterBlockchain,
+        welder_training_digital: t.filterTraining,
+        smart_robotic_waam: t.filterRobotic
+      };
+      document.querySelectorAll(".topic-chip").forEach(btn => {
+        const key = btn.getAttribute("data-topic");
+        if (filterMap[key]) btn.textContent = filterMap[key];
+      });
+
+      renderPostGrid();
+      if (activePost) renderActivePost();
+    }
+
+    function filterTopic(topic) {
+      currentTopic = topic;
+      document.querySelectorAll(".topic-chip").forEach(btn => {
+        const active = btn.getAttribute("data-topic") === topic;
+        btn.className = active
+          ? "topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-blue-600 text-white cursor-pointer"
+          : "topic-chip px-3.5 py-1.5 rounded-full text-xs font-semibold transition bg-white text-slate-700 border border-slate-200 hover:border-blue-400 cursor-pointer";
+      });
+      renderPostGrid();
+    }
+
+    function renderPostGrid() {
+      const grid = document.getElementById("posts-grid");
+      const q = (document.getElementById("search-input").value || "").trim().toLowerCase();
+      const t = translations[currentLang];
+
+      const filtered = postsIndex.filter(p => {
+        if (currentTopic !== "all" && p.topic_key !== currentTopic) return false;
+        if (!q) return true;
+        const hay = [
+          p.title_vi, p.title_en, p.title_zh, p.title_ja,
+          p.summary_vi, p.summary_en, p.summary_zh, p.summary_ja,
+          ...(p.tags || [])
+        ].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="col-span-full bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-500">${t.emptyState}</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const title = pickLocalized(p, "title");
+        const summary = pickLocalized(p, "summary");
+        const cat = pickLocalized(p, "category");
+        const coverHtml = p.cover
+          ? `<img src="${p.cover}" alt="${title}" loading="lazy" class="w-full h-48 object-cover border-b border-slate-100">`
+          : `<div class="w-full h-48 bg-gradient-to-br from-blue-900 to-slate-800 flex items-center justify-center text-blue-200 font-bold text-sm px-6 text-center">${cat}</div>`;
+        const tagsHtml = (p.tags || []).slice(0, 4).map(tag =>
+          `<span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">${tag}</span>`
+        ).join("");
+
+        return `
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition overflow-hidden flex flex-col">
+            <a href="#post=${encodeURIComponent(p.id)}" class="block overflow-hidden">${coverHtml}</a>
+            <div class="p-5 flex-1 flex flex-col">
+              <div class="flex items-center justify-between gap-2 text-xs text-slate-500 mb-2">
+                <span class="font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md">${cat}</span>
+                <time>${p.date}</time>
+              </div>
+              <h2 class="text-lg font-bold text-slate-900 mb-2 line-clamp-2 hover:text-blue-600 transition">
+                <a href="#post=${encodeURIComponent(p.id)}">${title}</a>
+              </h2>
+              <p class="text-sm text-slate-600 line-clamp-3 mb-4 flex-1">${summary}</p>
+              <div class="flex flex-wrap gap-1.5 mb-4">${tagsHtml}</div>
+              <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-500">${p.paper_count || 0} ${t.papersLabel} • ${p.figure_count || 0} ${t.figuresLabel}</span>
+                <a href="#post=${encodeURIComponent(p.id)}" class="font-bold text-blue-600 hover:text-blue-800">${t.readMore}</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    async function openPostById(postId) {
+      if (postId === FALLBACK_SAMPLE_POST.id) {
+        activePost = FALLBACK_SAMPLE_POST;
+        readerContentLang = currentLang;
+        document.getElementById("posts-grid").classList.add("hidden");
+        document.getElementById("list-controls").classList.add("hidden");
+        document.getElementById("post-reader").classList.remove("hidden");
+        renderActivePost();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const meta = postsIndex.find(p => p.id === postId);
+      const fileUrl = meta?.file || `news/posts/${postId}.json`;
+      try {
+        const res = await fetch(fileUrl);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        activePost = await res.json();
+        readerContentLang = currentLang;
+        document.getElementById("posts-grid").classList.add("hidden");
+        document.getElementById("list-controls").classList.add("hidden");
+        document.getElementById("post-reader").classList.remove("hidden");
+        renderActivePost();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        console.error("Không tải được bài viết:", err);
+      }
+    }
+
+    function switchReaderContentLang(lang) {
+      readerContentLang = lang;
+      renderActivePost();
+    }
+
+    function renderActivePost() {
+      if (!activePost) return;
+      const t = translations[currentLang];
+      document.getElementById("reader-category").textContent = pickLocalized(activePost, "category");
+      document.getElementById("reader-date").textContent = activePost.date;
+      document.getElementById("reader-stats").textContent = `${activePost.paper_count || (activePost.references || []).length} ${t.papersLabel}`;
+      document.getElementById("reader-title").textContent = pickLocalized(activePost, "title");
+
+      document.getElementById("reader-tags").innerHTML = (activePost.tags || []).map(tag =>
+        `<span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md font-medium">#${tag}</span>`
+      ).join("");
+
+      ["vi", "en", "zh", "ja"].forEach(l => {
+        const btn = document.getElementById(`reader-lang-${l}`);
+        if (btn) {
+          btn.className = l === readerContentLang
+            ? "px-2.5 py-1 rounded-md font-bold bg-blue-600 text-white cursor-pointer"
+            : "px-2.5 py-1 rounded-md font-medium text-slate-600 hover:bg-slate-100 cursor-pointer";
+        }
+      });
+
+      const bodyHtml = activePost[`content_${readerContentLang}`] || activePost.content_en || activePost.content_vi || "";
+      document.getElementById("reader-body").innerHTML = bodyHtml;
+
+      const refsList = document.getElementById("reader-refs");
+      refsList.innerHTML = (activePost.references || []).map(r => {
+        const authors = (r.authors || []).join(", ") + (r.more_authors ? " et al." : "");
+        return `
+          <li id="ref-${r.n}" class="leading-relaxed">
+            <span class="font-medium text-slate-800">${authors}</span> (${r.date ? r.date.slice(0, 4) : ""}).
+            “${r.title}.” <em>${r.journal || ""}</em>.
+            <a href="https://doi.org/${r.doi}" target="_blank" rel="noopener" class="text-blue-600 hover:underline font-medium">https://doi.org/${r.doi}</a>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function closePost() {
+      activePost = null;
+      if (window.location.hash) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+      document.getElementById("post-reader").classList.add("hidden");
+      document.getElementById("posts-grid").classList.remove("hidden");
+      document.getElementById("list-controls").classList.remove("hidden");
+    }
+
+    function handleHashRoute() {
+      const hash = window.location.hash || "";
+      if (hash.startsWith("#post=")) {
+        const id = decodeURIComponent(hash.replace("#post=", ""));
+        openPostById(id);
+      } else {
+        closePost();
+      }
+    }
+
+    async function initNewsPortal() {
+      setLanguage(currentLang);
+      try {
+        const res = await fetch("data/news_index.json", { cache: "no-store" });
+        if (res.ok) {
+          const loaded = await res.json();
+          if (Array.isArray(loaded) && loaded.length > 0) {
+            postsIndex = loaded;
+          }
+        }
+      } catch (e) {
+        // Khi xem bản xem trước (Preview) hoặc chưa tạo data/news_index.json, tự động hiển thị bài mẫu FALLBACK_SAMPLE_POST
+      }
+      renderPostGrid();
+      handleHashRoute();
+      window.addEventListener("hashchange", handleHashRoute);
+    }
+
+    document.addEventListener("DOMContentLoaded", initNewsPortal);
+  </script>
+</body>
+</html>
