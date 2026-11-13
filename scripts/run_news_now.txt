@@ -1,1 +1,1 @@
-Run new SoloWeld story: verify SMTP 465-to-587 fallback after blog-style mailer update. Triggered 2026-11-13.
+Run a fresh SoloWeld news article and verify Gmail review email after updating MAIL_APP_PASSWORD. Triggered 2026-11-13 10:00 ICT.
