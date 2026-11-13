@@ -73,7 +73,11 @@ jobs:
         if: steps.gen.outputs.skipped == 'false'
         env:
           POST_ID: ${{ steps.gen.outputs.post_id }}
-        run: cp "news/posts/$POST_ID.json" "$RUNNER_TEMP/soloweld-draft/post.json"
+          DRAFT_DIR: ${{ runner.temp }}/soloweld-draft
+        run: |
+          mkdir -p "$DRAFT_DIR/images/news/$POST_ID"
+          cp "news/posts/$POST_ID.json" "$DRAFT_DIR/post.json"
+          cp "images/news/$POST_ID/"*.jpg "$DRAFT_DIR/images/news/$POST_ID/"
 
       - name: Open news pull request
         id: cpr
@@ -97,44 +101,9 @@ jobs:
       - name: Send review email
         if: steps.cpr.outputs.pull-request-url != ''
         env:
+          DRAFT_DIR: ${{ runner.temp }}/soloweld-draft
           PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_APP_PASSWORD: ${{ secrets.MAIL_APP_PASSWORD }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
-        run: |
-          python - <<'PY'
-          import html
-          import json
-          import os
-          import smtplib
-          import ssl
-          from email.message import EmailMessage
-          from pathlib import Path
-
-          required = ("MAIL_USERNAME", "MAIL_APP_PASSWORD", "MAIL_TO")
-          missing = [key for key in required if not os.environ.get(key, "").strip()]
-          if missing:
-              raise SystemExit("Missing SoloWeld Actions secrets: " + ", ".join(missing))
-
-          path = Path(os.environ["RUNNER_TEMP"]) / "soloweld-draft" / "post.json"
-          post = json.loads(path.read_text(encoding="utf-8"))
-          pr_url = os.environ["PR_URL"]
-          title = post["title_vi"]
-          summary = post["summary_vi"]
-          message = EmailMessage()
-          message["From"] = os.environ["MAIL_USERNAME"].strip()
-          message["To"] = os.environ["MAIL_TO"].strip()
-          message["Subject"] = f"[SoloWeld – Duyệt bản tin] {title}"
-          message.set_content(f"{title}\n\n{summary}\n\nXem bản nháp và duyệt tại {pr_url}")
-          message.add_alternative(
-              f'<h1>{html.escape(title)}</h1><p>{html.escape(summary)}</p>'
-              f'<p><a href="{html.escape(pr_url, quote=True)}">Mở Pull Request để duyệt và đăng</a></p>',
-              subtype="html",
-          )
-
-          password = "".join(os.environ["MAIL_APP_PASSWORD"].split())
-          with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context(), timeout=45) as smtp:
-              smtp.login(str(message["From"]), password)
-              smtp.send_message(message)
-          print("SoloWeld review email sent.")
-          PY
+        run: python scripts/send_review_email.py
