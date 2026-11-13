@@ -1139,6 +1139,26 @@ def main():
     if selected_topic:
         log(f"Chuyên đề tuần này: {selected_topic['vi']} ({selected_topic['key']})")
 
+    # Prevent duplicate editions when a workflow is retried or manually triggered
+    # multiple times on the same Vietnam-local date.
+    if NEWS_INDEX.exists():
+        try:
+            published_index = json.loads(NEWS_INDEX.read_text(encoding="utf-8"))
+        except Exception:
+            published_index = []
+        duplicate = next(
+            (
+                item for item in published_index
+                if item.get("date") == today
+                and item.get("topic_key") == (selected_topic["key"] if selected_topic else "digest")
+            ),
+            None,
+        )
+        if duplicate:
+            log(f"Đã có bản tin hôm nay cho chuyên đề này ({duplicate.get('id')}); bỏ qua để tránh tạo bài trùng.")
+            write_output(skipped="true")
+            return
+
     papers = collect_soloweld_papers(selected_topic, mode)
     if len(papers) < MIN_PAPERS:
         log(f"Chỉ tìm thấy {len(papers)} bài báo mới (< {MIN_PAPERS}) -> tạm hoãn xuất bản tuần này.")
