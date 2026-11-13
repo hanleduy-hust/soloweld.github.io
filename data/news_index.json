@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-13-soloweld-smart-robotic-waam-1029",
+    "date": "2026-11-13",
+    "topic_key": "smart_robotic_waam",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "Tự động hóa Hàn Robot Thông minh, Cảm biến Đa phương thức & In 3D Kim loại (WAAM)",
+    "title_en": "Intelligent Robotic Welding Automation, Multi-Sensor Fusion & Wire Arc Additive Manufacturing (WAAM)",
+    "title_zh": "智能机器人焊接自动化、多传感器融合与电弧 3D 打印（WAAM）",
+    "title_ja": "インテリジェントロボット溶接自動化、マルチセンサフュージョンおよびワイヤアーク積層造形（WAAM）",
+    "summary_vi": "Phân tích toàn diện về các tiến bộ mới nhất trong tự động hóa hàn robot, hợp nhất đa cảm biến, và công nghệ bồi đắp kim loại WAAM dựa trên 8 tài liệu nghiên cứu ngang hàng. Bài viết cung cấp góc nhìn kỹ thuật chuyên sâu về các mô hình học sâu kết hợp (CNN-ViT), kiểm soát vòng kín, và ứng dụng trong tiêu chuẩn quốc tế AWS, ASME, ISO.",
+    "summary_en": "A comprehensive analysis of recent advancements in robotic welding automation, multi-sensor fusion, and WAAM metal additive manufacturing based on 8 peer-reviewed research papers. This insight details hybrid deep learning architectures (CNN-ViT), closed-loop control, and implications for international AWS, ASME, and ISO standards.",
+    "summary_zh": "基于8篇同行评审研究论文，对机器人焊接自动化、多传感器融合和WAAM金属增殖制造的最新进展进行了全面分析。文章详细阐述了混合深度学习架构（CNN-ViT）、闭环控制及其对国际AWS、ASME和ISO标准的影响。",
+    "summary_ja": "8件の査読済み研究論文に基づき、ロボット溶接の自動化、マルチセンサフュージョン、およびWAAM金属積層造形の最新動向を網羅的に分析。ハイブリッド深層学習アーキテクチャ（CNN-ViT）、閉ループ制御、国際的なAWS、ASME、ISO規格への影響について詳細に解説します。",
+    "tags": [
+      "Robotic Welding",
+      "Multi-Sensor Fusion",
+      "WAAM",
+      "Computer Vision",
+      "AWS D1.1",
+      "ASME Section IX"
+    ],
+    "cover": "images/news/2026-11-13-soloweld-smart-robotic-waam-1029/fig2.jpg",
+    "paper_count": 8,
+    "figure_count": 3,
+    "file": "news/posts/2026-11-13-soloweld-smart-robotic-waam-1029.json"
+  },
+  {
     "id": "2026-11-13-soloweld-smart-robotic-waam-0947",
     "date": "2026-11-13",
     "topic_key": "smart_robotic_waam",
