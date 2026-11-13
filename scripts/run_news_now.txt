@@ -1,1 +1,1 @@
-Run new SoloWeld story: smart robotic welding and WAAM. Triggered 2026-11-13.
+Run new SoloWeld story: AI methods for weld quality prediction. Triggered 2026-11-13 second verification.
