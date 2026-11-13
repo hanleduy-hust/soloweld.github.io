@@ -531,18 +531,10 @@
                 if (typeof window.renderMathInElement === 'function') {
                     window.renderMathInElement(container, {
                         delimiters: [
-                            { left: '$', right: '$', display: true },
+                            { left: '\\u0024\\u0024', right: '\\u0024\\u0024', display: true },
                             { left: '\\[', right: '\\]', display: true },
                             { left: '\\(', right: '\\)', display: false },
-                            { left: '
-    </script>
-</body>
-</html>
-, right: '
-    </script>
-</body>
-</html>
-, display: false }
+                            { left: '\\u0024', right: '\\u0024', display: false }
                         ],
                         throwOnError: false,
                         strict: 'ignore',
