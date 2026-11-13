@@ -753,9 +753,12 @@ def collect_figures(papers, post_id):
 
 PREFERRED_GEMINI_MODELS = [
     os.environ.get("GEMINI_MODEL", "").strip(),
-    "gemini-3.8-flash",
-    "gemini-3.5-flash",
-    "gemini-3.5-flash-lite",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-1.5-flash",
+    "gemini-flash-latest",
 ]
 
 BLOCKED_MODEL_PATTERNS = re.compile(
@@ -764,32 +767,30 @@ BLOCKED_MODEL_PATTERNS = re.compile(
 
 
 def gemini_candidates():
+    """Chọn đúng các model Flash văn bản chuẩn có hạn mức miễn phí."""
     preferred = [m for m in dict.fromkeys(PREFERRED_GEMINI_MODELS) if m]
     metadata = {}
     try:
         response = SESSION.get(
             "https://generativelanguage.googleapis.com/v1beta/models",
             headers={"x-goog-api-key": GEMINI_API_KEY},
-            params={"pageSize": 1000},
-            timeout=30,
-        )
+            params={"pageSize": 1000}, timeout=30)
         if response.status_code == 200:
             for model in response.json().get("models", []):
                 name = model.get("name", "").removeprefix("models/")
-                if (
-                    "generateContent" in model.get("supportedGenerationMethods", [])
-                    and "flash" in name
-                    and name.startswith("gemini-")
-                    and not BLOCKED_MODEL_PATTERNS.search(name)
-                ):
+                if ("generateContent" in model.get("supportedGenerationMethods", [])
+                        and "flash" in name and name.startswith("gemini-")
+                        and not BLOCKED_MODEL_PATTERNS.search(name)):
                     metadata[name] = model
             ordered = [m for m in preferred if m in metadata]
             for m in sorted(metadata, reverse=True):
                 if m not in ordered:
                     ordered.append(m)
             preferred = ordered
+        else:
+            log(f"Không lấy được danh sách model (HTTP {response.status_code}); dùng cấu hình.")
     except (requests.RequestException, ValueError):
-        log("Không lấy được danh sách model động; dùng danh sách cấu hình mặc định.")
+        log("Không lấy được danh sách model; dùng cấu hình.")
     names = list(dict.fromkeys(preferred))[:5]
     if not names:
         names = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"]
@@ -797,33 +798,25 @@ def gemini_candidates():
 
 
 def gemini_json(prompt):
+    import random
     errors = []
     started = time.monotonic()
-    required = (
-        "title_vi", "title_en", "title_zh", "title_ja",
-        "summary_vi", "summary_en", "summary_zh", "summary_ja",
-        "content_vi", "content_en",
-    )
+    required = ("title_vi", "title_en", "title_zh", "title_ja", "summary_vi", "summary_en", "summary_zh", "summary_ja", "content_vi", "content_en")
     for model, metadata in gemini_candidates():
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         body = {
             "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "responseMimeType": "application/json",
-                "maxOutputTokens": min(65536, metadata.get("outputTokenLimit") or 65536),
-            },
+            "generationConfig": {"responseMimeType": "application/json",
+                                 "maxOutputTokens": min(65536, metadata.get("outputTokenLimit") or 65536)},
         }
-        for attempt in range(5):
-            if time.monotonic() - started > 1200:
-                raise RuntimeError("Quá thời gian chờ Gemini API (20 phút).")
+        for attempt in range(3):
+            if time.monotonic() - started > 720:
+                raise RuntimeError("Gemini chưa phục hồi sau giới hạn 12 phút. Dữ liệu nguồn đã được giữ lại.")
             retry_after = 0
             try:
                 response = SESSION.post(
-                    url,
-                    headers={"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"},
-                    json=body,
-                    timeout=180,
-                )
+                    url, headers={"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"},
+                    json=body, timeout=180)
             except requests.RequestException as exc:
                 reason = type(exc).__name__
             else:
@@ -831,50 +824,50 @@ def gemini_json(prompt):
                     try:
                         candidate = response.json()["candidates"][0]
                         if candidate.get("finishReason") != "STOP":
-                            raise ValueError("Bài viết bị ngắt giữa chừng (finishReason != STOP)")
-                        text = "".join(
-                            p.get("text", "")
-                            for p in candidate.get("content", {}).get("parts", [])
-                            if not p.get("thought")
-                        )
-                        text = re.sub(r"^```(?:json)?|```$", "", text.strip()).strip()
+                            raise ValueError("Bài chưa hoàn chỉnh")
+                        text = "".join(p.get("text", "") for p in candidate.get("content", {}).get("parts", [])
+                                       if not p.get("thought"))
+                        text = re.sub(r"^\x60\x60\x60(json)?|\x60\x60\x60$", "", text.strip()).strip()
                         data = json.loads(text)
-                        if not isinstance(data, dict) or not all(
-                            isinstance(data.get(k), str) and data[k].strip() for k in required
-                        ):
-                            raise ValueError("Thiếu trường JSON đa ngôn ngữ bắt buộc")
-                        log(f"Biên tập thành công với model: {model}")
+                        if not isinstance(data, dict) or not all(isinstance(data.get(k), str) and data[k].strip() for k in required):
+                            raise ValueError("Thiếu nội dung song ngữ")
+                        log(f"Gemini model: {model}")
                         return data
-                    except (KeyError, IndexError, TypeError, ValueError) as parse_err:
-                        reason = f"Lỗi cấu trúc JSON ({parse_err})"
+                    except (KeyError, IndexError, TypeError, ValueError):
+                        reason = "JSON không hợp lệ hoặc bài chưa hoàn chỉnh"
                 else:
                     reason = f"HTTP {response.status_code}"
                     msg = ""
                     try:
                         msg = response.json().get("error", {}).get("message", "")
                         if msg:
-                            reason += " - " + re.sub(r"\s+", " ", msg)[:160]
+                            reason += " – " + re.sub(r"\s+", " ", msg)[:160]
                     except ValueError:
                         pass
                     if response.status_code in (401, 402, 403):
-                        raise RuntimeError(f"Gemini {reason}: Kiểm tra GEMINI_API_KEY.")
+                        raise RuntimeError(f"Gemini {reason}: kiểm tra quyền API hoặc thanh toán; không tự thử tiếp.")
                     if response.status_code == 404 or (
                         response.status_code == 429 and ("quota" in msg.lower() or "billing" in msg.lower() or attempt >= 1)
                     ):
                         errors.append(f"{model}: {reason}")
-                        log(f"Model {model} chạm giới hạn ({reason}) -> chuyển sang model dự phòng.")
+                        log(f"Gemini {model} hết hạn mức ({reason}) -> chuyển ngay sang model dự phòng.")
                         time.sleep(2)
+                        break
+                    if response.status_code not in (408, 429, 500, 502, 503, 504):
+                        errors.append(f"{model}: {reason}")
                         break
                     try:
                         retry_after = max(0, float(response.headers.get("Retry-After", 0)))
                     except (ValueError, TypeError):
                         pass
             errors.append(f"{model}: {reason}")
-            log(f"Gemini {model}, lần thử {attempt + 1}/3: {reason}")
-            if attempt < 4:
-                delay = min(90, max(retry_after, 15 * (2 ** attempt) + random.uniform(0, 5)))
+            log(f"Gemini {model}, lần {attempt + 1}/3: {reason}")
+            if attempt < 2:
+                delay = min(30, max(retry_after, 8 * (2 ** attempt) + random.uniform(0, 3)))
+                log(f"Chờ {delay:.0f} giây trước khi thử lại.")
                 time.sleep(delay)
-    raise RuntimeError("Tất cả model Gemini đều thất bại: " + " | ".join(errors[-8:]))
+        log(f"Chuyển sang model Flash dự phòng sau khi {model} không hoàn thành.")
+    raise RuntimeError("Gọi Gemini thất bại sau khi thử lại có giãn cách: " + " | ".join(errors[-8:]))
 
 
 def build_soloweld_prompt(papers, figures, selected_topic, mode, today, recent_titles):
