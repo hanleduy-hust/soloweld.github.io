@@ -511,6 +511,28 @@
             }, 1000);
         }
 
+        function protectMathDelimiters(source) {
+            const codePattern = /(\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~|\x60+[^\x60\n]*\x60+)/g;
+            const mathPattern = /\$\$([\s\S]+?)\$\$|\\\[([\s\S]+?)\\\]|\\\(([\s\S]+?)\\\)|(?<!\\)\$([^\n$]+?)\$(?!\d)/g;
+            const expressions = [];
+            const protectedMarkdown = String(source).split(codePattern).map((part, index) => {
+                if (index % 2 === 1) return part;
+                return part.replace(mathPattern, (match, blockDollar, blockBracket, inlineParen, inlineDollar) => {
+                    let value = match;
+                    if (blockDollar !== undefined) value = '$$' + blockDollar + '$$';
+                    else if (blockBracket !== undefined) value = '\\[' + blockBracket + '\\]';
+                    else if (inlineParen !== undefined) value = '\\(' + inlineParen + '\\)';
+                    else if (inlineDollar !== undefined) value = '$' + inlineDollar + '$';
+
+                    const token = 'SOLOWELDMATHPLACEHOLDER' + expressions.length + 'TOKEN';
+                    expressions.push({ token, value });
+                    return token;
+                });
+            }).join('');
+
+            return { markdown: protectedMarkdown, expressions };
+        }
+
         function renderAssistantAnswer(container, source) {
             const markdown = String(source || '').replace(/\r\n?/g, '\n');
             if (!window.marked || typeof window.marked.parse !== 'function' || !window.DOMPurify) {
@@ -519,8 +541,14 @@
             }
 
             try {
-                const renderedHtml = window.marked.parse(markdown, { gfm: true, breaks: false });
-                container.innerHTML = window.DOMPurify.sanitize(renderedHtml, { USE_PROFILES: { html: true } });
+                const protectedMath = protectMathDelimiters(markdown);
+                const renderedHtml = window.marked.parse(protectedMath.markdown, { gfm: true, breaks: false });
+                let safeHtml = window.DOMPurify.sanitize(renderedHtml, { USE_PROFILES: { html: true } });
+                protectedMath.expressions.forEach(({ token, value }) => {
+                    safeHtml = safeHtml.split(token).join(escapeHtml(value));
+                });
+                container.innerHTML = safeHtml;
+
                 container.querySelectorAll('table').forEach(table => {
                     if (table.parentElement && table.parentElement.classList.contains('table-scroll')) return;
                     const wrapper = document.createElement('div');
