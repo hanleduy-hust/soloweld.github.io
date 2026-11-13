@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-13-soloweld-smart-robotic-waam-0947",
+    "date": "2026-11-13",
+    "topic_key": "smart_robotic_waam",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "Tự động hóa Hàn Robot Thông minh, Cảm biến Đa phương thức & In 3D Kim loại (WAAM)",
+    "title_en": "Intelligent Robotic Welding Automation, Multi-Sensor Fusion & Wire Arc Additive Manufacturing (WAAM)",
+    "title_zh": "智能机器人焊接自动化、多传感器融合与电弧增材制造（WAAM）",
+    "title_ja": "インテリジェントロボット溶接自動化、マルチセンサフュージョン、ワイヤアーク付加製造（WAAM）",
+    "summary_vi": "Phân tích toàn diện về các tiến bộ mới nhất trong tự động hóa hàn robot thông minh, phương pháp hợp nhất dữ liệu cảm biến đa phương thức, và in 3D kim loại (WAAM). Bài viết tổng hợp 8 nghiên cứu ngang hàng quốc tế nhằm nâng cao chất lượng mối hàn, tối ưu hóa vùng ảnh hưởng nhiệt (HAZ) và đáp ứng các tiêu chuẩn khắt khe như AWS D1.1 và ASME.",
+    "summary_en": "An in-depth review of the latest breakthroughs in intelligent robotic welding automation, multi-sensor data fusion, and wire arc additive manufacturing (WAAM). Synthesizing 8 peer-reviewed international studies, this insight focuses on improving joint quality, controlling the heat-affected zone (HAZ), and complying with rigorous standards such as AWS D1.1 and ASME.",
+    "summary_zh": "深入探讨智能机器人焊接自动化、多传感器数据融合以及电弧增材制造（WAAM）的最新突破。本文综合了8篇国际同行评议研究，重点关注提高焊接接头质量、控制热影响区（HAZ）以及满足AWS D1.1和ASME等严格标准。",
+    "summary_ja": "インテリジェントロボット溶接自動化、マルチセンサデータフュージョン、ワイヤアーク付加製造（WAAM）における最新の画期的進展に関する詳細な考察。8件の国際査読済み論文を統合し、溶接継手品質の向上、熱影響区（HAZ）の制御、AWS D1.1やASME等の厳格な規格への適合に焦点を当てています。",
+    "tags": [
+      "Robotic Welding",
+      "Multi-Sensor Fusion",
+      "WAAM",
+      "Computer Vision",
+      "ASME Section IX",
+      "AWS D1.1"
+    ],
+    "cover": "images/news/2026-11-13-soloweld-smart-robotic-waam-0947/fig1.jpg",
+    "paper_count": 8,
+    "figure_count": 3,
+    "file": "news/posts/2026-11-13-soloweld-smart-robotic-waam-0947.json"
+  },
+  {
     "id": "2026-11-13-soloweld-smart-robotic-waam",
     "date": "2026-11-13",
     "topic_key": "smart_robotic_waam",
