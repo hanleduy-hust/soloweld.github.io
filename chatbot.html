@@ -541,7 +541,8 @@
                         strict: 'ignore',
                         ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option']
                     });
-                }            } catch (error) {
+                }
+            } catch (error) {
                 console.error('Could not render assistant Markdown:', error);
                 container.textContent = markdown;
             }
