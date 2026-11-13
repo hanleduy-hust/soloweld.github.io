@@ -11,6 +11,40 @@
     <!-- KaTeX CSS & JS để hỗ trợ công thức toán học -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <!-- Markdown GFM, HTML sanitization, and KaTeX auto-render for assistant answers -->
+    <script defer src="https://cdn.jsdelivr.net/npm/marked@18.2.0/lib/marked.umd.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.4.17/dist/purify.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        .ai-answer-markdown { font-family: inherit; white-space: normal; overflow-wrap: anywhere; line-height: 1.7; }
+        .ai-answer-markdown > :first-child { margin-top: 0; }
+        .ai-answer-markdown > :last-child { margin-bottom: 0; }
+        .ai-answer-markdown p, .ai-answer-markdown ul, .ai-answer-markdown ol, .ai-answer-markdown blockquote { margin: .65rem 0; }
+        .ai-answer-markdown h1, .ai-answer-markdown h2, .ai-answer-markdown h3, .ai-answer-markdown h4 { margin: 1rem 0 .5rem; color: #f8fafc; font-weight: 700; line-height: 1.35; }
+        .ai-answer-markdown h1 { font-size: 1.25rem; }
+        .ai-answer-markdown h2 { font-size: 1.125rem; }
+        .ai-answer-markdown h3, .ai-answer-markdown h4 { font-size: 1rem; }
+        .ai-answer-markdown ul, .ai-answer-markdown ol { padding-left: 1.5rem; }
+        .ai-answer-markdown ul { list-style: disc; }
+        .ai-answer-markdown ol { list-style: decimal; }
+        .ai-answer-markdown li { margin: .25rem 0; }
+        .ai-answer-markdown a { color: #fdba74; text-decoration: underline; overflow-wrap: anywhere; }
+        .ai-answer-markdown blockquote { border-left: 3px solid #f97316; padding-left: .75rem; color: #cbd5e1; }
+        .ai-answer-markdown .table-scroll { max-width: 100%; overflow-x: auto; margin: .85rem 0; border: 1px solid #334155; border-radius: .5rem; }
+        .ai-answer-markdown table { width: 100%; min-width: 38rem; border-collapse: collapse; font-size: .875rem; }
+        .ai-answer-markdown th, .ai-answer-markdown td { border: 1px solid #334155; padding: .55rem .7rem; text-align: left; vertical-align: top; white-space: normal; overflow-wrap: anywhere; }
+        .ai-answer-markdown th { background: #1e293b; color: #f8fafc; font-weight: 700; }
+        .ai-answer-markdown tr:nth-child(even) td { background: rgb(15 23 42 / 45%); }
+        .ai-answer-markdown code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; color: #fed7aa; background: rgb(15 23 42 / 80%); padding: .08rem .25rem; border-radius: .25rem; }
+        .ai-answer-markdown pre { max-width: 100%; overflow-x: auto; padding: .75rem; border-radius: .5rem; background: #020617; }
+        .ai-answer-markdown pre code { padding: 0; background: transparent; }
+        .ai-answer-markdown .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .25rem 0; }
+        .ai-answer-markdown sub, .ai-answer-markdown sup { line-height: 0; }
+        @media (max-width: 640px) {
+            .ai-answer-markdown table { min-width: 42rem; font-size: .8rem; }
+            .ai-answer-markdown th, .ai-answer-markdown td { padding: .45rem .55rem; }
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
 
@@ -382,8 +416,8 @@
                         </div>
                         <div class="bg-slate-800/80 border border-slate-700/50 p-4 rounded-2xl max-w-[90%] text-slate-200 leading-relaxed space-y-2">
                             <p class="text-xs text-slate-400">Query: <em>"${escapeHtml(query)}"</em></p>
-                            <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-sm text-slate-200 font-mono whitespace-pre-line overflow-x-auto">
-                                ${escapeHtml(data.answer || "No response data.")}
+                            <div class="bg-slate-900/90 border-l-2 border-orange-500 p-3 rounded text-sm text-slate-200 overflow-hidden">
+                                <div class="ai-answer-markdown"></div>
                             </div>
                             <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
                                 <span>Model: <strong class="text-orange-400">${escapeHtml(data.model_used || 'Gemini')}</strong></span>
@@ -415,6 +449,8 @@
                     `;
                 }
                 document.getElementById('chat-messages').appendChild(aiBubble);
+                const answerContainer = aiBubble.querySelector('.ai-answer-markdown');
+                if (answerContainer) renderAssistantAnswer(answerContainer, data.answer || 'No response data.');
                 document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
             } catch (error) {
@@ -475,8 +511,45 @@
             }, 1000);
         }
 
+        function renderAssistantAnswer(container, source) {
+            const markdown = String(source || '').replace(/\r\n?/g, '\n');
+            if (!window.marked || typeof window.marked.parse !== 'function' || !window.DOMPurify) {
+                container.textContent = markdown;
+                return;
+            }
+
+            try {
+                const renderedHtml = window.marked.parse(markdown, { gfm: true, breaks: false });
+                container.innerHTML = window.DOMPurify.sanitize(renderedHtml, { USE_PROFILES: { html: true } });
+                container.querySelectorAll('table').forEach(table => {
+                    if (table.parentElement && table.parentElement.classList.contains('table-scroll')) return;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-scroll';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                });
+                if (typeof window.renderMathInElement === 'function') {
+                    const mathDollar = String.fromCharCode(36);
+                    window.renderMathInElement(container, {
+                        delimiters: [
+                            { left: mathDollar + mathDollar, right: mathDollar + mathDollar, display: true },
+                            { left: '\\[', right: '\\]', display: true },
+                            { left: '\\(', right: '\\)', display: false },
+                            { left: mathDollar, right: mathDollar, display: false }
+                        ],
+                        throwOnError: false,
+                        strict: 'ignore',
+                        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option']
+                    });
+                }
+            } catch (error) {
+                console.error('Could not render assistant Markdown:', error);
+                container.textContent = markdown;
+            }
+        }
+
         function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
     </script>
 </body>
