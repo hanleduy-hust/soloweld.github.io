@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-13-soloweld-smart-robotic-waam",
+    "date": "2026-11-13",
+    "topic_key": "smart_robotic_waam",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "Tự động hóa Hàn Robot Thông minh, Cảm biến Đa phương thức & In 3D Kim loại (WAAM)",
+    "title_en": "Intelligent Robotic Welding Automation, Multi-Sensor Fusion & Wire Arc Additive Manufacturing (WAAM)",
+    "title_zh": "智能机器人焊接自动化、多传感器融合与电弧增材制造（WAAM）",
+    "title_ja": "インテリジェントロボット溶接自動化、マルチセンサーフュージョン、およびワイヤアーク付加製造（WAAM）",
+    "summary_vi": "Tổng quan chuyên sâu về tự động hóa hàn robot thông minh, cảm biến đa phương thức và công nghệ in 3D kim loại (WAAM) dựa trên 8 tài liệu nghiên cứu ngang hàng. Bài viết phân tích các kiến trúc điều khiển vòng kín, xử lý hình ảnh nhiệt hồng ngoại, phân tích dòng điện và tiêu chuẩn chất lượng mối hàn trong công nghiệp hiện đại.",
+    "summary_en": "An in-depth overview of intelligent robotic welding automation, multi-sensor fusion, and Wire Arc Additive Manufacturing (WAAM) based on eight peer-reviewed research papers. The article analyzes closed-loop control architectures, infrared thermal imaging, electrical current signal processing, and international welding quality standards for modern industry.",
+    "summary_zh": "基于8篇同行评审研究论文，对智能机器人焊接自动化、多传感器融合及电弧增材制造（WAAM）进行了深入综述。本文分析了闭环控制架构、红外热成像、电流信号处理及现代工业国际焊接质量标准。",
+    "summary_ja": "8件の査読済み研究論文に基づく、インテリジェントロボット溶接自動化、マルチセンサーフュージョン、およびワイヤアーク付加製造（WAAM）に関する詳細な展望。閉環制御アーキテクチャ、赤外線サーモグラフィ、電流信号処理、および現代産業における国際溶接品質基準を分析します。",
+    "tags": [
+      "Robotic Welding",
+      "WAAM",
+      "Multi-Sensor Fusion",
+      "AWS D1.1",
+      "ASME Section IX",
+      "Computer Vision"
+    ],
+    "cover": "images/news/2026-11-13-soloweld-smart-robotic-waam/fig2.jpg",
+    "paper_count": 8,
+    "figure_count": 3,
+    "file": "news/posts/2026-11-13-soloweld-smart-robotic-waam.json"
+  },
+  {
     "id": "2026-11-12-soloweld-ai-cv-welding",
     "date": "2026-11-12",
     "topic_key": "ai_cv_welding",
