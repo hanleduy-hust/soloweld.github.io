@@ -529,19 +529,19 @@
                     wrapper.appendChild(table);
                 });
                 if (typeof window.renderMathInElement === 'function') {
+                    const mathDollar = String.fromCharCode(36);
                     window.renderMathInElement(container, {
                         delimiters: [
-                            { left: '\\u0024\\u0024', right: '\\u0024\\u0024', display: true },
+                            { left: mathDollar + mathDollar, right: mathDollar + mathDollar, display: true },
                             { left: '\\[', right: '\\]', display: true },
                             { left: '\\(', right: '\\)', display: false },
-                            { left: '\\u0024', right: '\\u0024', display: false }
+                            { left: mathDollar, right: mathDollar, display: false }
                         ],
                         throwOnError: false,
                         strict: 'ignore',
                         ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'option']
                     });
-                }
-            } catch (error) {
+                }            } catch (error) {
                 console.error('Could not render assistant Markdown:', error);
                 container.textContent = markdown;
             }
