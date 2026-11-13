@@ -64,8 +64,8 @@ jobs:
           COMPACT_TEST: ${{ github.event_name == 'push' && 'true' || 'false' }}
           MAX_PAPERS: ${{ github.event_name == 'push' && '8' || '16' }}
           MAX_FIGURES: ${{ github.event_name == 'push' && '3' || '8' }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || (github.event_name == 'push' && 'gemini-3.5-flash-lite') || '' }}
-          TOPIC_ROTATION: ${{ inputs.topic_rotation || (github.event_name == 'push' && 'ai_cv_welding') || 'auto' }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || (github.event_name == 'push' && 'gemini-3.8-flash') || '' }}
+          TOPIC_ROTATION: ${{ inputs.topic_rotation || (github.event_name == 'push' && 'smart_robotic_waam') || 'auto' }}
         run: |
           python scripts/generate_soloweld_news.py
 
