@@ -1,1 +1,1 @@
-Run new SoloWeld story: AI methods for weld quality prediction. Triggered 2026-11-13 second verification.
+Run new SoloWeld story: verify SMTP 465-to-587 fallback after blog-style mailer update. Triggered 2026-11-13.
