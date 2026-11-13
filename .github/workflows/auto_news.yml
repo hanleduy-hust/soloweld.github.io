@@ -55,6 +55,21 @@ jobs:
         run: |
           mkdir -p data news/posts images/news
 
+      - name: Select topic for marker runs
+        id: topic
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            topic=$(sed -n 's/^TOPIC=//p' scripts/run_news_now.txt | tail -n 1)
+            topic=${topic:-smart_robotic_waam}
+            case "$topic" in
+              auto|digest|ai_cv_welding|blockchain_cert_traceability|smart_robotic_waam|welder_training_digital) ;;
+              *) echo "Unsupported TOPIC in scripts/run_news_now.txt: $topic"; exit 1 ;;
+            esac
+          else
+            topic=auto
+          fi
+          echo "key=$topic" >> "$GITHUB_OUTPUT"
+
       - name: Run SoloWeld AI News Generator
         id: gen
         env:
@@ -65,7 +80,7 @@ jobs:
           MAX_PAPERS: ${{ github.event_name == 'push' && '8' || '16' }}
           MAX_FIGURES: ${{ github.event_name == 'push' && '3' || '8' }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL || (github.event_name == 'push' && 'gemini-flash-lite-latest') || '' }}
-          TOPIC_ROTATION: ${{ inputs.topic_rotation || (github.event_name == 'push' && 'smart_robotic_waam') || 'auto' }}
+          TOPIC_ROTATION: ${{ inputs.topic_rotation || steps.topic.outputs.key || 'auto' }}
         run: |
           python scripts/generate_soloweld_news.py
 
