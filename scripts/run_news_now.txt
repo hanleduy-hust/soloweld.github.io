@@ -1,1 +1,2 @@
-Run a fresh SoloWeld news article and verify Gmail review email after updating MAIL_APP_PASSWORD. Triggered 2026-11-13 10:00 ICT.
+TOPIC=ai_cv_welding
+Run a new SoloWeld article on AI and computer vision in welding automation and inspection. Triggered 2026-11-13 12:00 ICT.
