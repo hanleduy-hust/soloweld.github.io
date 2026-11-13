@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-13-soloweld-ai-cv-welding",
+    "date": "2026-11-13",
+    "topic_key": "ai_cv_welding",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "AI và Thị giác máy tính trong Tự động hóa và Kiểm định Hàn",
+    "title_en": "AI and Computer Vision in Welding Automation and Inspection",
+    "title_zh": "人工智能与计算机视觉在焊接自动化与检验中的应用",
+    "title_ja": "溶接オートメーションと検査におけるAI・コンピュータビジョン",
+    "summary_vi": "Khám phá các bước tiến mới nhất trong tự động hóa mối hàn, thị giác máy tính và học sâu nhằm nâng cao độ chính xác kiểm tra không phá hủy và tuân thủ tiêu chuẩn AWS D1.1, ASME. Bài viết phân tích các mô hình YOLO, CNN, U-Net và giải pháp giám sát thời gian thực.",
+    "summary_en": "Exploring the latest advances in welding automation, computer vision, and deep learning for enhanced NDT inspection accuracy and compliance with AWS D1.1 and ASME standards. This article analyzes YOLO, CNN, U-Net models, and real-time monitoring solutions.",
+    "summary_zh": "探讨焊接自动化、计算机视觉和深度学习的最新进展，以提高无损检测精度并符合AWS D1.1和ASME标准。本文分析了YOLO、CNN、U-Net模型及实时监测解决方案。",
+    "summary_ja": "AWS D1.1やASME基準に準拠したNDT検査精度の向上のための、溶接自動化、コンピュータビジョン、ディープラーニングの最新動向を解説します。YOLO、CNN、U-Netモデルとリアルタイムモニタリングソリューションを網羅的に分析します。",
+    "tags": [
+      "Computer Vision",
+      "Deep Learning",
+      "AWS D1.1",
+      "ASME Section IX",
+      "Weld Inspection",
+      "Robotic Welding"
+    ],
+    "cover": "images/news/2026-11-13-soloweld-ai-cv-welding/fig1.jpg",
+    "paper_count": 8,
+    "figure_count": 3,
+    "file": "news/posts/2026-11-13-soloweld-ai-cv-welding.json"
+  },
+  {
     "id": "2026-11-13-soloweld-smart-robotic-waam-1029",
     "date": "2026-11-13",
     "topic_key": "smart_robotic_waam",
