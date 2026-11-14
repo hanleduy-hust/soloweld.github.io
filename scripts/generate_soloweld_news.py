@@ -5,6 +5,7 @@ cho cổng thông tin kỹ thuật SoloWeld (https://soloweld.github.io).
 Lịch chạy định kỳ: 08:00 sáng Thứ Bảy hằng tuần (01:00 UTC) qua GitHub Actions.
 """
 
+import copy
 import datetime as dt
 import html
 import io
@@ -870,6 +871,82 @@ def gemini_json(prompt):
     raise RuntimeError("Gọi Gemini thất bại sau khi thử lại có giãn cách: " + " | ".join(errors[-8:]))
 
 
+
+def normalized_article_text(value):
+    """Normalize visible article text for duplicate checks."""
+    soup = BeautifulSoup(value or "", "html.parser")
+    text = html.unescape(soup.get_text(" ", strip=True))
+    text = unicodedata.normalize("NFKD", text.casefold())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return " ".join(re.findall(r"[a-z0-9]+", text))
+
+
+def word_shingles(value, size=5):
+    words = normalized_article_text(value).split()
+    if len(words) < size:
+        return set()
+    return {" ".join(words[i:i + size]) for i in range(len(words) - size + 1)}
+
+
+def load_published_articles():
+    """Load published bodies; the index only contains short summaries."""
+    articles = []
+    if not POSTS_DIR.exists():
+        return articles
+    for path in sorted(POSTS_DIR.glob("*.json")):
+        try:
+            article = json.loads(path.read_text(encoding="utf-8"))
+            if article.get("id") and article.get("title_vi"):
+                articles.append(article)
+        except Exception as exc:
+            diag(f"Không đọc được bài cũ {path.name} khi kiểm tra trùng: {exc}")
+    return articles
+
+
+def duplicate_article_reason(candidate, published_articles):
+    """Return a collision reason for repeated titles, summaries, bodies, or sources."""
+    from difflib import SequenceMatcher
+
+    for old in published_articles:
+        for lang in ("vi", "en"):
+            current = normalized_article_text(candidate.get(f"title_{lang}", ""))
+            previous = normalized_article_text(old.get(f"title_{lang}", ""))
+            if current and previous and (
+                current == previous or SequenceMatcher(None, current, previous).ratio() >= 0.88
+            ):
+                return f"tiêu đề {lang.upper()} trùng/gần trùng bài {old.get('id', '(không rõ ID)')}"
+
+        for lang in ("vi", "en"):
+            current = normalized_article_text(candidate.get(f"summary_{lang}", ""))
+            previous = normalized_article_text(old.get(f"summary_{lang}", ""))
+            if current and previous and SequenceMatcher(None, current, previous).ratio() >= 0.86:
+                return f"tóm tắt {lang.upper()} gần trùng bài {old.get('id', '(không rõ ID)')}"
+
+        current_dois = {
+            norm_doi(ref.get("doi", "")) for ref in candidate.get("references", [])
+            if ref.get("doi")
+        }
+        old_dois = {
+            norm_doi(ref.get("doi", "")) for ref in old.get("references", [])
+            if ref.get("doi")
+        }
+        shared = current_dois & old_dois
+        if len(shared) >= max(3, (min(len(current_dois), len(old_dois)) + 1) // 2):
+            return f"{len(shared)} DOI nguồn đã dùng lại từ bài {old.get('id', '(không rõ ID)')}"
+
+        for lang in ("vi", "en"):
+            current_shingles = word_shingles(candidate.get(f"content_{lang}", ""))
+            old_shingles = word_shingles(old.get(f"content_{lang}", ""))
+            if current_shingles and old_shingles:
+                overlap = len(current_shingles & old_shingles) / len(current_shingles | old_shingles)
+                if overlap >= 0.45:
+                    return (
+                        f"nội dung {lang.upper()} trùng đáng kể với bài "
+                        f"{old.get('id', '(không rõ ID)')} (độ trùng cụm từ {overlap:.0%})"
+                    )
+    return ""
+
+
 def build_soloweld_prompt(papers, figures, selected_topic, mode, today, recent_titles):
     fig_of = {f["paper"]: f["n"] for f in figures}
     lines = []
@@ -919,7 +996,7 @@ STRICT RULES:
 {figs}
 - Allowed HTML tags inside `content_vi` and `content_en`: <h3>, <h4>, <p>, <ul>, <ol>, <li>, <strong>, <em>, <sub>, <sup>. No inline styles, no <table>, no <img>, no <a>.
 - MULTILINGUAL METADATA FOR SOLOWELD UI: Because soloweld.github.io supports 4 UI languages (EN, VI, ZH, JA), provide accurate translations of the article title, summary (2–3 sentences), and category label in ALL 4 languages (`vi`, `en`, `zh`, `ja`), plus full in-depth HTML body (`content_vi`, `content_en`, ~2000–2800 words per language) and concise summaries (`content_zh`, `content_ja`, ~400–600 words in HTML summarizing the core technical sections with [n] citations so ZH/JA readers also get structured technical insights).
-- HEADLINE UNIQUENESS: Create a specific, compelling technical headline based on the actual breakthroughs in this week's papers. Avoid generic titles or repeating recent headlines: {json.dumps(recent_titles, ensure_ascii=False)}
+- HEADLINE AND CONTENT UNIQUENESS: Treat the recent published titles below as hard exclusions. Do not reuse, lightly paraphrase, or translate them. Choose a specific headline grounded in the supplied studies. Write a new synthesis with a different central angle and technical narrative; do not recycle prior summaries or paragraphs. If the supplied studies cannot support a distinct article, stop and report insufficient novelty. Recent titles to avoid: {json.dumps(recent_titles, ensure_ascii=False)}
 
 Return ONLY a valid JSON object matching this exact schema:
 {{
@@ -1186,7 +1263,7 @@ def main():
             published_index = json.loads(NEWS_INDEX.read_text(encoding="utf-8"))
             recent_titles = [
                 {"vi": item.get("title_vi", ""), "en": item.get("title_en", "")}
-                for item in published_index[:25]
+                for item in published_index[:50]
             ]
         except Exception:
             pass
@@ -1206,8 +1283,35 @@ def main():
     if COMPACT_TEST:
         prompt = prompt.replace("~2000–2800 words", "~450–650 words")
         prompt = prompt.replace("~400–600 words", "~120–180 words")
+    published_articles = load_published_articles()
+    original_papers = copy.deepcopy(papers)
+    original_figures = copy.deepcopy(figures)
+
     ai = gemini_json(prompt)
-    papers = renumber_citations(ai, papers, figures)
+    duplicate_reason = ""
+    for attempt in range(2):
+        # Restore source ordering before reindexing after a regenerated draft.
+        papers = copy.deepcopy(original_papers)
+        figures = copy.deepcopy(original_figures)
+        papers = renumber_citations(ai, papers, figures)
+        duplicate_reason = duplicate_article_reason(ai, published_articles)
+        if not duplicate_reason:
+            break
+        diag(f"Bản nháp bị chặn vì {duplicate_reason}.")
+        if attempt == 0:
+            prompt += (
+                "\n\nREJECTED DRAFT — regenerate the entire article. "
+                + f"The previous draft was rejected because {duplicate_reason}. "
+                + "Use a genuinely different title, summary, and article narrative from all prior posts. "
+                + "Keep all factual claims grounded in the supplied papers. "
+                + "If the supplied studies do not allow a distinct article, do not imitate the old post."
+            )
+            ai = gemini_json(prompt)
+    if duplicate_reason:
+        raise RuntimeError(
+            "Bản tin bị dừng: sau một lần yêu cầu viết lại vẫn trùng nội dung đã xuất bản "
+            + f"({duplicate_reason}); không tạo PR."
+        )
 
     refs = [
         {
