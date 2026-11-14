@@ -1,2 +1,2 @@
-TOPIC=ai_cv_welding
-Run a new SoloWeld article on AI and computer vision in welding automation and inspection. Triggered 2026-11-13 12:00 ICT.
+TOPIC=smart_robotic_waam
+Run Saturday backfill article on robotic welding and WAAM. Triggered 2026-11-14 08:43 ICT.
