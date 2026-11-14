@@ -1294,7 +1294,9 @@ def main():
         papers = copy.deepcopy(original_papers)
         figures = copy.deepcopy(original_figures)
         papers = renumber_citations(ai, papers, figures)
-        duplicate_reason = duplicate_article_reason(ai, published_articles)
+        candidate_for_dedup = dict(ai)
+        candidate_for_dedup["references"] = [{"doi": paper.get("doi", "")} for paper in papers]
+        duplicate_reason = duplicate_article_reason(candidate_for_dedup, published_articles)
         if not duplicate_reason:
             break
         diag(f"Bản nháp bị chặn vì {duplicate_reason}.")
