@@ -1,0 +1,171 @@
+{
+  "id": "2026-11-14-soloweld-smart-robotic-waam",
+  "date": "2026-11-14",
+  "topic_key": "smart_robotic_waam",
+  "type": "feature",
+  "category_vi": "Chuyên đề AI & Hàn",
+  "category_en": "AI & Welding Insight",
+  "category_zh": "AI与焊接专题",
+  "category_ja": "AI・溶接技術特集",
+  "title_vi": "Tự động hóa Hàn Robot Thông minh, Cảm biến Đa phương thức & In 3D Kim loại (WAAM)",
+  "title_en": "Intelligent Robotic Welding Automation, Multi-Sensor Fusion & Wire Arc Additive Manufacturing (WAAM)",
+  "title_zh": "智能机器人焊接自动化、多传感器融合与电弧 3D 金属打印 (WAAM)",
+  "title_ja": "インテリジェントロボット溶接自動化、マルチセンサーフュージョン、ワイヤアーク積層造形 (WAAM)",
+  "summary_vi": "Phân tích chuyên sâu về hệ thống hàn robot tự thích ứng, thuật toán học máy dự đoán hình học đường hàn trong In 3D kim loại (WAAM), và các phương pháp kiểm soát biến dạng vùng ảnh hưởng nhiệt (HAZ). Bài viết tổng hợp 8 công trình nghiên cứu tiên phong năm 2026 phục vụ kiểm định chất lượng và tiêu chuẩn quốc tế.",
+  "summary_en": "An in-depth technical insight into adaptive robotic welding systems, machine learning bead geometry prediction in Wire Arc Additive Manufacturing (WAAM), and HAZ distortion control models. Synthesizing eight peer-reviewed 2026 studies to advance international welding automation and quality assurance.",
+  "summary_zh": "深入剖析自适应机器人焊接系统、电弧金属3D打印（WAAM）中基于机器学习的焊道几何预测以及热影响区（HAZ）变形控制模型。本文综合了2026年的8项前沿同行评议研究，以推进国际焊接自动化与质量保证。",
+  "summary_ja": "適応型ロボット溶接システム、ワイヤアーク積層造形（WAAM）における機械学習を活用したビード形状予測、およびHAZ変形制御モデルに関する詳細な技術インサイト。2026年の8件の査読済み論文を統合し、国際的な溶接自動化と品質保証を推進します。",
+  "tags": [
+    "Adaptive Robotic Welding",
+    "WAAM",
+    "Multi-Sensor Fusion",
+    "Deep Learning",
+    "ASME Section IX",
+    "AWS D1.1"
+  ],
+  "cover": "images/news/2026-11-14-soloweld-smart-robotic-waam/fig1.jpg",
+  "paper_count": 8,
+  "figure_count": 3,
+  "content_vi": "<h3>Sự bùng nổ của trí tuệ nhân tạo (AI), học máy (machine learning) và công nghệ in 3D kim loại (WAAM) đang định hình lại toàn diện ngành sản xuất hàn và kiểm định chất lượng quốc tế. Các tiêu chuẩn truyền thống như AWS D1.1 hay ASME Section IX đang đứng trước yêu cầu tích hợp dữ liệu thời gian thực và tự động hóa vòng kín để đảm bảo tính toàn vẹn kết cấu. Bản tin tuần này phân tích 8 công trình nghiên cứu phản biện mới nhất, cung cấp nền tảng kỹ thuật vững chắc cho các kỹ sư hàn trong việc tối ưu hóa quy trình hàn kim loại và quản lý chứng chỉ số.</h3>\n<h3>Bối cảnh Công nghiệp &amp; Tiêu chuẩn Quốc tế</h3>\n<p>Trong ngành chế tạo kết cấu thép, năng lượng và hàng không vũ trụ, các kỹ sư hàn và giám sát chất lượng (QA/QC) đang đối mặt với những thách thức lớn từ biến dạng nhiệt, khuyết tật vi mô trong vùng ảnh hưởng nhiệt (HAZ), và tính bất định của các thông số quy trình hàn (WPS). Các phương pháp kiểm tra không phá hủy (NDT) truyền thống hay việc phê duyệt hồ sơ quy trình hàn (PQR) và chứng chỉ thợ hàn (WPQ) thủ công thường chậm trễ và thiếu khả năng thích ứng thời gian thực. Việc tích hợp trí tuệ nhân tạo và cảm biến đa phương thức vào hệ thống hàn robot (robotic welding) được kỳ vọng sẽ giải quyết triệt để các điểm nghẽn này, đưa công nghệ chế tạo tiến lên cấp độ tự chủ hoàn toàn.</p>\n<h3>Robot hàn tự thích ứng và hệ thống tái cấu trúc thưa dữ liệu (DSRF)</h3>\n<p>Để giám sát các hệ thống sản xuất thông minh phức tạp mà không cần giả định phân phối nhiễu hoặc mô hình vật lý tách biệt, nhóm tác giả <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup> đã đề xuất khung tái cấu trúc thưa dựa trên dữ liệu (Data-Driven Sparse Reconstruction Framework - DSRF). Khung này phân tách độ lệch quan sát thành thành phần đo lường bình thường được tái cấu trúc, phần dư bất thường thưa (sparse anomaly residual) và phần dư tái cấu trúc còn lại. Nghiên cứu đánh giá DSRF bằng dữ liệu dòng điện và rung động từ các hệ thống robot hàn. Ở ngưỡng phân vị 99, DSRF đạt độ chính xác phát hiện 100% không có âm tính giả (false negatives), với độ chính xác tương ứng là 99.76% cho tập dữ liệu dòng điện và 98.38% cho tập dữ liệu rung động <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. Phương pháp này cung cấp thông tin mức độ đặc trưng tần số để giải thích các độ lệch bất thường nổi bật mà không cần mô hình hệ thống vật lý xác định riêng <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<h3>Dự đoán hình học đường hàn 3D và học máy trong In 3D Kim loại (WAAM)</h3>\n<p>Trong công nghệ chế tạo bồi đắp hồ quang dây (Wire Arc Additive Manufacturing - WAAM), việc kiểm soát hình học đường hàn theo chiều dọc là cốt lõi để đạt được hiệu suất lắng đọng cao. Nhóm tác giả <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup> đã phát triển một khuôn khổ không gian rõ ràng để trích xuất và dự đoán hình học đường hàn dọc từ đám mây điểm quét laser 3D (3D laser-scanned point clouds). Năm mươi lớp đắp đơn lẻ được sản xuất trong dải thông số toàn giai thừa gồm dòng điện hàn 65–155 A và tốc độ dịch chuyển 20–40 cm/min. Các mô hình học máy bao gồm hồi quy ridge tuyến tính, hồi quy ridge bậc hai và hồi quy quá trình Gaussian (GPR) đã được đánh giá thông qua kiểm định chéo nhóm lồng nhau lặp lại. Khung làm việc đã chọn đạt hệ số xác định trung bình trên tập kiểm chứng R<sup>2</sup> là 0.981 cho chiều rộng, 0.965 cho chiều cao vững chắc, và 0.985 cho diện tích mặt cắt ngang <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>. Kết quả chứng minh rằng hình học đường hàn WAAM có thể được dự đoán như một đại lượng biến đổi dọc thay vì một giá trị toàn cục duy nhất <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig1.jpg\" alt=\"Đường cong học tập được nhóm theo các đường hàn huấn luyện độc lập. Xanh lam, cam và xanh lục\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 1.</strong> Đường cong học tập được nhóm theo các đường hàn huấn luyện độc lập. Xanh lam, cam và xanh lục <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 8 trong bài gốc – Šket et al. (2026), “Longitudinal Prediction of WAAM Bead Geometry from 3D Point-Cloud Linear Measurements Using Machine Learning”, <em>Materials</em>, <a href=\"https://doi.org/10.3390/ma19224809\" target=\"_blank\" rel=\"noopener\">doi:10.3390/ma19224809</a> [<a href=\"#ref-2\">2</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<h3>Mô hình học sâu CNN-LSTM nghịch đảo thông số cấu tạo vật liệu</h3>\n<p>Các cấu trúc có độ hạt gradient hợp kim (alloy gradient-grained structures) mang lại cơ tính vượt trội như độ bền, độ dẻo và khả năng chống mỏi cao, đóng vai trò then chốt trong công nghiệp hàng không vũ trụ và ô tô <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>. Nhóm tác giả <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup> đã đề xuất một khung học sâu kết hợp Mạng nơ-ron tích chập (Convolutional Neural Networks - CNN) và mạng Bộ nhớ dài ngắn hạn (Long Short-Term Memory - LSTM) để nghịch đảo hiệu quả các thông số cấu tạo then chốt như ứng suất cắt tới hạn ban đầu và mô-đun hoá bền. Mô hình tích hợp các đặc trưng không gian từ chuỗi trường biến dạng và ảnh hình thái hạt với các đặc trưng thời gian từ chuỗi tải trọng. Được huấn luyện trên dữ liệu mô phỏng Phương pháp phần tử hữu hạn tinh thể dẻo (Crystal Plasticity Finite Element Method - CPFEM) độ trung thực cao, khung này đạt sai số dưới 5%, thể hiện tính nhất quán vật lý vững chắc <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig2.jpg\" alt=\"Strain Simulation Results.\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 2.</strong> Strain Simulation Results. <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 3 trong bài gốc – Jiang et al. (2025), “A Deep Learning-Based CNN-LSTM Framework for Constitutive Parameter Inversion in Alloy Gradient-Grained Materials”, <em>Metals</em>, <a href=\"https://doi.org/10.3390/met15121286\" target=\"_blank\" rel=\"noopener\">doi:10.3390/met15121286</a> [<a href=\"#ref-3\">3</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<h3>Khảo sát số học nhiệt và ứng xử nhiệt cơ trong hàn ma sát khuấy (FSW) vật liệu dị chất</h3>\n<p>Nhu cầu về các linh kiện nhẹ, hiệu suất cao trong ngành giao thông vận tải thúc đẩy sự phát triển của hàn ma sát khuấy (Friction Stir Welding - FSW) đối với vật liệu dị chất như liên kết lai nhôm-polyme <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. Nhóm tác giả <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup> đã tiến hành tổng hợp toàn diện kết hợp bản đồ thư mục và phân tích hệ thống tài liệu trên Scopus trong hai thập kỷ qua. Nghiên cứu mô tả sự tiến hóa của các chiến lược mô hình hóa số, xác định các thông số quy trình then chốt và làm sáng tỏ các nguyên lý cơ bản về nhiệt cơ chi phối hiệu suất mối hàn <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. Khung mô phỏng tích hợp giúp phân tích sự tương tác giữa sự khác biệt pha nhôm-polyme và tính hội tụ số, đồng thời đề xuất các lộ trình tối ưu hóa nhằm nâng cao độ chính xác và giảm thiểu nhu cầu tính toán <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig3.jpg\" alt=\"Cross-section showing the temperature distribution during welding. 396\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Hình 3.</strong> Cross-section showing the temperature distribution during welding. 396 <span class=\"block mt-1 text-xs text-slate-500\">Nguồn: Hình 10 trong bài gốc – Herbandono et al. (2026), “Friction stir welding in dissimilar materials: a comprehensive review and numerical thermal investigation for aluminum–polymer joint”, <em>Continuum Mechanics and Thermodynamics</em>, <a href=\"https://doi.org/10.1007/s00161-026-01543-8\" target=\"_blank\" rel=\"noopener\">doi:10.1007/s00161-026-01543-8</a> [<a href=\"#ref-4\">4</a>]. Giấy phép: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; ảnh được thu nhỏ, giữ nguyên nội dung khoa học.</span></figcaption></figure>\n<h3>Thách thức Triển khai Thực tế</h3>\n<p>Việc đưa các thuật toán AI và hệ thống cảm biến đa phương thức vào xưởng chế tạo công nghiệp gặp phải nhiều rào cản đáng kể. Môi trường hồ quang khắc nghiệt với bức xạ quang học cường độ cao, hiện tượng bắn tóe (spatter) kim loại và sự thiếu hụt dữ liệu huấn luyện cho các dạng khuyết tật hiếm gặp làm giảm độ tin cậy của mô hình. Hơn nữa, việc tích hợp xuyên suốt giữa các tiêu chuẩn quốc tế khác nhau (như AWS D1.1 cho kết cấu thép, ASME Section IX cho bình áp lực, ISO và JWES) đòi hỏi các hệ thống số phải đạt độ trễ thấp, bảo mật cao và khả năng tương thích ngược với hồ sơ PQR truyền thống.</p>\n<h3>Ứng dụng trong Đào tạo Kỹ sư Hàn &amp; Quản lý Chứng chỉ</h3>\n<p>Các trung tâm đào tạo kỹ sư hàn và đội ngũ kiểm định QA/QC cần nhanh chóng cập nhật chương trình giảng dạy để tích hợp công nghệ bản sao số (digital twin), phân tích đám mây điểm 3D và các nguyên lý điều khiển vòng kín. Hệ sinh thái chứng chỉ số cần chuyển dịch từ việc phê duyệt giấy tờ thủ công sang các nền tảng xác thực thông minh dựa trên dữ liệu thời gian thực từ robot hàn, đảm bảo sự minh bạch, khả năng truy xuất nguồn gốc theo chuẩn quốc tế và nâng cao chất lượng toàn diện cho các công trình kết cấu hàn hiện đại.</p>",
+  "content_en": "<h3>The convergence of artificial intelligence (AI), machine learning, and Wire Arc Additive Manufacturing (WAAM) is thoroughly reshaping modern welding manufacturing and international quality assurance. Traditional codes such as AWS D1.1 and ASME Section IX are now challenged to integrate real-time sensor data and closed-loop automation to guarantee structural integrity. This weekly insight synthesizes eight peer-reviewed studies from 2026, establishing a rigorous technical foundation for welding engineers to optimize fusion welding processes and manage digital certifications.</h3>\n<h3>Industrial Context &amp; International Standards</h3>\n<p>In structural steel fabrication, energy pipelines, and aerospace manufacturing, welding engineers and QA/QC inspectors face severe challenges regarding thermal distortion, microstructural defects within the heat-affected zone (HAZ), and the inherent uncertainty of welding procedure specifications (WPS). Conventional non-destructive testing (NDT) methods and manual qualification of welding procedure qualification records (PQR) and welder performance qualifications (WPQ) often suffer from delays and lack real-time adaptability. Integrating artificial intelligence and multi-modal sensing into robotic welding systems promises to overcome these bottlenecks, driving manufacturing toward full autonomy.</p>\n<h3>Adaptive Robotic Welding and Data-Driven Sparse Reconstruction Framework (DSRF)</h3>\n<p>To monitor complex smart manufacturing systems without requiring predefined statistical assumptions or explicit physical measurement models, the authors of <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup> proposed a Data-Driven Sparse Reconstruction Framework (DSRF). This framework decomposes observation deviations into a reconstructed normal measurement component, a sparse anomaly residual, and a remaining reconstruction residual. Evaluating DSRF using current and vibration measurements from robotic welding systems at the 99th-percentile threshold achieved 100% detection with zero false negatives, yielding detection accuracies of 99.76% and 98.38% for current and vibration datasets, respectively <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>. The anomaly residual explicitly provides frequency feature-level information to interpret prominent abnormal deviations without separately identified physical models <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>.</p>\n<h3>3D Bead Geometry Prediction and Machine Learning in WAAM</h3>\n<p>In Wire Arc Additive Manufacturing (WAAM), controlling longitudinal bead geometry is paramount to achieving high deposition efficiency. The authors of <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup> presented a spatially explicit framework for extracting and predicting longitudinal bead geometry from 3D laser-scanned point clouds. Fifty single-bead deposits were produced across a full factorial parameter range of 65–155 A welding current and 20–40 cm/min travel speed. Linear ridge regression, quadratic ridge regression, and Gaussian process regression (GPR) models were evaluated using repeated nested grouped cross-validation. The selected framework achieved mean held-out bead R<sup>2</sup> values of 0.981 for width, 0.965 for robust height, and 0.985 for cross-sectional area <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>, demonstrating that WAAM bead geometry can be accurately modeled as a longitudinally varying quantity rather than a global constant <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig1.jpg\" alt=\"Grouped learning curve based on independent training beads. Blue, orange, and green\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 1.</strong> Grouped learning curve based on independent training beads. Blue, orange, and green <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 8 of the original article – Šket et al. (2026), “Longitudinal Prediction of WAAM Bead Geometry from 3D Point-Cloud Linear Measurements Using Machine Learning”, <em>Materials</em>, <a href=\"https://doi.org/10.3390/ma19224809\" target=\"_blank\" rel=\"noopener\">doi:10.3390/ma19224809</a> [<a href=\"#ref-2\">2</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<h3>Deep Learning CNN-LSTM Framework for Constitutive Parameter Inversion</h3>\n<p>Alloy gradient-grained structures offer superior mechanical properties such as enhanced strength, ductility, and fatigue resistance, holding significant importance in aerospace and automotive applications <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>. The authors of <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup> proposed a deep learning framework combining Convolutional Neural Networks (CNN) and Long Short-Term Memory (LSTM) networks to efficiently invert key constitutive parameters, including initial critical resolved shear stress and hardening modulus. The model integrates spatial features from strain-field sequences and grain morphology images with temporal features from loading sequences. Trained on high-fidelity Crystal Plasticity Finite Element Method (CPFEM) simulation data, the framework achieved an error margin of less than 5% while ensuring physical consistency <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig2.jpg\" alt=\"Strain Simulation Results.\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 2.</strong> Strain Simulation Results. <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 3 of the original article – Jiang et al. (2025), “A Deep Learning-Based CNN-LSTM Framework for Constitutive Parameter Inversion in Alloy Gradient-Grained Materials”, <em>Metals</em>, <a href=\"https://doi.org/10.3390/met15121286\" target=\"_blank\" rel=\"noopener\">doi:10.3390/met15121286</a> [<a href=\"#ref-3\">3</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<h3>Numerical Thermal Investigation and Thermomechanical Behavior in Dissimilar FSW</h3>\n<p>The demand for lightweight, high-performance components in transportation drives the expansion of friction stir welding (FSW) for dissimilar materials such as aluminum-polymer hybrid joints <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. The authors of <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup> conducted a comprehensive review synthesizing bibliometric mapping and Scopus-indexed literature from the past two decades. The study delineated the evolution of numerical modeling strategies, identified core process parameters, and elucidated thermomechanical fundamentals governing joint performance <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>. The integrated investigation analyzed the interplay between phase differences, thermomechanical behavior, and numerical convergence, proposing optimization pathways to improve predictive accuracy while lowering computational demands <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>.</p>\n<figure class=\"post-figure my-6 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-4\"><img src=\"images/news/2026-11-14-soloweld-smart-robotic-waam/fig3.jpg\" alt=\"Cross-section showing the temperature distribution during welding. 396\" loading=\"lazy\" class=\"mx-auto rounded-lg max-h-[460px] object-contain\"><figcaption class=\"mt-3 text-sm text-slate-600 leading-relaxed\"><strong class=\"text-slate-900\">Figure 3.</strong> Cross-section showing the temperature distribution during welding. 396 <span class=\"block mt-1 text-xs text-slate-500\">Source: Fig. 10 of the original article – Herbandono et al. (2026), “Friction stir welding in dissimilar materials: a comprehensive review and numerical thermal investigation for aluminum–polymer joint”, <em>Continuum Mechanics and Thermodynamics</em>, <a href=\"https://doi.org/10.1007/s00161-026-01543-8\" target=\"_blank\" rel=\"noopener\">doi:10.1007/s00161-026-01543-8</a> [<a href=\"#ref-4\">4</a>]. Licence: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\" rel=\"noopener\">CC BY</a>; resized, content unchanged.</span></figcaption></figure>\n<h3>Industrial Deployment Challenges</h3>\n<p>Deploying AI algorithms and multi-sensor fusion systems into industrial shop floors encounters notable hurdles. Harsh arc environments with intense optical radiation, weld spatter, and data scarcity for rare defect classes can compromise model reliability. Furthermore, seamless integration across diverse international standards (such as AWS D1.1 for structural steel, ASME Section IX for pressure vessels, ISO, and JWES) demands low latency, high cybersecurity, and backward compatibility with legacy PQR records.</p>\n<h3>Implications for Welding Engineer Training &amp; Certification Management</h3>\n<p>Welding training centers and QA/QC inspection teams must rapidly update their curricula to incorporate digital twin technology, 3D point-cloud analytics, and closed-loop control principles. The digital certification ecosystem must transition from manual paper-based approvals to smart verification platforms driven by real-time robotic welding telemetry, ensuring transparency, international traceability, and comprehensive quality enhancement for modern welded structures.</p>",
+  "content_zh": "<h3>引言与工业背景</h3>\n<p>人工智能、机器学习与电弧金属3D打印（WAAM）的深度融合正在重塑现代焊接制造与国际质量保证。AWS D1.1和ASME Section IX等传统规范正面临集成实时传感器数据与闭环自动化的迫切需求。本文综合了2026年的8项前沿同行评议研究，为焊接工程师优化熔化焊工艺及管理数字认证奠定坚实的技术基础。</p>\n<h3>自适应机器人焊接与数据驱动稀疏重构框架（DSRF）</h3>\n<p>为了在无需预先设定统计假设或显式物理测量模型的情况下监控复杂的智能制造系统，<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>的作者提出了数据驱动稀疏重构框架（DSRF）。该框架将观测偏差分解为正常测量分量、稀疏异常残差和剩余重构残差。在99%分位数阈值下，DSRF在机器人焊接系统的电流和振动数据集上分别实现了100%的检测率（零漏报），检测准确率分别达到99.76%和98.38% <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。该异常残差还可提供频域特征级信息，用于解释显著的异常偏差 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。</p>\n<h3>WAAM中的3D焊道几何预测与机器学习</h3>\n<p>在电弧增材制造（WAAM）中，控制纵向焊道几何形状是实现高沉积效率的关键。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>的作者提出了一种空间显式框架，用于从3D激光扫描点云中提取和预测纵向焊道几何形状。研究评估了线性岭回归、二次岭回归和高斯过程回归（GPR）模型。所选框架的保留验证集平均R<sup>2</sup>值在宽度上达到0.981，稳健高度上达到0.965，横截面积上达到0.985 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>，证明WAAM焊道几何形状可被准确预测为沿纵 and 变化的量 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>。通过交叉验证进一步证实了模型在未见参数下的泛用性。</p>\n<h3>用于本构参数反演的CNN-LSTM深度学习框架</h3>\n<p>合金梯度晶粒结构具有优异的强度、塑性和抗疲劳性能，在航空航天和汽车工业中至关重要 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>的作者提出了一种结合卷积神经网络（CNN）和长短期记忆网络（LSTM）的深度学习框架，用于高效反演初始临界resolved剪切应力和加工硬化模量等关键本构参数。模型在晶体塑性有限元法（CPFEM）高保真模拟数据上进行训练，误差小于5%，展现出高度的物理一致性 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>。</p>\n<h3>异种材料搅拌摩擦焊（FSW）的数值热分析与热机械行为</h3>\n<p>交通运输领域对轻量化、高性能部件的需求推动了铝-聚合物等异种材料搅拌摩擦焊（FSW）的发展。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>的作者结合文献计量学与Scopus索引文献进行了全面综述，阐明了数值建模策略的演变、核心工艺参数以及支配接头性能的热机械基本原理 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>，并提出了提高预测精度和降低计算需求的优化途径 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。</p>\n<h3>实际部署挑战与认证管理启示</h3>\n<p>在严苛的电弧光和飞溅环境中部署AI算法面临数据稀缺与硬件算力限制。焊接培训中心与QA/QC检验团队必须将数字孪生、3D点云分析及闭环控制纳入培训体系，推动数字认证生态系统向基于实时机器人遥测数据的智能验证平台转型，确保国际标准的合规性与可追溯性 <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>, <a href=\"#ref-6\" class=\"hover:underline\">6</a>, <a href=\"#ref-7\" class=\"hover:underline\">7</a>, <a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>。</p>",
+  "content_ja": "<h3>導入と産業的背景</h3>\n<p>人工知能（AI）、機械学習、およびワイヤアーク積層造形（WAAM）の融合は、現代の溶接製造と国際的な品質保証を根本から変革しつつあります。AWS D1.1やASME Section IXなどの伝統的規格には、構造的完全性を保証するためのリアルタイムセンサーデータおよび閉ループ自動化の統合が求められています。本稿では、2026年の8件の査読済み論文を統合し、溶接技術者が溶融溶接プロセスの最適化とデジタル認証管理を行うための強固な技術基盤を提供します。</p>\n<h3>適応型ロボット溶接とデータ駆動型スパース再構成フレームワーク（DSRF）</h3>\n<p>事前定義された統計的仮定や明示的な物理測定モデルを必要とせずに複雑なスマート製造システムを監視するため、<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>の著者らはデータ駆動型スパース再構成フレームワーク（DSRF）を提案しました。このフレームワークは、観測偏差を正常測定成分、スパース異常残差、および残余再構成残差に分解します。99パーセンタイル閾値において、DSRFはロボット溶接システムの電流および振動データセットで偽陰性ゼロの100%検出を実現し、検出精度はそれぞれ99.76%と98.38%に達しました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。異常残差は、物理モデルを別途特定することなく、顕著な異常偏差を解釈するための周波数特徴レベルの情報を提供します <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-1\" class=\"hover:underline\">1</a>]</sup>。</p>\n<h3>WAAMにおける3Dビード形状予測と機械学習</h3>\n<p>ワイヤアーク積層造形（WAAM）において、縦方向のビード形状制御は高い堆積効率を達成するために不可欠です。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>の著者らは、3Dレーザースキャン点群から縦方向のビード形状を抽出し予測するための空間的明示的フレームワークを提案しました。線形リッジ回帰、2次リッジ回帰、ガウス過程回帰（GPR）モデルが評価され、選択されたフレームワークは幅で0.981、堅牢な高さで0.965、断面積で0.985の平均ホールドアウトR<sup>2</sup>値を達成しました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>。これにより、WAAMのビード形状をグローバルな定数ではなく、縦方向の変動量として正確にモデル化できることが実証されました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-2\" class=\"hover:underline\">2</a>]</sup>。</p>\n<h3>構成パラメータ逆算のためのCNN-LSTMディープラーニングフレームワーク</h3>\n<p>合金勾配組織構造は、優れた強度、延性、耐疲労性などの優れた機械的特性を提供し、航空宇宙や自動車産業において極めて重要です <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>の著者らは、畳み込みニューラルネットワーク（CNN）と長短期記憶（LSTM）ネットワークを組み合わせたディープラーニングフレームワークを提案し、初期きわどいせん断応力や加工硬化係数などの主要な構成パラメータを効率的に逆算しました。高忠実度の結晶塑性有限要素法（CPFEM）シミュレーションデータで訓練されたこのフレームワークは、5%未満の誤差マージンを達成しました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-3\" class=\"hover:underline\">3</a>]</sup>。</p>\n<h3>異材FSWにおける数値熱解析と熱力学挙動</h3>\n<p>交通分野における軽量かつ高性能なコンポーネントへの需要は、アルミニウム-ポリマーハイブリッド継手などの異材摩擦攪拌接合（FSW）の発展を推進しています。<sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>の著者らは、書誌学的マッピングとScopusインデックス文献を統合した包括的なレビューを実施し、数値モデリング戦略の進化、コアプロセスパラメータ、および接合性能を支配する熱力学的基礎を解明しました <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-4\" class=\"hover:underline\">4</a>]</sup>。</p>\n<h3>産業展開の課題と認証管理へのインプリケーション</h3>\n<p>過酷なアーク環境やスパ溅（飛散）の中でのAIアルゴリズムの展開には、データ不足やハードウェアの制約という障壁があります。溶接トレーニングセンターやQA/QC検査チームは、デジタルツイン技術、3D点群分析、閉ループ制御の原則をカリキュラムに急速に統合し、リアルタイムのロボットテレメトリーに基づくスマート検証プラットフォームへの移行を進める必要があります <sup class=\"cite font-semibold text-blue-600\">[<a href=\"#ref-5\" class=\"hover:underline\">5</a>, <a href=\"#ref-6\" class=\"hover:underline\">6</a>, <a href=\"#ref-7\" class=\"hover:underline\">7</a>, <a href=\"#ref-8\" class=\"hover:underline\">8</a>]</sup>。</p>",
+  "references": [
+    {
+      "n": 1,
+      "authors": [
+        "Jung Kyu Park",
+        "Youngmi Baek"
+      ],
+      "more_authors": false,
+      "title": "Data-Driven Sparse Reconstruction Framework for Anomaly Detection in Smart Manufacturing Environment",
+      "journal": "Sensors",
+      "date": "2026-10-14",
+      "doi": "10.3390/s26206523",
+      "url": "https://doi.org/10.3390/s26206523",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 2,
+      "authors": [
+        "Kristijan Šket",
+        "Mirko Ficko",
+        "Timi Karner",
+        "Rok Belšak",
+        "Janez Gotlih"
+      ],
+      "more_authors": false,
+      "title": "Longitudinal Prediction of WAAM Bead Geometry from 3D Point-Cloud Linear Measurements Using Machine Learning",
+      "journal": "Materials",
+      "date": "2026-11-12",
+      "doi": "10.3390/ma19224809",
+      "url": "https://doi.org/10.3390/ma19224809",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 3,
+      "authors": [
+        "Hao Jiang",
+        "Mengyi Chen",
+        "Jianxin Hou",
+        "Zhenfei Guo",
+        "Zixuan Hu",
+        "Zongzhe Man"
+      ],
+      "more_authors": true,
+      "title": "A Deep Learning-Based CNN-LSTM Framework for Constitutive Parameter Inversion in Alloy Gradient-Grained Materials",
+      "journal": "Metals",
+      "date": "2025-11-24",
+      "doi": "10.3390/met15121286",
+      "url": "https://doi.org/10.3390/met15121286",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 4,
+      "authors": [
+        "Khamda Herbandono",
+        "Harry Purnama",
+        "Dede Santoso",
+        "Katri Yulianto"
+      ],
+      "more_authors": false,
+      "title": "Friction stir welding in dissimilar materials: a comprehensive review and numerical thermal investigation for aluminum–polymer joint",
+      "journal": "Continuum Mechanics and Thermodynamics",
+      "date": "2026-10-28",
+      "doi": "10.1007/s00161-026-01543-8",
+      "url": "https://doi.org/10.1007/s00161-026-01543-8",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 5,
+      "authors": [
+        "Seyed Amirreza Zareian",
+        "Reza Sedaghat",
+        "Yousef Mazaheri",
+        "Ahmad Aminzadeh",
+        "Sasan Sattarpanah Karganroudi"
+      ],
+      "more_authors": false,
+      "title": "Joining techniques for metal additive manufacturing parts: A literature review",
+      "journal": "Journal of Materials Research and Technology",
+      "date": "2026-06-22",
+      "doi": "10.1016/j.jmrt.2026.06.198",
+      "url": "https://doi.org/10.1016/j.jmrt.2026.06.198",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 6,
+      "authors": [
+        "Jiayu Ye",
+        "Jordan Noronha",
+        "Jiaxin Shi",
+        "Jackson Leigh Smith",
+        "Philip Pille",
+        "Andrey Molotnikov"
+      ],
+      "more_authors": true,
+      "title": "Lattice structures by wire arc additive manufacturing: Design, manufacture, properties, applications, and challenges",
+      "journal": "Current Opinion in Solid State and Materials Science",
+      "date": "2026-07-22",
+      "doi": "10.1016/j.cossms.2026.101284",
+      "url": "https://doi.org/10.1016/j.cossms.2026.101284",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 7,
+      "authors": [
+        "Yifei Zhang"
+      ],
+      "more_authors": false,
+      "title": "Typical Processes of Metal Additive Manufacturing and Their Application Progress in High-End Equipment: A Mini-Review",
+      "journal": "Applied and Computational Engineering",
+      "date": "2026-07-06",
+      "doi": "10.54254/2755-2721/2026.35180",
+      "url": "https://doi.org/10.54254/2755-2721/2026.35180",
+      "license": "cc-by",
+      "topic": "smart_robotic_waam"
+    },
+    {
+      "n": 8,
+      "authors": [
+        "Zarirah Karrim Wani",
+        "Ahmad Baharuddin Abdullah"
+      ],
+      "more_authors": false,
+      "title": "Bead Geometry Control in Wire Arc Additive Manufactured Profile — A Review",
+      "journal": "Pertanika journal of science & technology",
+      "date": "2024-03-24",
+      "doi": "10.47836/pjst.32.2.23",
+      "url": "https://doi.org/10.47836/pjst.32.2.23",
+      "license": "cc-by-nc-nd",
+      "topic": "smart_robotic_waam"
+    }
+  ],
+  "generated_by": "SoloWeld AI Editorial Engine (Gemini)"
+}
