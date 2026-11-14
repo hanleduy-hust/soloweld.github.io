@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-14-soloweld-smart-robotic-waam",
+    "date": "2026-11-14",
+    "topic_key": "smart_robotic_waam",
+    "type": "feature",
+    "category_vi": "Chuyên đề AI & Hàn",
+    "category_en": "AI & Welding Insight",
+    "category_zh": "AI与焊接专题",
+    "category_ja": "AI・溶接技術特集",
+    "title_vi": "Tự động hóa Hàn Robot Thông minh, Cảm biến Đa phương thức & In 3D Kim loại (WAAM)",
+    "title_en": "Intelligent Robotic Welding Automation, Multi-Sensor Fusion & Wire Arc Additive Manufacturing (WAAM)",
+    "title_zh": "智能机器人焊接自动化、多传感器融合与电弧 3D 金属打印 (WAAM)",
+    "title_ja": "インテリジェントロボット溶接自動化、マルチセンサーフュージョン、ワイヤアーク積層造形 (WAAM)",
+    "summary_vi": "Phân tích chuyên sâu về hệ thống hàn robot tự thích ứng, thuật toán học máy dự đoán hình học đường hàn trong In 3D kim loại (WAAM), và các phương pháp kiểm soát biến dạng vùng ảnh hưởng nhiệt (HAZ). Bài viết tổng hợp 8 công trình nghiên cứu tiên phong năm 2026 phục vụ kiểm định chất lượng và tiêu chuẩn quốc tế.",
+    "summary_en": "An in-depth technical insight into adaptive robotic welding systems, machine learning bead geometry prediction in Wire Arc Additive Manufacturing (WAAM), and HAZ distortion control models. Synthesizing eight peer-reviewed 2026 studies to advance international welding automation and quality assurance.",
+    "summary_zh": "深入剖析自适应机器人焊接系统、电弧金属3D打印（WAAM）中基于机器学习的焊道几何预测以及热影响区（HAZ）变形控制模型。本文综合了2026年的8项前沿同行评议研究，以推进国际焊接自动化与质量保证。",
+    "summary_ja": "適応型ロボット溶接システム、ワイヤアーク積層造形（WAAM）における機械学習を活用したビード形状予測、およびHAZ変形制御モデルに関する詳細な技術インサイト。2026年の8件の査読済み論文を統合し、国際的な溶接自動化と品質保証を推進します。",
+    "tags": [
+      "Adaptive Robotic Welding",
+      "WAAM",
+      "Multi-Sensor Fusion",
+      "Deep Learning",
+      "ASME Section IX",
+      "AWS D1.1"
+    ],
+    "cover": "images/news/2026-11-14-soloweld-smart-robotic-waam/fig1.jpg",
+    "paper_count": 8,
+    "figure_count": 3,
+    "file": "news/posts/2026-11-14-soloweld-smart-robotic-waam.json"
+  },
+  {
     "id": "2026-11-13-soloweld-ai-cv-welding",
     "date": "2026-11-13",
     "topic_key": "ai_cv_welding",
