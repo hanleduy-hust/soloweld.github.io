@@ -7,7 +7,7 @@ on:
       - 'scripts/run_news_now.txt'
   schedule:
     # Chạy tự động vào 01:00 UTC (tức 08:00 sáng giờ Việt Nam GMT+7) Thứ Bảy hằng tuần
-    - cron: '0 1 * * 6'
+    - cron: '15 1 * * 6'
   workflow_dispatch:
     inputs:
       topic_rotation:
